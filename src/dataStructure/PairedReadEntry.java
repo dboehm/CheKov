@@ -71,6 +71,7 @@ public class PairedReadEntry extends FragmentReadEntry {
 
 	@Override
 	public void analyzeCoverage() {
+		super.analyzeCoverage();
 		// in this analysis, skip and count the read pair where either read
 		// or mate are flagged as unmapped
 		if (this.getSamRecord().getReadUnmappedFlag()

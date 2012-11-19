@@ -8,6 +8,8 @@ public abstract class ReadEntry {
 	private int softClippedBases = 0;
 	private int hardClippedBases = 0;
 	private int rawReadLength = 0;
+	private int deletedTaggedBases = 0;
+	private int insertedTaggedBases = 0;
 
 	
 	// Getter and Setter
@@ -52,5 +54,21 @@ public abstract class ReadEntry {
 
 	public static void setReadCount(int readCount) {
 		ReadEntry.readCount = readCount;
+	}
+
+	public int getDeletedTaggedBases() {
+		return deletedTaggedBases;
+	}
+
+	public void setDeletedTaggedBases(int deletedTaggedBases) {
+		this.deletedTaggedBases = deletedTaggedBases;
+	}
+
+	public int getInsertedTaggedBases() {
+		return insertedTaggedBases;
+	}
+
+	public void setInsertedTaggedBases(int insertedTaggedBases) {
+		this.insertedTaggedBases = insertedTaggedBases;
 	}
 }

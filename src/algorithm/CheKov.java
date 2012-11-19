@@ -31,6 +31,11 @@ public class CheKov {
 	private static long allBases = 0;
 	private static long allHardClippedBases = 0;
 	private static long allSoftClippedBases = 0;
+	private static long allDeletedTaggedBases = 0;
+	private static long allInsertedTaggedBases = 0;
+	private static long allDeletedTaggedReads = 0;
+	private static long allInsertedTaggedReads = 0;
+	private static long allEitherDeletedOrInsertedTaggedReads = 0;
 
 	public static void main(String[] args) {
 		long startTime = Math.abs(System.nanoTime());
@@ -108,21 +113,30 @@ public class CheKov {
 
 		// finale Ausgabe
 
-		System.out.printf("%-30s%12d%n%-30s%12d%n%-30s%12d%n", "All Reads: ",
+		System.out.printf("%-35s%12d%n%-35s%12d%n%-35s%12d%n", "All Reads: ",
 				ReadEntry.getReadCount(), "FragmentReads:",
 				FragmentReadEntry.getFragmentReadCount(), "PairedReads:",
 				PairedReadEntry.getPairedEndReadCount());
-		System.out.printf("%-30s%12d%n%-30s%12d%n%-30s%12d%n", "Seq-bp",
+		System.out.printf("%-35s%12d%n%-35s%12d%n%-35s%12d%n", "Seq-bp",
 				CheKov.getAllBases(), "SoftCipped-bp:",
 				CheKov.getAllSoftClippedBases(), "HardClipped-bp:",
 				CheKov.getAllHardClippedBases());
-		System.out.printf("%-30s%12d%n%-30s%12d%n%-30s%12d%n", "Unmapped Reads",
-				FragmentReadEntry.getReadUnmappedCount(), "Unmapped Mate:",
-				PairedReadEntry.getReadMateUnmappedCount(), "Mate Splitted Chr:",
+		System.out.printf("%-35s%12d%n%-35s%12d%n%-35s%12d%n",
+				"Unmapped Reads", FragmentReadEntry.getReadUnmappedCount(),
+				"Unmapped Mate:", PairedReadEntry.getReadMateUnmappedCount(),
+				"Mate Splitted Chr:",
 				PairedReadEntry.getReadMateSplittedChromosome());
-		System.out.printf("%-30s%12d%n%-30s%12d%n", "Pairs same orientation",
-				PairedReadEntry.getBothSameOrientated(), "Pair distance > 1000 bp:",
-				PairedReadEntry.getHighDistance());
+		System.out.printf("%-35s%12d%n%-35s%12d%n", "Pairs same orientation",
+				PairedReadEntry.getBothSameOrientated(),
+				"Pair distance > 1000 bp:", PairedReadEntry.getHighDistance());
+		System.out.printf("%-35s%12d%n%-35s%12d%n", "Deleted Tagged bp:",
+				CheKov.getAllDeletedTaggedBases(), "Inserted Tagged bp:",
+				CheKov.getAllInsertedTaggedBases());
+		System.out.printf("%-35s%12d%n%-35s%12d%n%-35s%12d%n",
+				"Deleted Tagged Reads:", CheKov.getAllDeletedTaggedReads(),
+				"Inserted Tagged Reads:", CheKov.getAllInsertedTaggedReads(),
+				"Deleted- OR Inserted Tagged Reads:",
+				CheKov.getAllEitherDeletedOrInsertedTaggedReads());
 
 		/*
 		 * here calculate missed areas in the intervals coverages. Strategy: 1.
@@ -221,5 +235,46 @@ public class CheKov {
 
 	public static void setAllSoftClippedBases(long allSoftClippedBases) {
 		CheKov.allSoftClippedBases = allSoftClippedBases;
+	}
+
+	public static long getAllDeletedTaggedBases() {
+		return allDeletedTaggedBases;
+	}
+
+	public static void setAllDeletedTaggedBases(long allDeletedTaggedBases) {
+		CheKov.allDeletedTaggedBases = allDeletedTaggedBases;
+	}
+
+	public static long getAllInsertedTaggedBases() {
+		return allInsertedTaggedBases;
+	}
+
+	public static void setAllInsertedTaggedBases(long allInsertedTaggedBases) {
+		CheKov.allInsertedTaggedBases = allInsertedTaggedBases;
+	}
+
+	public static long getAllDeletedTaggedReads() {
+		return allDeletedTaggedReads;
+	}
+
+	public static void setAllDeletedTaggedReads(long allDeletedTaggedReads) {
+		CheKov.allDeletedTaggedReads = allDeletedTaggedReads;
+	}
+
+	public static long getAllInsertedTaggedReads() {
+		return allInsertedTaggedReads;
+	}
+
+	public static void setAllInsertedTaggedReads(long allInsertedTaggedReads) {
+		CheKov.allInsertedTaggedReads = allInsertedTaggedReads;
+	}
+
+	public static long getAllEitherDeletedOrInsertedTaggedReads() {
+		return allEitherDeletedOrInsertedTaggedReads;
+	}
+
+	public static void setAllEitherDeletedOrInsertedTaggedReads(
+			long allEitherDeletedOrInsertedTaggedReads) {
+		CheKov.allEitherDeletedOrInsertedTaggedReads = allEitherDeletedOrInsertedTaggedReads;
 	}
 } // end class
