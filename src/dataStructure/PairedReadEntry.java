@@ -71,7 +71,6 @@ public class PairedReadEntry extends FragmentReadEntry {
 
 	@Override
 	public void analyzeCoverage() {
-		super.analyzeCoverage();
 		// in this analysis, skip and count the read pair where either read
 		// or mate are flagged as unmapped
 		if (this.getSamRecord().getReadUnmappedFlag()
@@ -106,46 +105,12 @@ public class PairedReadEntry extends FragmentReadEntry {
 
 		// in this analysis, skip and count the read pairs with InsertSize >
 		// 1000 bp
-		if (Math.abs(this.getSamRecord().getInferredInsertSize()) > 1000) {
+		if (Math.abs(this.getSamRecord().getInferredInsertSize()) > 10000) {
 			highDistance++;
 			return;
 		}
-
-		// get the offset for the absolute localization
-		long offset = ChromosomeOffset.getChromosomeOffsetbyNumber(
-				(short) (this.getSamRecord().getReferenceIndex() + 1))
-				.getOffset();
-		// System.out.println("OFFSET " + offset);
-		long absAlStart = 0;
-		long absAlEnd = 0;
-
-		if (!this.getSamRecord().getReadNegativeStrandFlag()) {
-			absAlStart = this.getSamRecord().getAlignmentStart() + offset;
-			absAlEnd = this.getSamRecord().getAlignmentEnd() + offset;
-		} else { // auch bei reversen Reads ist absAlStart < absAlEnd
-			absAlEnd = offset + this.getSamRecord().getAlignmentEnd();
-			absAlStart = offset + getSamRecord().getAlignmentStart();
-		}
-		// System.out.println("READ " + getSamRecord().getReadName() +
-		// " IS NEG "
-		// + this.getSamRecord().getReadNegativeStrandFlag() + " ALSTART "
-		// + absAlStart + " ALEND " + absAlEnd);
-
-		// sieht so aus, als müßte ich von dem Read ein IntervalAbs
-		// erzeugen, dass ich floor() übergeben kann, um das richtige
-		// IntervalAbs- Objekt zurückzubekommen.
-		IntervalAbs tempRead = new IntervalAbs((short) (getSamRecord()
-				.getReferenceIndex() + 1), absAlEnd, absAlStart,
-				(int) (absAlEnd - absAlStart), null);
-
-		IntervalAbs floorInterval = CheKov.getIntervalTreeSet().floor(tempRead);
-		if (floorInterval != null) {
-			if (floorInterval.readHitsAbsInterval(tempRead.getEndAbs(),
-					tempRead.getStartAbs())) {
-				// System.out.println(floorInterval.getCoverage());
-				return;
-			}
-		}
+		super.analyzeCoverage();
+		
 	} // end analyzeCoverage()
 
 	@Override

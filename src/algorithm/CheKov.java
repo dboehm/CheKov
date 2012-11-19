@@ -68,7 +68,7 @@ public class CheKov {
 		// TreeSet intervalTreeSet was filled with IntervalAbs Objects each
 		// initialized with (short chr, long startAbs, long endAbs, int size)
 		// AND ArrayList<Byte> coverage = new ArrayList<Byte>(size) each field
-		// initialized with (byte)0;
+		// initialized with (byte) 0;
 		//
 
 		/*
@@ -90,22 +90,30 @@ public class CheKov {
 		SAMFileReader sfr = new SAMFileReader(new File(bamfile));
 		sfr.setValidationStringency(ValidationStringency.LENIENT);
 		for (SAMRecord samRecord : sfr) {
+			// this is the count for all reads coming in
 			ReadEntry.setReadCount(ReadEntry.getReadCount() + 1);
 			ReadEntry re = null;
+			// Read is initially a Single Fragment Read, initialize a FragmentReadEntry
+			// count the numbers 
 			if (!samRecord.getReadPairedFlag()) {
 				FragmentReadEntry.setFragmentReadCount(FragmentReadEntry
 						.getFragmentReadCount() + 1);
 				re = new FragmentReadEntry(samRecord);
+				// Read is initially a Paired Read, initialize a PairedReadEntry
+				// count the numbers
 			} else {
 				re = new PairedReadEntry(samRecord);
 				PairedReadEntry.setPairedEndReadCount(PairedReadEntry
 						.getPairedEndReadCount() + 1);
 			}
+			// this is a simple form of a progress bar, printing a line every 1 Million Reads
 			if (ReadEntry.getReadCount() % 1_000_000 == 0)
 				System.out.printf("%d %d %d%n", ReadEntry.getReadCount(),
 						FragmentReadEntry.getFragmentReadCount(),
 						PairedReadEntry.getPairedEndReadCount());
+			// check the quality of the reads
 			re.analyseQuality();
+			// check the coverage on targets
 			re.analyzeCoverage();
 
 		} // end for

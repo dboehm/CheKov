@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import algorithm.CheKov;
+import algorithm.IntervalAbs;
 
 import net.sf.samtools.AlignmentBlock;
 import net.sf.samtools.Cigar;
@@ -57,9 +58,45 @@ public class FragmentReadEntry extends ReadEntry {
 		if (this.getSamRecord().getReadUnmappedFlag()) {
 			readUnmappedCount++;
 			return;
-		} else
-			; // something useful to be done here
+		} else {
+			// get the offset for the absolute localization
+			long offset = ChromosomeOffset.getChromosomeOffsetbyNumber(
+					(short) (this.getSamRecord().getReferenceIndex() + 1))
+					.getOffset();
+			// System.out.println("OFFSET " + offset);
+			long absAlStart = 0;
+			long absAlEnd = 0;
 
+			if (!this.getSamRecord().getReadNegativeStrandFlag()) {
+				absAlStart = this.getSamRecord().getAlignmentStart() + offset;
+				absAlEnd = this.getSamRecord().getAlignmentEnd() + offset;
+			} else { // auch bei reversen Reads ist absAlStart < absAlEnd
+				absAlStart = this.getSamRecord().getAlignmentStart() + offset;
+				absAlEnd = this.getSamRecord().getAlignmentEnd() + offset; 
+				
+			}
+			// System.out.println("READ " + getSamRecord().getReadName() +
+			// " IS NEG "
+			// + this.getSamRecord().getReadNegativeStrandFlag() + " ALSTART "
+			// + absAlStart + " ALEND " + absAlEnd);
+
+			// sieht so aus, als müßte ich von dem Read ein IntervalAbs
+			// erzeugen, dass ich floor() übergeben kann, um das richtige
+			// IntervalAbs- Objekt zurückzubekommen.
+			IntervalAbs tempRead = new IntervalAbs((short) (getSamRecord()
+					.getReferenceIndex() + 1), absAlEnd, absAlStart,
+					(int) (absAlEnd - absAlStart), null);
+
+			IntervalAbs floorInterval = CheKov.getIntervalTreeSet().floor(
+					tempRead);
+			if (floorInterval != null) {
+				if (floorInterval.readHitsAbsInterval(tempRead.getEndAbs(),
+						tempRead.getStartAbs())) {
+					// System.out.println(floorInterval.getCoverage());
+					return;
+				}
+			}
+		}
 	}
 
 	@Override
