@@ -17,8 +17,6 @@ import dataStructure.FragmentReadEntry;
 import dataStructure.PairedReadEntry;
 import dataStructure.ReadEntry;
 
-import net.sf.samtools.BAMRecord;
-import net.sf.samtools.SAMFileHeader;
 import net.sf.samtools.SAMFileReader;
 import net.sf.samtools.SAMFileReader.ValidationStringency;
 import net.sf.samtools.SAMRecord;
@@ -29,7 +27,10 @@ public class CheKov {
 	 * @param args
 	 * @throws IOException
 	 */
-	private ReadEntry re;
+	private static TreeSet<IntervalAbs> intervalTreeSet;
+	private static long allBases = 0;
+	private static long allHardClippedBases = 0;
+	private static long allSoftClippedBases = 0;
 
 	public static void main(String[] args) {
 		long startTime = Math.abs(System.nanoTime());
@@ -42,7 +43,7 @@ public class CheKov {
 		// Interval.INTERVAL_THRESHOLD = Integer.parseInt(args[4]);
 
 		Locale.setDefault(Locale.US);
-		TreeSet<IntervalAbs> intervalTreeSet = new TreeSet<IntervalAbs>();
+		intervalTreeSet = new TreeSet<IntervalAbs>();
 		try (BufferedReader br = new BufferedReader(new FileReader(bedfile))) {
 			// close by autoclosable
 			String s;
@@ -59,7 +60,7 @@ public class CheKov {
 		endTime = Math.abs(System.nanoTime()) - startTime;
 		System.err.println("IntervalList made ...." + intervalTreeSet.size()
 				+ " in " + (double) endTime / 1000000000 + " s");
-		// TreeSet intervalTSet was filled with IntervalAbs Objects each
+		// TreeSet intervalTreeSet was filled with IntervalAbs Objects each
 		// initialized with (short chr, long startAbs, long endAbs, int size)
 		// AND ArrayList<Byte> coverage = new ArrayList<Byte>(size) each field
 		// initialized with (byte)0;
@@ -84,27 +85,45 @@ public class CheKov {
 		SAMFileReader sfr = new SAMFileReader(new File(bamfile));
 		sfr.setValidationStringency(ValidationStringency.LENIENT);
 		for (SAMRecord samRecord : sfr) {
-			ReadEntry.readCount++;
+			ReadEntry.setReadCount(ReadEntry.getReadCount() + 1);
 			ReadEntry re = null;
 			if (!samRecord.getReadPairedFlag()) {
+				FragmentReadEntry.setFragmentReadCount(FragmentReadEntry
+						.getFragmentReadCount() + 1);
 				re = new FragmentReadEntry(samRecord);
 			} else {
 				re = new PairedReadEntry(samRecord);
+				PairedReadEntry.setPairedEndReadCount(PairedReadEntry
+						.getPairedEndReadCount() + 1);
 			}
+			if (ReadEntry.getReadCount() % 1_000_000 == 0)
+				System.out.printf("%d %d %d%n", ReadEntry.getReadCount(),
+						FragmentReadEntry.getFragmentReadCount(),
+						PairedReadEntry.getPairedEndReadCount());
+			re.analyseQuality();
 			re.analyzeCoverage();
 
-			IntervalAbs floorInterval = intervalTreeSet.floor(tempRead);
-			endTime = Math.abs(System.nanoTime()) - startTime;
-			if (floorInterval != null) {
-
-				if (floorInterval.readHitsAbsInterval(tempRead.getEndAbs(),
-						tempRead.getStartAbs())) {
-					// System.out.println(floorInterval.getCoverage());
-					continue;
-				}
-			}
-
 		} // end for
+		endTime = Math.abs(System.nanoTime()) - startTime;
+
+		// finale Ausgabe
+
+		System.out.printf("%-30s%12d%n%-30s%12d%n%-30s%12d%n", "All Reads: ",
+				ReadEntry.getReadCount(), "FragmentReads:",
+				FragmentReadEntry.getFragmentReadCount(), "PairedReads:",
+				PairedReadEntry.getPairedEndReadCount());
+		System.out.printf("%-30s%12d%n%-30s%12d%n%-30s%12d%n", "Seq-bp",
+				CheKov.getAllBases(), "SoftCipped-bp:",
+				CheKov.getAllSoftClippedBases(), "HardClipped-bp:",
+				CheKov.getAllHardClippedBases());
+		System.out.printf("%-30s%12d%n%-30s%12d%n%-30s%12d%n", "Unmapped Reads",
+				FragmentReadEntry.getReadUnmappedCount(), "Unmapped Mate:",
+				PairedReadEntry.getReadMateUnmappedCount(), "Mate Splitted Chr:",
+				PairedReadEntry.getReadMateSplittedChromosome());
+		System.out.printf("%-30s%12d%n%-30s%12d%n", "Pairs same orientation",
+				PairedReadEntry.getBothSameOrientated(), "Pair distance > 1000 bp:",
+				PairedReadEntry.getHighDistance());
+
 		/*
 		 * here calculate missed areas in the intervals coverages. Strategy: 1.
 		 * first iterate through the TreeSet 2. take the coverage ArrayList and
@@ -169,10 +188,38 @@ public class CheKov {
 			ex.printStackTrace();
 		}
 
-		System.out
-				.printf("ReadCount: %,8d%nReadMateUnmapped: %,8d%nReadMateChromosomeSplitted: %,8d%nBothSameOrientated: %,8d%nDist >1000: %,8d%n",
-						readCount, readMateUnmappedCount,
-						readMateSplittedChromosome, bothSameOrientated,
-						highDistance);
 	} // end main
+
+	// Getter and Setter
+	public static TreeSet<IntervalAbs> getIntervalTreeSet() {
+		return intervalTreeSet;
+	}
+
+	public static void setIntervalTreeSet(TreeSet<IntervalAbs> intervalTreeSet) {
+		CheKov.intervalTreeSet = intervalTreeSet;
+	}
+
+	public static long getAllBases() {
+		return allBases;
+	}
+
+	public static void setAllBases(long allBases) {
+		CheKov.allBases = allBases;
+	}
+
+	public static long getAllHardClippedBases() {
+		return allHardClippedBases;
+	}
+
+	public static void setAllHardClippedBases(long allHardClippedBases) {
+		CheKov.allHardClippedBases = allHardClippedBases;
+	}
+
+	public static long getAllSoftClippedBases() {
+		return allSoftClippedBases;
+	}
+
+	public static void setAllSoftClippedBases(long allSoftClippedBases) {
+		CheKov.allSoftClippedBases = allSoftClippedBases;
+	}
 } // end class

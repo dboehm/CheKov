@@ -3,9 +3,14 @@ package dataStructure;
 import net.sf.samtools.SAMRecord;
 
 public abstract class ReadEntry {
+	private static int readCount;
 	private SAMRecord samRecord;
-	public static long readCount = 0;
+	private int softClippedBases = 0;
+	private int hardClippedBases = 0;
+	private int rawReadLength = 0;
 
+	
+	// Getter and Setter
 	public SAMRecord getSamRecord() {
 		return samRecord;
 	}
@@ -15,4 +20,37 @@ public abstract class ReadEntry {
 	}
 
 	public abstract void analyzeCoverage();
+	public abstract void analyseQuality();
+
+	public int getHardClippedBases() {
+		return hardClippedBases;
+	}
+
+	public void setHardClippedBases(int hardClippedBases) {
+		this.hardClippedBases = hardClippedBases;
+	}
+
+	public int getSoftClippedBases() {
+		return softClippedBases;
+	}
+
+	public void setSoftClippedBases(int softClippedBases) {
+		this.softClippedBases = softClippedBases;
+	}
+
+	public int getRawReadLength() {
+		return rawReadLength;
+	}
+
+	public void setRawReadLength(int rawReadLength) {
+		this.rawReadLength = rawReadLength;
+	}
+
+	public static int getReadCount() {
+		return readCount;
+	}
+
+	public static void setReadCount(int readCount) {
+		ReadEntry.readCount = readCount;
+	}
 }

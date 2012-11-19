@@ -1,19 +1,22 @@
 package dataStructure;
 
+import algorithm.CheKov;
 import algorithm.IntervalAbs;
 import net.sf.samtools.SAMRecord;
 
 public class PairedReadEntry extends FragmentReadEntry {
-	static long readMateUnmappedCount = 0;
-	static long readMateSplittedChromosome = 0;
-	static long bothSameOrientated = 0;
-	static long highDistance = 0;
+	private static long readMateUnmappedCount = 0;
+	private static long readMateSplittedChromosome = 0;
+	private static long bothSameOrientated = 0;
+	private static long highDistance = 0;
+	private static int pairedEndReadCount;
 
 	public PairedReadEntry(SAMRecord samRecord) {
 		super(samRecord);
 		// TODO Auto-generated constructor stub
 	}
 
+	// Getter and Setter
 	@Override
 	public SAMRecord getSamRecord() {
 		// TODO Auto-generated method stub
@@ -26,6 +29,46 @@ public class PairedReadEntry extends FragmentReadEntry {
 		super.setSamRecord(samRecord);
 	}
 
+	public static long getReadMateUnmappedCount() {
+		return readMateUnmappedCount;
+	}
+
+	public static void setReadMateUnmappedCount(long readMateUnmappedCount) {
+		PairedReadEntry.readMateUnmappedCount = readMateUnmappedCount;
+	}
+
+	public static long getReadMateSplittedChromosome() {
+		return readMateSplittedChromosome;
+	}
+
+	public static void setReadMateSplittedChromosome(long readMateSplittedChromosome) {
+		PairedReadEntry.readMateSplittedChromosome = readMateSplittedChromosome;
+	}
+
+	public static long getBothSameOrientated() {
+		return bothSameOrientated;
+	}
+
+	public static void setBothSameOrientated(long bothSameOrientated) {
+		PairedReadEntry.bothSameOrientated = bothSameOrientated;
+	}
+
+	public static long getHighDistance() {
+		return highDistance;
+	}
+
+	public static void setHighDistance(long highDistance) {
+		PairedReadEntry.highDistance = highDistance;
+	}
+	
+	public static int getPairedEndReadCount() {
+		return pairedEndReadCount;
+	}
+
+	public static void setPairedEndReadCount(int pairedEndReadCount) {
+		PairedReadEntry.pairedEndReadCount = pairedEndReadCount;
+	}
+
 	@Override
 	public void analyzeCoverage() {
 		// in this analysis, skip and count the read pair where either read
@@ -33,7 +76,6 @@ public class PairedReadEntry extends FragmentReadEntry {
 		if (this.getSamRecord().getReadUnmappedFlag()
 				|| this.getSamRecord().getMateUnmappedFlag()) {
 			readMateUnmappedCount++;
-			readCount--;
 			return;
 		}
 
@@ -44,7 +86,6 @@ public class PairedReadEntry extends FragmentReadEntry {
 		if (this.getSamRecord().getReferenceIndex() != this.getSamRecord()
 				.getMateReferenceIndex()) {
 			readMateSplittedChromosome++;
-			readCount--;
 			return;
 		}
 
@@ -53,14 +94,12 @@ public class PairedReadEntry extends FragmentReadEntry {
 		if (this.getSamRecord().getReadNegativeStrandFlag()
 				&& this.getSamRecord().getMateNegativeStrandFlag()) {
 			bothSameOrientated++;
-			readCount--;
 			return;
 		}
 
 		if (!this.getSamRecord().getReadNegativeStrandFlag()
 				&& !this.getSamRecord().getMateNegativeStrandFlag()) {
 			bothSameOrientated++;
-			readCount--;
 			return;
 		}
 
@@ -68,7 +107,6 @@ public class PairedReadEntry extends FragmentReadEntry {
 		// 1000 bp
 		if (Math.abs(this.getSamRecord().getInferredInsertSize()) > 1000) {
 			highDistance++;
-			readCount--;
 			return;
 		}
 
@@ -76,28 +114,46 @@ public class PairedReadEntry extends FragmentReadEntry {
 		long offset = ChromosomeOffset.getChromosomeOffsetbyNumber(
 				(short) (this.getSamRecord().getReferenceIndex() + 1))
 				.getOffset();
+		// System.out.println("OFFSET " + offset);
 		long absAlStart = 0;
 		long absAlEnd = 0;
 
 		if (!this.getSamRecord().getReadNegativeStrandFlag()) {
 			absAlStart = this.getSamRecord().getAlignmentStart() + offset;
 			absAlEnd = this.getSamRecord().getAlignmentEnd() + offset;
-		} else { // die Startkoordinate von reversen Reads ist im
-			// BAM File nur über End-Koordinate minus Länge
-			// des Reads aus dem Feld size + 1 zu berechnen
-			absAlStart = offset + this.getSamRecord().getAlignmentEnd()
-					- getSamRecord().getInferredInsertSize() + 1;
-			absAlEnd = offset + getSamRecord().getAlignmentEnd();
+		} else { // auch bei reversen Reads ist absAlStart < absAlEnd
+			absAlEnd = offset + this.getSamRecord().getAlignmentEnd();
+			absAlStart = offset + getSamRecord().getAlignmentStart();
 		}
+		// System.out.println("READ " + getSamRecord().getReadName() +
+		// " IS NEG "
+		// + this.getSamRecord().getReadNegativeStrandFlag() + " ALSTART "
+		// + absAlStart + " ALEND " + absAlEnd);
 
 		// sieht so aus, als müßte ich von dem Read ein IntervalAbs
 		// erzeugen, dass ich floor() übergeben kann, um das richtige
 		// IntervalAbs- Objekt zurückzubekommen.
-
 		IntervalAbs tempRead = new IntervalAbs((short) (getSamRecord()
 				.getReferenceIndex() + 1), absAlEnd, absAlStart,
 				(int) (absAlEnd - absAlStart), null);
-		
-		
+
+		IntervalAbs floorInterval = CheKov.getIntervalTreeSet().floor(tempRead);
+		if (floorInterval != null) {
+			if (floorInterval.readHitsAbsInterval(tempRead.getEndAbs(),
+					tempRead.getStartAbs())) {
+				// System.out.println(floorInterval.getCoverage());
+				return;
+			}
+		}
+	} // end analyzeCoverage()
+
+	@Override
+	public void analyseQuality() {
+		// TODO Auto-generated method stub
+		super.analyseQuality();
 	}
-}
+
+	
+	
+	
+} // end class
