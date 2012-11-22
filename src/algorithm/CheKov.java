@@ -36,6 +36,10 @@ public class CheKov {
 	private static long allDeletedTaggedReads = 0;
 	private static long allInsertedTaggedReads = 0;
 	private static long allEitherDeletedOrInsertedTaggedReads = 0;
+	private static long medianEffReadLength = 0;
+	private static long medianRawReadLength = 0;
+	private static long avEffReadLength = 0;
+	private static long avRawReadLength = 0;
 
 	public static void main(String[] args) {
 		long startTime = Math.abs(System.nanoTime());
@@ -93,8 +97,9 @@ public class CheKov {
 			// this is the count for all reads coming in
 			ReadEntry.setReadCount(ReadEntry.getReadCount() + 1);
 			ReadEntry re = null;
-			// Read is initially a Single Fragment Read, initialize a FragmentReadEntry
-			// count the numbers 
+			// Read is initially a Single Fragment Read, initialize a
+			// FragmentReadEntry
+			// count the numbers
 			if (!samRecord.getReadPairedFlag()) {
 				FragmentReadEntry.setFragmentReadCount(FragmentReadEntry
 						.getFragmentReadCount() + 1);
@@ -106,7 +111,8 @@ public class CheKov {
 				PairedReadEntry.setPairedEndReadCount(PairedReadEntry
 						.getPairedEndReadCount() + 1);
 			}
-			// this is a simple form of a progress bar, printing a line every 1 Million Reads
+			// this is a simple form of a progress bar, printing a line every 1
+			// Million Reads
 			if (ReadEntry.getReadCount() % 1_000_000 == 0)
 				System.out.printf("%d %d %d%n", ReadEntry.getReadCount(),
 						FragmentReadEntry.getFragmentReadCount(),
@@ -118,34 +124,44 @@ public class CheKov {
 
 		} // end for
 		endTime = Math.abs(System.nanoTime()) - startTime;
+		CheKov.setMedianRawReadLength(CheKov.medianFromArray(FragmentReadEntry
+				.getRawLengthCounterArray()));
+		CheKov.setMedianEffReadLength(CheKov.medianFromArray(FragmentReadEntry
+				.getEffLengthCounterArray()));
 
 		// finale Ausgabe
 
-		System.out.printf("%-35s%12d%n%-35s%12d%n%-35s%12d%n", "All Reads: ",
+		System.out.printf("%-35s%,12d%n%-35s%,12d%n%-35s%,12d%n", "All Reads: ",
 				ReadEntry.getReadCount(), "FragmentReads:",
 				FragmentReadEntry.getFragmentReadCount(), "PairedReads:",
 				PairedReadEntry.getPairedEndReadCount());
-		System.out.printf("%-35s%12d%n%-35s%12d%n%-35s%12d%n", "Seq-bp",
+		System.out.printf("%-35s%,12d%n%-35s%,12d%n%-35s%,12d%n", "Seq-bp",
 				CheKov.getAllBases(), "SoftCipped-bp:",
 				CheKov.getAllSoftClippedBases(), "HardClipped-bp:",
 				CheKov.getAllHardClippedBases());
-		System.out.printf("%-35s%12d%n%-35s%12d%n%-35s%12d%n",
+		System.out.printf("%-35s%,12d%n%-35s%,12d%n%-35s%,12d%n",
 				"Unmapped Reads", FragmentReadEntry.getReadUnmappedCount(),
 				"Unmapped Mate:", PairedReadEntry.getReadMateUnmappedCount(),
 				"Mate Splitted Chr:",
 				PairedReadEntry.getReadMateSplittedChromosome());
-		System.out.printf("%-35s%12d%n%-35s%12d%n", "Pairs same orientation",
+		System.out.printf("%-35s%,12d%n%-35s%,12d%n", "Pairs same orientation",
 				PairedReadEntry.getBothSameOrientated(),
 				"Pair distance > 1000 bp:", PairedReadEntry.getHighDistance());
-		System.out.printf("%-35s%12d%n%-35s%12d%n", "Deleted Tagged bp:",
+		System.out.printf("%-35s%,12d%n%-35s%,12d%n", "Deleted Tagged bp:",
 				CheKov.getAllDeletedTaggedBases(), "Inserted Tagged bp:",
 				CheKov.getAllInsertedTaggedBases());
-		System.out.printf("%-35s%12d%n%-35s%12d%n%-35s%12d%n",
+		System.out.printf("%-35s%,12d%n%-35s%,12d%n%-35s%,12d%n",
 				"Deleted Tagged Reads:", CheKov.getAllDeletedTaggedReads(),
 				"Inserted Tagged Reads:", CheKov.getAllInsertedTaggedReads(),
 				"Deleted- OR Inserted Tagged Reads:",
 				CheKov.getAllEitherDeletedOrInsertedTaggedReads());
-
+		System.out.printf("%-35s%,12d%n%-35s%,12d%n", "AvRawReadLength:",
+				CheKov.getAvRawReadLength() / ReadEntry.getReadCount(),
+				"AvEffReadLength:",
+				CheKov.getAvEffReadLength() / ReadEntry.getReadCount());
+		System.out.printf("%-35s%,12d%n%-35s%,12d%n", "MedianRawReadLength:",
+				CheKov.getMedianRawReadLength(), "MedianEffReadLength:",
+				CheKov.getMedianEffReadLength());
 		/*
 		 * here calculate missed areas in the intervals coverages. Strategy: 1.
 		 * first iterate through the TreeSet 2. take the coverage ArrayList and
@@ -211,6 +227,17 @@ public class CheKov {
 		}
 
 	} // end main
+
+	public static int medianFromArray(int[] array) {
+		int counter = ReadEntry.getReadCount();
+		for (int i = 0; i < 2000; i++) {
+			counter = counter - array[i];
+			if (counter <= (int) ReadEntry.getReadCount() / 2) {
+				return i;
+			}
+		}
+		return 0;
+	}
 
 	// Getter and Setter
 	public static TreeSet<IntervalAbs> getIntervalTreeSet() {
@@ -284,5 +311,37 @@ public class CheKov {
 	public static void setAllEitherDeletedOrInsertedTaggedReads(
 			long allEitherDeletedOrInsertedTaggedReads) {
 		CheKov.allEitherDeletedOrInsertedTaggedReads = allEitherDeletedOrInsertedTaggedReads;
+	}
+
+	public static long getMedianEffReadLength() {
+		return medianEffReadLength;
+	}
+
+	public static void setMedianEffReadLength(long medianEffReadLength) {
+		CheKov.medianEffReadLength = medianEffReadLength;
+	}
+
+	public static long getMedianRawReadLength() {
+		return medianRawReadLength;
+	}
+
+	public static void setMedianRawReadLength(long medianRawReadLength) {
+		CheKov.medianRawReadLength = medianRawReadLength;
+	}
+
+	public static long getAvEffReadLength() {
+		return avEffReadLength;
+	}
+
+	public static void setAvEffReadLength(long avEffReadLength) {
+		CheKov.avEffReadLength = avEffReadLength;
+	}
+
+	public static long getAvRawReadLength() {
+		return avRawReadLength;
+	}
+
+	public static void setAvRawReadLength(long avRawReadLength) {
+		CheKov.avRawReadLength = avRawReadLength;
 	}
 } // end class

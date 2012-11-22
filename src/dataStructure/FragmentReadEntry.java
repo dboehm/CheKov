@@ -1,6 +1,7 @@
 package dataStructure;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -16,6 +17,9 @@ public class FragmentReadEntry extends ReadEntry {
 	private static long readUnmappedCount = 0;
 	private static int fragmentReadCount = 0;
 	ArrayList<String> cigarTokens = new ArrayList<>();
+	// this static variables are for manuell calculating the median
+	static int[] effLengthCounterArray = new int[2000];
+	static int[] rawLengthCounterArray = new int[2000];
 
 	public FragmentReadEntry(SAMRecord samRecord) {
 		this.setSamRecord(samRecord);
@@ -46,6 +50,31 @@ public class FragmentReadEntry extends ReadEntry {
 		FragmentReadEntry.readUnmappedCount = readUnmappedCount;
 	}
 
+	public ArrayList<String> getCigarTokens() {
+		return cigarTokens;
+	}
+
+	public void setCigarTokens(ArrayList<String> cigarTokens) {
+		this.cigarTokens = cigarTokens;
+	}
+
+
+	public static int[] getEffLengthCounterArray() {
+		return effLengthCounterArray;
+	}
+
+	public static void setEffLengthCounterArray(int[] effLengthCounterArray) {
+		FragmentReadEntry.effLengthCounterArray = effLengthCounterArray;
+	}
+
+	public static int[] getRawLengthCounterArray() {
+		return rawLengthCounterArray;
+	}
+
+	public static void setRawLengthCounterArray(int[] rawLengthCounterArray) {
+		FragmentReadEntry.rawLengthCounterArray = rawLengthCounterArray;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("%s", getSamRecord().getReadName());
@@ -72,8 +101,8 @@ public class FragmentReadEntry extends ReadEntry {
 				absAlEnd = this.getSamRecord().getAlignmentEnd() + offset;
 			} else { // auch bei reversen Reads ist absAlStart < absAlEnd
 				absAlStart = this.getSamRecord().getAlignmentStart() + offset;
-				absAlEnd = this.getSamRecord().getAlignmentEnd() + offset; 
-				
+				absAlEnd = this.getSamRecord().getAlignmentEnd() + offset;
+
 			}
 			// System.out.println("READ " + getSamRecord().getReadName() +
 			// " IS NEG "
@@ -136,9 +165,21 @@ public class FragmentReadEntry extends ReadEntry {
 			}
 			index++;
 		}
+
+		// calculate the rawReadLenghth by adding softClipped and hardClippes
+		// bases to effektive Readlength
 		this.setRawReadLength(this.getSamRecord().getReadLength()
 				+ this.getHardClippedBases() + this.getSoftClippedBases());
+//		System.out.println(this.getSamRecord().getReadName()+ " " +getRawReadLength());
 
+		// store effektive Readlength in ReadEntry object
+		this.setEffReadLength(this.getSamRecord().getReadLength());
+		// sum all rawReadLength to calculate average in main()
+		CheKov.setAvRawReadLength(CheKov.getAvRawReadLength()
+				+ this.getRawReadLength());
+		// sum all effReadLength to calculate average in main()
+		CheKov.setAvEffReadLength(CheKov.getAvEffReadLength()
+				+ this.getEffReadLength());
 		// sum all Cigar-bases
 		CheKov.setAllBases(CheKov.getAllBases() + this.getRawReadLength());
 		// sum all Cigar-hardclipped bases
@@ -164,6 +205,13 @@ public class FragmentReadEntry extends ReadEntry {
 				|| this.getInsertedTaggedBases() != 0)
 			CheKov.setAllEitherDeletedOrInsertedTaggedReads(CheKov
 					.getAllEitherDeletedOrInsertedTaggedReads() + 1);
+
+		// calculate median by count numbers in Arrays of length
+		rawLengthCounterArray[this.getRawReadLength()]++;
+		effLengthCounterArray[this.getEffReadLength()]++;
+		
+		
+		
 
 		// printUsefulDebuggingData();
 	}

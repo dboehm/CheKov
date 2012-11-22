@@ -8,6 +8,7 @@ public abstract class ReadEntry {
 	private int softClippedBases = 0;
 	private int hardClippedBases = 0;
 	private int rawReadLength = 0;
+	private int effReadLength = 0;
 	private int deletedTaggedBases = 0;
 	private int insertedTaggedBases = 0;
 
@@ -70,5 +71,13 @@ public abstract class ReadEntry {
 
 	public void setInsertedTaggedBases(int insertedTaggedBases) {
 		this.insertedTaggedBases = insertedTaggedBases;
+	}
+
+	public int getEffReadLength() {
+		return effReadLength;
+	}
+
+	public void setEffReadLength(int effReadLength) {
+		this.effReadLength = effReadLength;
 	}
 }
