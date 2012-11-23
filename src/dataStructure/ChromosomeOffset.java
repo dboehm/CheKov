@@ -133,64 +133,6 @@ public enum ChromosomeOffset {
 	 */
 	public static long offset(short i) {
 		return num_to_offset.get(i).offset;
-	/*	for (ChromosomeOffset co : ChromosomeOffset.values()) {
-			if (co.num == i)
-				return co.getOffset();
-		}*/
-	/*	switch(i){
-		case 1:
-			return CHR_1.getOffset();
-		case 2:
-			return CHR_2.getOffset();
-		case 3:
-			return CHR_3.getOffset();
-		case 4:
-			return CHR_4.getOffset();
-		case 5:
-			return CHR_5.getOffset();
-		case 6:
-			return CHR_6.getOffset();
-		case 7:
-			return CHR_7.getOffset();
-		case 8:
-			return CHR_8.getOffset();
-		case 9:
-			return CHR_9.getOffset();
-		case 10:
-			return CHR_10.getOffset();
-		case 11:
-			return CHR_11.getOffset();
-		case 12:
-			return CHR_12.getOffset();
-		case 13:
-			return CHR_13.getOffset();
-		case 14:
-			return CHR_14.getOffset();
-		case 15:
-			return CHR_15.getOffset();
-		case 16:
-			return CHR_16.getOffset();
-		case 17:
-			return CHR_17.getOffset();
-		case 18:
-			return CHR_18.getOffset();
-		case 19:
-			return CHR_19.getOffset();
-		case 20:
-			return CHR_20.getOffset();
-		case 21:
-			return CHR_21.getOffset();
-		case 22:
-			return CHR_22.getOffset();
-		case 23:
-			return CHR_23.getOffset();
-		case 24:
-			return CHR_24.getOffset();
-		case 25:
-			return CHR_25.getOffset();
-		default:
-			return 0;
-				
-		}*/
+	
 	}
 }
