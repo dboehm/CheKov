@@ -112,6 +112,7 @@ public class FragmentReadEntry extends ReadEntry {
 			// sieht so aus, als müßte ich von dem Read ein IntervalAbs
 			// erzeugen, dass ich floor() übergeben kann, um das richtige
 			// IntervalAbs- Objekt zurückzubekommen.
+			// I can not remember, why I have switched absAlEnd and absAlStart here !!!
 			IntervalAbs tempRead = new IntervalAbs((short) (getSamRecord()
 					.getReferenceIndex() + 1), absAlEnd, absAlStart,
 					(int) (absAlEnd - absAlStart), null);
