@@ -3,8 +3,6 @@ package reference;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import dataStructure.ChromosomeOffset;
-
 import net.sf.picard.reference.IndexedFastaSequenceFile;
 import net.sf.picard.reference.ReferenceSequence;
 import net.sf.samtools.SAMSequenceDictionary;

@@ -1,9 +1,10 @@
 package dataStructure;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import reference.ReferenceReadPosition;
 
 import algorithm.CheKov;
 import algorithm.IntervalAbs;
@@ -58,7 +59,6 @@ public class FragmentReadEntry extends ReadEntry {
 		this.cigarTokens = cigarTokens;
 	}
 
-
 	public static int[] getEffLengthCounterArray() {
 		return effLengthCounterArray;
 	}
@@ -112,7 +112,8 @@ public class FragmentReadEntry extends ReadEntry {
 			// sieht so aus, als müßte ich von dem Read ein IntervalAbs
 			// erzeugen, dass ich floor() übergeben kann, um das richtige
 			// IntervalAbs- Objekt zurückzubekommen.
-			// I can not remember, why I have switched absAlEnd and absAlStart here !!!
+			// I can not remember, why I have switched absAlEnd and absAlStart
+			// here !!!
 			IntervalAbs tempRead = new IntervalAbs((short) (getSamRecord()
 					.getReferenceIndex() + 1), absAlEnd, absAlStart,
 					(int) (absAlEnd - absAlStart), null);
@@ -137,41 +138,83 @@ public class FragmentReadEntry extends ReadEntry {
 
 		while (st.hasMoreTokens())
 			cigarTokens.add(st.nextToken());
-
+		int posInRead = 0;
+		int posInContig = 0;
+		long posAbsInGenome = 0;
 		int index = 0;
 		cigarTokens.get(index);
+		System.out.print(cigarTokens + ":");
 		for (String s : cigarTokens) {
 			switch (s) {
 			case "H":
 				this.setHardClippedBases(this.getHardClippedBases()
 						+ Integer.parseInt(cigarTokens.get(index - 1)));
+				// the corresponding length of the tag is always one field
+				// before the tag
+				posInRead = posInRead
+						+ Integer.parseInt(cigarTokens.get(index - 1));
 				break;
 			case "S":
 				this.setSoftClippedBases(this.getSoftClippedBases()
 						+ Integer.parseInt(cigarTokens.get(index - 1)));
+				// the corresponding length of the tag is always one field
+				// before the tag
+				posInRead = posInRead
+						+ Integer.parseInt(cigarTokens.get(index - 1));
 				break;
 
 			case "D":
 				this.setDeletedTaggedBases(this.getDeletedTaggedBases()
 						+ Integer.parseInt(cigarTokens.get(index - 1)));
+				// the corresponding length of the tag is always one field
+				// before the tag
+				posInRead = posInRead
+						+ Integer.parseInt(cigarTokens.get(index - 1));
+
+				/*
+				 * we want to check, if and what length a putative Homopolymer
+				 * is 1. first identify the position in the read
+				 */
+				posInContig = this.getSamRecord().getAlignmentStart()
+						+ posInRead;
+				/*
+				 * 2. identify the position in genome, Inteval AND/OR
+				 * IntervalAbs 3. identify and check the missing nucleotide 4.
+				 */
+				ReferenceReadPosition rrp = ReferenceReadPosition
+						.getReferenceReadPosition(this.getSamRecord()
+								.getReferenceName(), posInContig);
+				System.out.println(rrp.toString());
+
 				break;
 			case "I":
 				this.setInsertedTaggedBases(this.getInsertedTaggedBases()
 						+ Integer.parseInt(cigarTokens.get(index - 1)));
+				// the corresponding length of the tag is always one field
+				// before the tag
+				posInRead = posInRead
+						+ Integer.parseInt(cigarTokens.get(index - 1));
 				break;
 			case "M":
+				// the corresponding length of the tag is always one field
+				// before the tag
+				posInRead = posInRead
+						+ Integer.parseInt(cigarTokens.get(index - 1));
 				break;
 			default:
-				// System.err.println(s);
+
 			}
 			index++;
+			System.out.print(posInRead + " ");
+			// System.err.println(s);
 		}
-
+		System.out.println();
 		// calculate the rawReadLenghth by adding softClipped and hardClippes
 		// bases to effektive Readlength
 		this.setRawReadLength(this.getSamRecord().getReadLength()
 				+ this.getHardClippedBases() + this.getSoftClippedBases());
-//		System.out.println(this.getSamRecord().getReadName()+ " " +getRawReadLength());
+		// System.out.println(this.getSamRecord().getReadName()+ " "
+		// +getRawReadLength());
 
 		// store effektive Readlength in ReadEntry object
 		this.setEffReadLength(this.getSamRecord().getReadLength());
@@ -210,9 +253,6 @@ public class FragmentReadEntry extends ReadEntry {
 		// calculate median by count numbers in Arrays of length
 		rawLengthCounterArray[this.getRawReadLength()]++;
 		effLengthCounterArray[this.getEffReadLength()]++;
-		
-		
-		
 
 		// printUsefulDebuggingData();
 	}

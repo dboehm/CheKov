@@ -130,38 +130,8 @@ public class CheKov {
 				.getEffLengthCounterArray()));
 
 		// finale Ausgabe
-
-		System.out.printf("%-35s%,12d%n%-35s%,12d%n%-35s%,12d%n", "All Reads: ",
-				ReadEntry.getReadCount(), "FragmentReads:",
-				FragmentReadEntry.getFragmentReadCount(), "PairedReads:",
-				PairedReadEntry.getPairedEndReadCount());
-		System.out.printf("%-35s%,12d%n%-35s%,12d%n%-35s%,12d%n", "Seq-bp",
-				CheKov.getAllBases(), "SoftCipped-bp:",
-				CheKov.getAllSoftClippedBases(), "HardClipped-bp:",
-				CheKov.getAllHardClippedBases());
-		System.out.printf("%-35s%,12d%n%-35s%,12d%n%-35s%,12d%n",
-				"Unmapped Reads", FragmentReadEntry.getReadUnmappedCount(),
-				"Unmapped Mate:", PairedReadEntry.getReadMateUnmappedCount(),
-				"Mate Splitted Chr:",
-				PairedReadEntry.getReadMateSplittedChromosome());
-		System.out.printf("%-35s%,12d%n%-35s%,12d%n", "Pairs same orientation",
-				PairedReadEntry.getBothSameOrientated(),
-				"Pair distance > 1000 bp:", PairedReadEntry.getHighDistance());
-		System.out.printf("%-35s%,12d%n%-35s%,12d%n", "Deleted Tagged bp:",
-				CheKov.getAllDeletedTaggedBases(), "Inserted Tagged bp:",
-				CheKov.getAllInsertedTaggedBases());
-		System.out.printf("%-35s%,12d%n%-35s%,12d%n%-35s%,12d%n",
-				"Deleted Tagged Reads:", CheKov.getAllDeletedTaggedReads(),
-				"Inserted Tagged Reads:", CheKov.getAllInsertedTaggedReads(),
-				"Deleted- OR Inserted Tagged Reads:",
-				CheKov.getAllEitherDeletedOrInsertedTaggedReads());
-		System.out.printf("%-35s%,12d%n%-35s%,12d%n", "AvRawReadLength:",
-				CheKov.getAvRawReadLength() / ReadEntry.getReadCount(),
-				"AvEffReadLength:",
-				CheKov.getAvEffReadLength() / ReadEntry.getReadCount());
-		System.out.printf("%-35s%,12d%n%-35s%,12d%n", "MedianRawReadLength:",
-				CheKov.getMedianRawReadLength(), "MedianEffReadLength:",
-				CheKov.getMedianEffReadLength());
+		printQCResult();
+		
 		/*
 		 * here calculate missed areas in the intervals coverages. Strategy: 1.
 		 * first iterate through the TreeSet 2. take the coverage ArrayList and
@@ -227,6 +197,40 @@ public class CheKov {
 		}
 
 	} // end main
+
+	public static void printQCResult() {
+		System.out.printf("%-35s%,12d%n%-35s%,12d%n%-35s%,12d%n", "All Reads: ",
+				ReadEntry.getReadCount(), "FragmentReads:",
+				FragmentReadEntry.getFragmentReadCount(), "PairedReads:",
+				PairedReadEntry.getPairedEndReadCount());
+		System.out.printf("%-35s%,12d%n%-35s%,12d%n%-35s%,12d%n", "Seq-bp",
+				CheKov.getAllBases(), "SoftCipped-bp:",
+				CheKov.getAllSoftClippedBases(), "HardClipped-bp:",
+				CheKov.getAllHardClippedBases());
+		System.out.printf("%-35s%,12d%n%-35s%,12d%n%-35s%,12d%n",
+				"Unmapped Reads", FragmentReadEntry.getReadUnmappedCount(),
+				"Unmapped Mate:", PairedReadEntry.getReadMateUnmappedCount(),
+				"Mate Splitted Chr:",
+				PairedReadEntry.getReadMateSplittedChromosome());
+		System.out.printf("%-35s%,12d%n%-35s%,12d%n", "Pairs same orientation",
+				PairedReadEntry.getBothSameOrientated(),
+				"Pair distance > 1000 bp:", PairedReadEntry.getHighDistance());
+		System.out.printf("%-35s%,12d%n%-35s%,12d%n", "Deleted Tagged bp:",
+				CheKov.getAllDeletedTaggedBases(), "Inserted Tagged bp:",
+				CheKov.getAllInsertedTaggedBases());
+		System.out.printf("%-35s%,12d%n%-35s%,12d%n%-35s%,12d%n",
+				"Deleted Tagged Reads:", CheKov.getAllDeletedTaggedReads(),
+				"Inserted Tagged Reads:", CheKov.getAllInsertedTaggedReads(),
+				"Deleted- OR Inserted Tagged Reads:",
+				CheKov.getAllEitherDeletedOrInsertedTaggedReads());
+		System.out.printf("%-35s%,12d%n%-35s%,12d%n", "AvRawReadLength:",
+				CheKov.getAvRawReadLength() / ReadEntry.getReadCount(),
+				"AvEffReadLength:",
+				CheKov.getAvEffReadLength() / ReadEntry.getReadCount());
+		System.out.printf("%-35s%,12d%n%-35s%,12d%n", "MedianRawReadLength:",
+				CheKov.getMedianRawReadLength(), "MedianEffReadLength:",
+				CheKov.getMedianEffReadLength());
+	}
 
 	public static int medianFromArray(int[] array) {
 		int counter = ReadEntry.getReadCount();
