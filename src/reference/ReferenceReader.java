@@ -20,6 +20,7 @@ public class ReferenceReader {
 							"/home/dboehm/NewReference_2012_06_24/share/reference/genomes/NCBI_GRCh37/NCBI_GRCh37.fa"));
 			System.out.println(ifsf.isIndexed());
 			ReferenceSequence rs = ifsf.getSequence("chr1");
+		
 			SAMSequenceDictionary ssd = ifsf.getSequenceDictionary();
 			SAMSequenceRecord ssr = ssd.getSequence(0);
 			System.out.println(ssr.getSequenceLength());

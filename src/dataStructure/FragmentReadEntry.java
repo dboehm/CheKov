@@ -1,5 +1,6 @@
 package dataStructure;
 
+import java.awt.font.NumericShaper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -141,9 +142,11 @@ public class FragmentReadEntry extends ReadEntry {
 		int posInRead = 0;
 		int posInContig = 0;
 		long posAbsInGenome = 0;
+		int numberOfBasesAffected = 0;
 		int index = 0;
 		cigarTokens.get(index);
-		System.out.print(cigarTokens + ":");
+		System.out.print(this.getSamRecord().getReferenceName()+":"+this.getSamRecord().getAlignmentStart() + " : " + cigarTokens + ":");
+		ReferenceReadPosition rrp = null;
 		for (String s : cigarTokens) {
 			switch (s) {
 			case "H":
@@ -168,23 +171,25 @@ public class FragmentReadEntry extends ReadEntry {
 						+ Integer.parseInt(cigarTokens.get(index - 1)));
 				// the corresponding length of the tag is always one field
 				// before the tag
+				numberOfBasesAffected = Integer.parseInt(cigarTokens.get(index - 1));
 				posInRead = posInRead
-						+ Integer.parseInt(cigarTokens.get(index - 1));
+						+ numberOfBasesAffected;
 
 				/*
 				 * we want to check, if and what length a putative Homopolymer
 				 * is 1. first identify the position in the read
 				 */
+				// we have to subtract -1 because a deleted position is not present
 				posInContig = this.getSamRecord().getAlignmentStart()
-						+ posInRead;
+						+ posInRead - numberOfBasesAffected;
 				/*
 				 * 2. identify the position in genome, Inteval AND/OR
 				 * IntervalAbs 3. identify and check the missing nucleotide 4.
 				 */
-				ReferenceReadPosition rrp = ReferenceReadPosition
+				rrp = ReferenceReadPosition
 						.getReferenceReadPosition(this.getSamRecord()
 								.getReferenceName(), posInContig);
-				System.out.println(rrp.toString());
+				System.out.print(rrp.toString());
 
 				break;
 			case "I":
@@ -194,6 +199,7 @@ public class FragmentReadEntry extends ReadEntry {
 				// before the tag
 				posInRead = posInRead
 						+ Integer.parseInt(cigarTokens.get(index - 1));
+				
 				break;
 			case "M":
 				// the corresponding length of the tag is always one field
@@ -205,7 +211,7 @@ public class FragmentReadEntry extends ReadEntry {
 
 			}
 			index++;
-			System.out.print(posInRead + " ");
+//			System.out.print(posInRead + " ");
 			// System.err.println(s);
 		}
 		System.out.println();

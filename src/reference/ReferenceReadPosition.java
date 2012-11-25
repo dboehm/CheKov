@@ -2,8 +2,6 @@ package reference;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
-
 import net.sf.picard.reference.IndexedFastaSequenceFile;
 import net.sf.picard.reference.ReferenceSequence;
 
@@ -51,7 +49,7 @@ public class ReferenceReadPosition {
 		for (byte b : nucleotidesInReference) {
 			s = s + String.format("%c", (char) b);
 		}
-		return "ReferenceReadPosition [nucleotidesInReference=" + s + "]";
+		return "[" + s + "]";
 	}
 
 }
