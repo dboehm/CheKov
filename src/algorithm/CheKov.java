@@ -10,12 +10,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Set;
 import java.util.TreeSet;
 
 import dataStructure.ChromosomeOffset;
 import dataStructure.FragmentReadEntry;
 import dataStructure.PairedReadEntry;
 import dataStructure.ReadEntry;
+import dataStructure.TargetNucleotidePositionEntry;
 
 import net.sf.samtools.SAMFileReader;
 import net.sf.samtools.SAMFileReader.ValidationStringency;
@@ -40,6 +42,7 @@ public class CheKov {
 	private static long medianRawReadLength = 0;
 	private static long avEffReadLength = 0;
 	private static long avRawReadLength = 0;
+	private static TreeSet<TargetNucleotidePositionEntry> alteredNucleotidePositionsEntries = new TreeSet<>();
 
 	public static void main(String[] args) {
 		long startTime = Math.abs(System.nanoTime());
@@ -117,21 +120,35 @@ public class CheKov {
 				System.out.printf("%d %d %d%n", ReadEntry.getReadCount(),
 						FragmentReadEntry.getFragmentReadCount(),
 						PairedReadEntry.getPairedEndReadCount());
-			// check the quality of the reads
-			re.analyseQuality();
 			// check the coverage on targets
 			re.analyzeCoverage();
-
+			// check the quality of the reads
+			re.analyseQuality();
 		} // end for
 		endTime = Math.abs(System.nanoTime()) - startTime;
+
+		/*
+		 * get the two ReadLengthCounterArray for median calculation use static
+		 * method medianFromArray to find the middle value
+		 */
 		CheKov.setMedianRawReadLength(CheKov.medianFromArray(FragmentReadEntry
 				.getRawLengthCounterArray()));
 		CheKov.setMedianEffReadLength(CheKov.medianFromArray(FragmentReadEntry
 				.getEffLengthCounterArray()));
 
 		// finale Ausgabe
+		for (TargetNucleotidePositionEntry tnpe : alteredNucleotidePositionsEntries) {
+			System.out.println(tnpe.getPosInAbsGenome() + " " + "Cov "
+					+ tnpe.getCoverage() + " AltAllelCount: "
+					+ tnpe.getAltAllelReadCount() + " Typ: "
+					+ tnpe.getAlterationTypeAtPosition().toString()
+					+ " RefAllel : " + tnpe.getRefAllel() + " AltAllel: "
+					+ tnpe.getAltAllel() + " " + tnpe.getReferenceReadPostion().toString() + " " + tnpe.getHomoPolymerLength());
+		}
+		System.out.println(alteredNucleotidePositionsEntries.size());
+
 		printQCResult();
-		
+
 		/*
 		 * here calculate missed areas in the intervals coverages. Strategy: 1.
 		 * first iterate through the TreeSet 2. take the coverage ArrayList and
@@ -199,8 +216,8 @@ public class CheKov {
 	} // end main
 
 	public static void printQCResult() {
-		System.out.printf("%-35s%,12d%n%-35s%,12d%n%-35s%,12d%n", "All Reads: ",
-				ReadEntry.getReadCount(), "FragmentReads:",
+		System.out.printf("%-35s%,12d%n%-35s%,12d%n%-35s%,12d%n",
+				"All Reads: ", ReadEntry.getReadCount(), "FragmentReads:",
 				FragmentReadEntry.getFragmentReadCount(), "PairedReads:",
 				PairedReadEntry.getPairedEndReadCount());
 		System.out.printf("%-35s%,12d%n%-35s%,12d%n%-35s%,12d%n", "Seq-bp",
@@ -347,5 +364,14 @@ public class CheKov {
 
 	public static void setAvRawReadLength(long avRawReadLength) {
 		CheKov.avRawReadLength = avRawReadLength;
+	}
+
+	public static TreeSet<TargetNucleotidePositionEntry> getAlteredNucleotidePositionsEntries() {
+		return alteredNucleotidePositionsEntries;
+	}
+
+	public static void setAlteredNucleotidePositionsEntries(
+			TreeSet<TargetNucleotidePositionEntry> alteredNucleotidePositionsEntries) {
+		CheKov.alteredNucleotidePositionsEntries = alteredNucleotidePositionsEntries;
 	}
 } // end class

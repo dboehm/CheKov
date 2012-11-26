@@ -1,9 +1,11 @@
 package dataStructure;
 
-import java.awt.font.NumericShaper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
+
+import datatypes.AlterationType;
 
 import reference.ReferenceReadPosition;
 
@@ -93,7 +95,6 @@ public class FragmentReadEntry extends ReadEntry {
 			long offset = ChromosomeOffset.getChromosomeOffsetbyNumber(
 					(short) (this.getSamRecord().getReferenceIndex() + 1))
 					.getOffset();
-			// System.out.println("OFFSET " + offset);
 			long absAlStart = 0;
 			long absAlEnd = 0;
 
@@ -105,14 +106,10 @@ public class FragmentReadEntry extends ReadEntry {
 				absAlEnd = this.getSamRecord().getAlignmentEnd() + offset;
 
 			}
-			// System.out.println("READ " + getSamRecord().getReadName() +
-			// " IS NEG "
-			// + this.getSamRecord().getReadNegativeStrandFlag() + " ALSTART "
-			// + absAlStart + " ALEND " + absAlEnd);
 
-			// sieht so aus, als müßte ich von dem Read ein IntervalAbs
-			// erzeugen, dass ich floor() übergeben kann, um das richtige
-			// IntervalAbs- Objekt zurückzubekommen.
+			// create a Read as an IntervalAbs
+			// using floor() on the TreeSet identifies the affected
+			// IntervalAbs very fast.
 			// I can not remember, why I have switched absAlEnd and absAlStart
 			// here !!!
 			IntervalAbs tempRead = new IntervalAbs((short) (getSamRecord()
@@ -124,7 +121,6 @@ public class FragmentReadEntry extends ReadEntry {
 			if (floorInterval != null) {
 				if (floorInterval.readHitsAbsInterval(tempRead.getEndAbs(),
 						tempRead.getStartAbs())) {
-					// System.out.println(floorInterval.getCoverage());
 					return;
 				}
 			}
@@ -141,11 +137,10 @@ public class FragmentReadEntry extends ReadEntry {
 			cigarTokens.add(st.nextToken());
 		int posInRead = 0;
 		int posInContig = 0;
-		long posAbsInGenome = 0;
+		long posInAbsGenom = 0;
 		int numberOfBasesAffected = 0;
 		int index = 0;
 		cigarTokens.get(index);
-		System.out.print(this.getSamRecord().getReferenceName()+":"+this.getSamRecord().getAlignmentStart() + " : " + cigarTokens + ":");
 		ReferenceReadPosition rrp = null;
 		for (String s : cigarTokens) {
 			switch (s) {
@@ -167,29 +162,88 @@ public class FragmentReadEntry extends ReadEntry {
 				break;
 
 			case "D":
-				this.setDeletedTaggedBases(this.getDeletedTaggedBases()
-						+ Integer.parseInt(cigarTokens.get(index - 1)));
+				// calculate the total number of by deletion affected bases
 				// the corresponding length of the tag is always one field
 				// before the tag
-				numberOfBasesAffected = Integer.parseInt(cigarTokens.get(index - 1));
-				posInRead = posInRead
-						+ numberOfBasesAffected;
+				this.setDeletedTaggedBases(this.getDeletedTaggedBases()
+						+ Integer.parseInt(cigarTokens.get(index - 1)));
 
+				numberOfBasesAffected = Integer.parseInt(cigarTokens
+						.get(index - 1));
+				// cumulative position in the read
+				posInRead = posInRead + numberOfBasesAffected;
 				/*
 				 * we want to check, if and what length a putative Homopolymer
-				 * is 1. first identify the position in the read
+				 * is 1. first identify the position in the read we have to the
+				 * subtract the length of the affected bases (=
+				 * numberOfBasesAffected)
 				 */
-				// we have to subtract -1 because a deleted position is not present
 				posInContig = this.getSamRecord().getAlignmentStart()
 						+ posInRead - numberOfBasesAffected;
+				// this variable is for identifying the position in the genome
+				// using one parameter only, and to create a
+				// TargetNucleotidePositionEntry that holds all alterations
+				posInAbsGenom = posInContig
+						+ ChromosomeOffset.getChromosomeOffsetbyNumber(
+								(short) (this.getSamRecord()
+										.getReferenceIndex() + 1)).getOffset();
 				/*
-				 * 2. identify the position in genome, Inteval AND/OR
+				 * 2. identify the position in reference genome, Interval AND/OR
 				 * IntervalAbs 3. identify and check the missing nucleotide 4.
 				 */
-				rrp = ReferenceReadPosition
-						.getReferenceReadPosition(this.getSamRecord()
-								.getReferenceName(), posInContig);
-				System.out.print(rrp.toString());
+				rrp = ReferenceReadPosition.getReferenceReadPositionInstance(
+						this.getSamRecord().getReferenceName(), posInContig,
+						10, 10);
+
+				/*
+				 * create a TargetNucleotidePositionEntry and if new add it to
+				 * the ArrayList otherwise update the entry
+				 */
+				TargetNucleotidePositionEntry tnpe = new TargetNucleotidePositionEntry(
+						posInAbsGenom, AlterationType.Del, rrp.getRefAllel(),
+						'-', rrp);
+				// we need to implement override equals() in
+				// TargetNucleotidePositionEntry
+				if (!CheKov.getAlteredNucleotidePositionsEntries().contains(
+						tnpe)) {
+					TreeSet<TargetNucleotidePositionEntry> tempSet = CheKov
+							.getAlteredNucleotidePositionsEntries();
+					tempSet.add(tnpe);
+					CheKov.setAlteredNucleotidePositionsEntries(tempSet);
+
+					// calculate the homoPolymerLength once
+					byte[] tempArray = rrp.getNucleotideInReference();
+					int count = 1;
+					for (int i = rrp.getIndexOfRefAllele() + 1; i < tempArray.length; i++) {
+						if (tempArray[i] == rrp.getRefAllel())
+							count++;
+						else
+							break;
+					}
+					for (int k = rrp.getIndexOfRefAllele() - 1; k >= 0; k--) {
+						if (tempArray[k] == rrp.getRefAllel())
+							count++;
+						else
+							break;
+					}
+					tnpe.setHomoPolymerLength(count);
+
+				} else {
+					// update TargetNucleotidePositionEntry
+					TargetNucleotidePositionEntry tempEntry = CheKov
+							.getAlteredNucleotidePositionsEntries().floor(tnpe);
+					// remove the entry
+					CheKov.getAlteredNucleotidePositionsEntries().remove(
+							tempEntry);
+					// Update the entry
+					tempEntry.setCoverage(tempEntry.getCoverage() + 1);
+					tempEntry.setAltAllelReadCount(tempEntry
+							.getAltAllelReadCount() + 1);
+					TreeSet<TargetNucleotidePositionEntry> tempSet = CheKov
+							.getAlteredNucleotidePositionsEntries();
+					tempSet.add(tempEntry);
+					CheKov.setAlteredNucleotidePositionsEntries(tempSet);
+				}
 
 				break;
 			case "I":
@@ -199,7 +253,7 @@ public class FragmentReadEntry extends ReadEntry {
 				// before the tag
 				posInRead = posInRead
 						+ Integer.parseInt(cigarTokens.get(index - 1));
-				
+
 				break;
 			case "M":
 				// the corresponding length of the tag is always one field
@@ -211,17 +265,11 @@ public class FragmentReadEntry extends ReadEntry {
 
 			}
 			index++;
-//			System.out.print(posInRead + " ");
-			// System.err.println(s);
 		}
-		System.out.println();
 		// calculate the rawReadLenghth by adding softClipped and hardClippes
 		// bases to effektive Readlength
 		this.setRawReadLength(this.getSamRecord().getReadLength()
 				+ this.getHardClippedBases() + this.getSoftClippedBases());
-		// System.out.println(this.getSamRecord().getReadName()+ " "
-		// +getRawReadLength());
-
 		// store effektive Readlength in ReadEntry object
 		this.setEffReadLength(this.getSamRecord().getReadLength());
 		// sum all rawReadLength to calculate average in main()
