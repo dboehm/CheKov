@@ -10,7 +10,6 @@ import datatypes.AlterationType;
 import reference.ReferenceReadPosition;
 
 import algorithm.CheKov;
-import algorithm.IntervalAbs;
 
 import net.sf.samtools.AlignmentBlock;
 import net.sf.samtools.Cigar;
@@ -20,6 +19,8 @@ import net.sf.samtools.SAMRecord;
 public class FragmentReadEntry extends ReadEntry {
 	private static long readUnmappedCount = 0;
 	private static int fragmentReadCount = 0;
+	private static int onTargetReadCount = 0;
+	private static int offTargetReadCount = 0;
 	ArrayList<String> cigarTokens = new ArrayList<>();
 	// this static variables are for manuell calculating the median
 	static int[] effLengthCounterArray = new int[2000];
@@ -78,6 +79,22 @@ public class FragmentReadEntry extends ReadEntry {
 		FragmentReadEntry.rawLengthCounterArray = rawLengthCounterArray;
 	}
 
+	public static int getOnTargetReadCount() {
+		return onTargetReadCount;
+	}
+
+	public static void setOnTargetReadCount(int onTargetReadCount) {
+		FragmentReadEntry.onTargetReadCount = onTargetReadCount;
+	}
+
+	public static int getOffTargetReadCount() {
+		return offTargetReadCount;
+	}
+
+	public static void setOffTargetReadCount(int offTargetReadCount) {
+		FragmentReadEntry.offTargetReadCount = offTargetReadCount;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("%s", getSamRecord().getReadName());
@@ -86,7 +103,7 @@ public class FragmentReadEntry extends ReadEntry {
 	@Override
 	public void analyzeCoverage() {
 		// in this analysis, skip and count the reads which are flagged as
-		// unmapped
+		// unmapped and return for getting next read
 		if (this.getSamRecord().getReadUnmappedFlag()) {
 			readUnmappedCount++;
 			return;
@@ -95,33 +112,53 @@ public class FragmentReadEntry extends ReadEntry {
 			long offset = ChromosomeOffset.getChromosomeOffsetbyNumber(
 					(short) (this.getSamRecord().getReferenceIndex() + 1))
 					.getOffset();
-			long absAlStart = 0;
-			long absAlEnd = 0;
-
+			long absAlStartOfRead = 0;
+			long absAlEndOfRead = 0;
+			// Read is a forward Read ...
 			if (!this.getSamRecord().getReadNegativeStrandFlag()) {
-				absAlStart = this.getSamRecord().getAlignmentStart() + offset;
-				absAlEnd = this.getSamRecord().getAlignmentEnd() + offset;
+				absAlStartOfRead = this.getSamRecord().getAlignmentStart()
+						+ offset;
+				absAlEndOfRead = this.getSamRecord().getAlignmentEnd() + offset;
+				// else reverse Read
 			} else { // auch bei reversen Reads ist absAlStart < absAlEnd
-				absAlStart = this.getSamRecord().getAlignmentStart() + offset;
-				absAlEnd = this.getSamRecord().getAlignmentEnd() + offset;
-
+				absAlStartOfRead = this.getSamRecord().getAlignmentStart()
+						+ offset;
+				absAlEndOfRead = this.getSamRecord().getAlignmentEnd() + offset;
 			}
 
-			// create a Read as an IntervalAbs
-			// using floor() on the TreeSet identifies the affected
-			// IntervalAbs very fast.
-			// I can not remember, why I have switched absAlEnd and absAlStart
-			// here !!!
+			/*
+			 * create a Read as an IntervalAbs as an inverse Read and use
+			 * floor() on the TreeSet to identify the affected IntervalAbs very
+			 * fast. We need to use the inverse Read because we want to identify
+			 * an IntervalAbs for a Read starting before the IntervalAbs, but
+			 * overlaps at their end with the interval.
+			 * 
+			 * The IntervalAbs is stored in the Reference variable floorInterval
+			 * and used in the IntervalAbs-method
+			 * readHitsAbsInt(tempRead.getEndAbs(),
+			 * tempRead.getStartAbs):boolean with the initial start- and end-
+			 * position of the read
+			 */
 			IntervalAbs tempRead = new IntervalAbs((short) (getSamRecord()
-					.getReferenceIndex() + 1), absAlEnd, absAlStart,
-					(int) (absAlEnd - absAlStart), null);
+					.getReferenceIndex() + 1), absAlEndOfRead,
+					absAlStartOfRead,
+					(int) (absAlEndOfRead - absAlStartOfRead), this
+							.getSamRecord().getReadName());
 
 			IntervalAbs floorInterval = CheKov.getIntervalTreeSet().floor(
 					tempRead);
 			if (floorInterval != null) {
 				if (floorInterval.readHitsAbsInterval(tempRead.getEndAbs(),
 						tempRead.getStartAbs())) {
-					return;
+					// count the reads at least hit one position of the
+					// IntervalAbs
+					FragmentReadEntry.setOnTargetReadCount(FragmentReadEntry
+							.getOnTargetReadCount() + 1);
+					this.analyseQuality();
+				} else {
+					FragmentReadEntry.setOffTargetReadCount(FragmentReadEntry
+							.getOffTargetReadCount() + 1);
+					this.analyseQuality();
 				}
 			}
 		}
@@ -200,10 +237,13 @@ public class FragmentReadEntry extends ReadEntry {
 				 * the ArrayList otherwise update the entry
 				 */
 				TargetNucleotidePositionEntry tnpe = new TargetNucleotidePositionEntry(
-						posInAbsGenom, AlterationType.Del, rrp.getRefAllel(),
-						'-', rrp);
-				// we need to implement override equals() in
-				// TargetNucleotidePositionEntry
+						(short)(this.getSamRecord().getReferenceIndex()+1), posInAbsGenom,
+						AlterationType.Del, rrp.getRefAllel(), '-', rrp);
+				/*
+				 * we need to implement override equals() in
+				 * TargetNucleotidePositionEntry
+				 */
+
 				if (!CheKov.getAlteredNucleotidePositionsEntries().contains(
 						tnpe)) {
 					TreeSet<TargetNucleotidePositionEntry> tempSet = CheKov
@@ -211,7 +251,11 @@ public class FragmentReadEntry extends ReadEntry {
 					tempSet.add(tnpe);
 					CheKov.setAlteredNucleotidePositionsEntries(tempSet);
 
-					// calculate the homoPolymerLength once
+					/*
+					 * calculate the homoPolymerLength once when
+					 * TargetNucleotidePositionEntry is initialized. this is a
+					 * stable value for a TargetNucleotidePositionEntry
+					 */
 					byte[] tempArray = rrp.getNucleotideInReference();
 					int count = 1;
 					for (int i = rrp.getIndexOfRefAllele() + 1; i < tempArray.length; i++) {
@@ -229,21 +273,26 @@ public class FragmentReadEntry extends ReadEntry {
 					tnpe.setHomoPolymerLength(count);
 
 				} else {
-					// update TargetNucleotidePositionEntry
+					/*
+					 * update TargetNucleotidePositionEntry (1) find the entry
+					 * in TreeSet (2) remove the entry (3) update the entry (4)
+					 * add to TreeSet again
+					 */
 					TargetNucleotidePositionEntry tempEntry = CheKov
 							.getAlteredNucleotidePositionsEntries().floor(tnpe);
-					// remove the entry
+					// (2) remove the entry
 					CheKov.getAlteredNucleotidePositionsEntries().remove(
 							tempEntry);
-					// Update the entry
+					// (3) Update the entry
 					tempEntry.setCoverage(tempEntry.getCoverage() + 1);
 					tempEntry.setAltAllelReadCount(tempEntry
 							.getAltAllelReadCount() + 1);
 					TreeSet<TargetNucleotidePositionEntry> tempSet = CheKov
 							.getAlteredNucleotidePositionsEntries();
+					// (4) add to TreeSet again
 					tempSet.add(tempEntry);
 					CheKov.setAlteredNucleotidePositionsEntries(tempSet);
-				}
+				} // end case "D"
 
 				break;
 			case "I":
@@ -381,4 +430,5 @@ public class FragmentReadEntry extends ReadEntry {
 				this.getDeletedTaggedBases(), "Inserted Bases: ",
 				this.getInsertedTaggedBases());
 	}
+
 }

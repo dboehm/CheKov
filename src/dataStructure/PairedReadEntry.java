@@ -1,7 +1,6 @@
 package dataStructure;
 
 import algorithm.CheKov;
-import algorithm.IntervalAbs;
 import net.sf.samtools.SAMRecord;
 
 public class PairedReadEntry extends FragmentReadEntry {

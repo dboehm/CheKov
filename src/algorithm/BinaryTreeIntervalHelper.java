@@ -1,5 +1,7 @@
 package algorithm;
 
+import dataStructure.IntervalAbs;
+
 public class BinaryTreeIntervalHelper {
 	// Root node pointer. Will be null for an empty tree.
 	private Node root;

@@ -18,14 +18,16 @@ public class TargetNucleotidePositionEntry implements
 	private char refAllel;
 	private char altAllel;
 	private AlterationType alterationTypeAtPosition;
+	private short chr;
 	private Long posInAbsGenome;
 	private Integer homoPolymerLength;
 	private ReferenceReadPosition referenceReadPostion;
 
 	// Constructor
-	public TargetNucleotidePositionEntry(long posInAbsGenome,
+	public TargetNucleotidePositionEntry(short chr, long posInAbsGenome,
 			AlterationType alterationTypeAtPosition, char refAllel,
 			char altAllel, ReferenceReadPosition referenceReadPostion) {
+		this.chr = chr;
 		this.posInAbsGenome = posInAbsGenome;
 		this.alterationTypeAtPosition = alterationTypeAtPosition;
 		this.refAllel = refAllel;
@@ -132,6 +134,25 @@ public class TargetNucleotidePositionEntry implements
 
 		return altAllel;
 
+	}
+
+	public short getChr() {
+		return chr;
+	}
+
+	public void setChr(short chr) {
+		this.chr = chr;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.format("%s%d:%,d (%c/%c) (%d/%d) [*%d%c*] [%s]", "chr",
+				this.getChr(),
+				(this.getPosInAbsGenome() - ChromosomeOffset.offset(getChr())),
+				this.getRefAllel(), this.getAltAllel(), this.getCoverage(),
+				this.getAltAllelReadCount(), this.getHomoPolymerLength(),
+				this.getRefAllel(), this.getReferenceReadPostion());
 	}
 
 }

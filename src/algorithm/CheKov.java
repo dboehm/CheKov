@@ -10,11 +10,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Locale;
-import java.util.Set;
 import java.util.TreeSet;
 
 import dataStructure.ChromosomeOffset;
 import dataStructure.FragmentReadEntry;
+import dataStructure.IntervalAbs;
 import dataStructure.PairedReadEntry;
 import dataStructure.ReadEntry;
 import dataStructure.TargetNucleotidePositionEntry;
@@ -52,12 +52,18 @@ public class CheKov {
 		String outfile = args[2];
 		String missedBEDFile = args[3];
 		// we need to do IMPORTANTLY some useful things with this parameter
-		// Interval.INTERVAL_THRESHOLD = Integer.parseInt(args[4]);
+		 IntervalAbs.INTERVAL_THRESHOLD = Integer.parseInt(args[4]);
 
+		/*
+		 * TreeSet intervalTreeSet is filled with IntervalAbs Objects each
+		 * initialized with (short chr, long startAbs, long endAbs, int size)
+		 * AND ArrayList<Integer> coverage = new ArrayList<>(size) each field
+		 * initialized with (Integer) 0;
+		 */
 		Locale.setDefault(Locale.US);
 		intervalTreeSet = new TreeSet<IntervalAbs>();
 		try (BufferedReader br = new BufferedReader(new FileReader(bedfile))) {
-			// close by autoclosable
+			// closed by autoclosable
 			String s;
 			while ((s = br.readLine()) != null) {
 				IntervalAbs intervalAbs = new IntervalAbs(s).setInterval();
@@ -72,47 +78,35 @@ public class CheKov {
 		endTime = Math.abs(System.nanoTime()) - startTime;
 		System.err.println("IntervalList made ...." + intervalTreeSet.size()
 				+ " in " + (double) endTime / 1000000000 + " s");
-		// TreeSet intervalTreeSet was filled with IntervalAbs Objects each
-		// initialized with (short chr, long startAbs, long endAbs, int size)
-		// AND ArrayList<Byte> coverage = new ArrayList<Byte>(size) each field
-		// initialized with (byte) 0;
-		//
-
 		/*
 		 * Java 7 - Mehr als eine Insel von Christian Ullenboom Das Handbuch zu
-		 * den Java SE-Bibliotheken: Die Klasse java.util.TreeSet implementiert
-		 * ebenfalls wie HashSet die Set-Schnittstelle, verfolgt aber eine
-		 * andere Implementierungsstrategie. Ein TreeSet verwaltet die Elemente
+		 * den Java SE-Bibliotheken: " ... Ein TreeSet verwaltet die Elemente
 		 * immer sortiert (intern werden die Elemente in einem balancierten
 		 * Binärbaum gehalten). Zugiffsmethoden sind ceiling(E e) = least
 		 * element greater than or equal, higher(E e) = least element strictly
-		 * greater than element E, floor(E e), lower(E e)
-		 */
-
-		/*
-		 * d.h. eine eigene Implementierung eines BALANCIERTEN Binärbaums ist im
-		 * Prinzip nicht nötig. Evtl. später Performance
+		 * greater than element E, floor(E e), lower(E e) d.h. eine eigene
+		 * Implementierung eines BALANCIERTEN Binärbaums ist im Prinzip nicht
+		 * nötig. Evtl. später Performance
 		 */
 		startTime = Math.abs(System.nanoTime());
-		SAMFileReader sfr = new SAMFileReader(new File(bamfile));
-		sfr.setValidationStringency(ValidationStringency.LENIENT);
-		for (SAMRecord samRecord : sfr) {
+		SAMFileReader samFileReader = new SAMFileReader(new File(bamfile));
+		samFileReader.setValidationStringency(ValidationStringency.LENIENT);
+		for (SAMRecord samRecord : samFileReader) {
 			// this is the count for all reads coming in
 			ReadEntry.setReadCount(ReadEntry.getReadCount() + 1);
-			ReadEntry re = null;
-			// Read is initially a Single Fragment Read, initialize a
-			// FragmentReadEntry
-			// count the numbers
+			ReadEntry readEntry = null;
+			// if the Read is initially a Single Fragment Read, initialize a
+			// FragmentReadEntry and count the numbers
 			if (!samRecord.getReadPairedFlag()) {
 				FragmentReadEntry.setFragmentReadCount(FragmentReadEntry
 						.getFragmentReadCount() + 1);
-				re = new FragmentReadEntry(samRecord);
-				// Read is initially a Paired Read, initialize a PairedReadEntry
-				// count the numbers
+				readEntry = new FragmentReadEntry(samRecord);
+				// else if the Read is initially a Paired Read, initialize a
+				// PairedReadEntry and count the numbers
 			} else {
-				re = new PairedReadEntry(samRecord);
 				PairedReadEntry.setPairedEndReadCount(PairedReadEntry
 						.getPairedEndReadCount() + 1);
+				readEntry = new PairedReadEntry(samRecord);
 			}
 			// this is a simple form of a progress bar, printing a line every 1
 			// Million Reads
@@ -120,10 +114,11 @@ public class CheKov {
 				System.out.printf("%d %d %d%n", ReadEntry.getReadCount(),
 						FragmentReadEntry.getFragmentReadCount(),
 						PairedReadEntry.getPairedEndReadCount());
-			// check the coverage on targets
-			re.analyzeCoverage();
+			// calculate the coverage of each read on the targets represented by
+			// intervalTreeSet
+			readEntry.analyzeCoverage();
 			// check the quality of the reads
-			re.analyseQuality();
+			// readEntry.analyseQuality();
 		} // end for
 		endTime = Math.abs(System.nanoTime()) - startTime;
 
@@ -135,16 +130,52 @@ public class CheKov {
 				.getRawLengthCounterArray()));
 		CheKov.setMedianEffReadLength(CheKov.medianFromArray(FragmentReadEntry
 				.getEffLengthCounterArray()));
+		/*
+		 * get the coverage for each TargetNucleotidePositionEntry from TreeSet
+		 * alteredNucleotidePositionsEntries just to show fast the result as
+		 * output! need to be implemented in other way soon
+		 */
+
+		for (TargetNucleotidePositionEntry tnpe : alteredNucleotidePositionsEntries) {
+			long positionInInterval = -1;
+			IntervalAbs tempRead = new IntervalAbs((short) 0,
+					tnpe.getPosInAbsGenome(), tnpe.getPosInAbsGenome(), 1, null);
+			IntervalAbs floorInterval = CheKov.getIntervalTreeSet().floor(
+					tempRead);
+			if (floorInterval != null) {
+				System.out.print(floorInterval);
+				boolean hitted = false;
+				ArrayList<Integer> cov = floorInterval.getCoverage();
+				for (long i = floorInterval.getStartAbs(); i < floorInterval
+						.getEndAbs(); i++) {
+					if (i >= tempRead.getEndAbs()
+							&& i <= tempRead.getStartAbs()) {
+						positionInInterval = tnpe.getPosInAbsGenome()
+								- floorInterval.getStartAbs();
+						tnpe.setCoverage(cov.get((int) positionInInterval));
+						hitted = true;
+					} // end inner if
+				} // end inner for
+
+//				 if (hitted)
+				System.out.printf(" - %s%n",tnpe);
+//				 else System.out.println();
+
+			} // end outer if
+		} // end outer for
 
 		// finale Ausgabe
-		for (TargetNucleotidePositionEntry tnpe : alteredNucleotidePositionsEntries) {
-			System.out.println(tnpe.getPosInAbsGenome() + " " + "Cov "
-					+ tnpe.getCoverage() + " AltAllelCount: "
-					+ tnpe.getAltAllelReadCount() + " Typ: "
-					+ tnpe.getAlterationTypeAtPosition().toString()
-					+ " RefAllel : " + tnpe.getRefAllel() + " AltAllel: "
-					+ tnpe.getAltAllel() + " " + tnpe.getReferenceReadPostion().toString() + " " + tnpe.getHomoPolymerLength());
-		}
+//		for (TargetNucleotidePositionEntry tnpe : alteredNucleotidePositionsEntries) {
+//			System.out.printf(
+//					"%s%d:%,d-%,d  %s: %d  %s %d %s %s %s %c %s %c %s %d%n",
+//					"chr", tnpe.getChr(), tnpe.getPosInAbsGenome(), tnpe
+//							.getPosInAbsGenome(), "Cov ", tnpe.getCoverage(),
+//					"AltAllelCount:", tnpe.getAltAllelReadCount(), "Typ:", tnpe
+//							.getAlterationTypeAtPosition().toString(),
+//					"RefAllel:", tnpe.getRefAllel(), "AltAllel:", tnpe
+//							.getAltAllel(), tnpe.getReferenceReadPostion()
+//							.toString(), tnpe.getHomoPolymerLength());
+//		}
 		System.out.println(alteredNucleotidePositionsEntries.size());
 
 		printQCResult();
@@ -220,6 +251,10 @@ public class CheKov {
 				"All Reads: ", ReadEntry.getReadCount(), "FragmentReads:",
 				FragmentReadEntry.getFragmentReadCount(), "PairedReads:",
 				PairedReadEntry.getPairedEndReadCount());
+		System.out.printf("%-35s%,12d%n%-35s%,12d%n", "OnTargetReadCounts: ",
+				FragmentReadEntry.getOnTargetReadCount(),
+				"OffTargetReadCount:",
+				FragmentReadEntry.getOffTargetReadCount());
 		System.out.printf("%-35s%,12d%n%-35s%,12d%n%-35s%,12d%n", "Seq-bp",
 				CheKov.getAllBases(), "SoftCipped-bp:",
 				CheKov.getAllSoftClippedBases(), "HardClipped-bp:",
