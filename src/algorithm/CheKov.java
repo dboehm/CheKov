@@ -52,7 +52,7 @@ public class CheKov {
 		String outfile = args[2];
 		String missedBEDFile = args[3];
 		// we need to do IMPORTANTLY some useful things with this parameter
-		 IntervalAbs.INTERVAL_THRESHOLD = Integer.parseInt(args[4]);
+		IntervalAbs.INTERVAL_THRESHOLD = Integer.parseInt(args[4]);
 
 		/*
 		 * TreeSet intervalTreeSet is filled with IntervalAbs Objects each
@@ -143,7 +143,7 @@ public class CheKov {
 			IntervalAbs floorInterval = CheKov.getIntervalTreeSet().floor(
 					tempRead);
 			if (floorInterval != null) {
-				System.out.print(floorInterval);
+
 				boolean hitted = false;
 				ArrayList<Integer> cov = floorInterval.getCoverage();
 				for (long i = floorInterval.getStartAbs(); i < floorInterval
@@ -157,25 +157,15 @@ public class CheKov {
 					} // end inner if
 				} // end inner for
 
-//				 if (hitted)
-				System.out.printf(" - %s%n",tnpe);
-//				 else System.out.println();
+				if (hitted) {
+					System.out.print(floorInterval);
+					System.out.printf(" - %s%n", tnpe);
+				}
 
 			} // end outer if
 		} // end outer for
 
 		// finale Ausgabe
-//		for (TargetNucleotidePositionEntry tnpe : alteredNucleotidePositionsEntries) {
-//			System.out.printf(
-//					"%s%d:%,d-%,d  %s: %d  %s %d %s %s %s %c %s %c %s %d%n",
-//					"chr", tnpe.getChr(), tnpe.getPosInAbsGenome(), tnpe
-//							.getPosInAbsGenome(), "Cov ", tnpe.getCoverage(),
-//					"AltAllelCount:", tnpe.getAltAllelReadCount(), "Typ:", tnpe
-//							.getAlterationTypeAtPosition().toString(),
-//					"RefAllel:", tnpe.getRefAllel(), "AltAllel:", tnpe
-//							.getAltAllel(), tnpe.getReferenceReadPostion()
-//							.toString(), tnpe.getHomoPolymerLength());
-//		}
 		System.out.println(alteredNucleotidePositionsEntries.size());
 
 		printQCResult();
