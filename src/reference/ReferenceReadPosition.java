@@ -1,8 +1,6 @@
 package reference;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import net.sf.picard.reference.IndexedFastaSequenceFile;
+import algorithm.CheKov;
 import net.sf.picard.reference.ReferenceSequence;
 
 public class ReferenceReadPosition {
@@ -10,8 +8,6 @@ public class ReferenceReadPosition {
 	private char refAllel;
 	private int indexOfRefAllele;
 
-	
-	
 	public ReferenceReadPosition(byte[] nucleotidesInReference,
 			byte[] affectedRefAllel, int indexOfRefAllele) {
 		this.setNucleotideInReference(nucleotidesInReference);
@@ -21,30 +17,18 @@ public class ReferenceReadPosition {
 		this.indexOfRefAllele = indexOfRefAllele;
 	}
 
-	public static ReferenceReadPosition getReferenceReadPositionInstance(String string,
-			int posInContig, int flankingRevBp, int flankingForBp) {
-		IndexedFastaSequenceFile ifsf = null;
-		try {
-			ifsf = new IndexedFastaSequenceFile(
-					new File(
-							"/home/dboehm/NewReference_2012_06_24/share/reference/genomes/NCBI_GRCh37/NCBI_GRCh37.fa"));
-			if (!ifsf.isIndexed())
-				System.exit(0);
-			ReferenceSequence rf = ifsf.getSubsequenceAt(string, posInContig
-					- flankingRevBp, posInContig + flankingForBp);
-			// the constructor initializes the flanking sequences, and the
-			// refAllel
-			return new ReferenceReadPosition(rf.getBases(), ifsf
-					.getSubsequenceAt(string, posInContig, posInContig)
-					.getBases(), flankingRevBp);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		} finally {
-			// no close() method, so let the Garbage Collector do the job !
-			ifsf = null;
-		}
+	public static ReferenceReadPosition getReferenceReadPositionInstance(
+			String string, int posInContig, int flankingRevBp, int flankingForBp) {
+
+		ReferenceSequence rf = CheKov.getIndexedFastaSequenceFile_Ref()
+				.getSubsequenceAt(string, posInContig - flankingRevBp,
+						posInContig + flankingForBp);
+		// the constructor initializes the flanking sequences, and the
+		// refAllel
+		return new ReferenceReadPosition(rf.getBases(), CheKov
+				.getIndexedFastaSequenceFile_Ref()
+				.getSubsequenceAt(string, posInContig, posInContig).getBases(),
+				flankingRevBp);
 
 	}
 
@@ -62,7 +46,7 @@ public class ReferenceReadPosition {
 		for (byte b : nucleotidesInReference) {
 			s = s + String.format("%c", b);
 		}
-		return "["+s+"]";
+		return "[" + s + "]";
 	}
 
 	public char getRefAllel() {

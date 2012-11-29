@@ -1,6 +1,7 @@
 package dataStructure;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
@@ -25,6 +26,8 @@ public class FragmentReadEntry extends ReadEntry {
 	// this static variables are for manuell calculating the median
 	static int[] effLengthCounterArray = new int[2000];
 	static int[] rawLengthCounterArray = new int[2000];
+	private static long startTime = 0;
+	private static long endTime = 0;
 
 	public FragmentReadEntry(SAMRecord samRecord) {
 		this.setSamRecord(samRecord);
@@ -237,13 +240,14 @@ public class FragmentReadEntry extends ReadEntry {
 				 * the ArrayList otherwise update the entry
 				 */
 				TargetNucleotidePositionEntry tnpe = new TargetNucleotidePositionEntry(
-						(short)(this.getSamRecord().getReferenceIndex()+1), posInAbsGenom,
-						AlterationType.Del, rrp.getRefAllel(), '-', rrp);
+						(short) (this.getSamRecord().getReferenceIndex() + 1),
+						posInAbsGenom, AlterationType.Del, rrp.getRefAllel(),
+						'-', rrp);
 				/*
 				 * we need to implement override equals() in
 				 * TargetNucleotidePositionEntry
 				 */
-
+				// if the altered position dies not exist add it to Set
 				if (!CheKov.getAlteredNucleotidePositionsEntries().contains(
 						tnpe)) {
 					TreeSet<TargetNucleotidePositionEntry> tempSet = CheKov
@@ -258,12 +262,14 @@ public class FragmentReadEntry extends ReadEntry {
 					 */
 					byte[] tempArray = rrp.getNucleotideInReference();
 					int count = 1;
+					// count from right
 					for (int i = rrp.getIndexOfRefAllele() + 1; i < tempArray.length; i++) {
 						if (tempArray[i] == rrp.getRefAllel())
 							count++;
 						else
 							break;
 					}
+					// count from left
 					for (int k = rrp.getIndexOfRefAllele() - 1; k >= 0; k--) {
 						if (tempArray[k] == rrp.getRefAllel())
 							count++;
@@ -293,7 +299,6 @@ public class FragmentReadEntry extends ReadEntry {
 					tempSet.add(tempEntry);
 					CheKov.setAlteredNucleotidePositionsEntries(tempSet);
 				} // end case "D"
-
 				break;
 			case "I":
 				this.setInsertedTaggedBases(this.getInsertedTaggedBases()
@@ -429,6 +434,22 @@ public class FragmentReadEntry extends ReadEntry {
 		System.out.printf("%n%s %d   %s %d", "Deleted bases: ",
 				this.getDeletedTaggedBases(), "Inserted Bases: ",
 				this.getInsertedTaggedBases());
+	}
+
+	public static long getEndTime() {
+		return endTime;
+	}
+
+	public static void setEndTime(long endTime) {
+		FragmentReadEntry.endTime = endTime;
+	}
+
+	public static long getStartTime() {
+		return startTime;
+	}
+
+	public static void setStartTime(long startTime) {
+		FragmentReadEntry.startTime = startTime;
 	}
 
 }

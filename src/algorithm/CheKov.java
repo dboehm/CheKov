@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.TreeSet;
@@ -19,6 +20,7 @@ import dataStructure.PairedReadEntry;
 import dataStructure.ReadEntry;
 import dataStructure.TargetNucleotidePositionEntry;
 
+import net.sf.picard.reference.IndexedFastaSequenceFile;
 import net.sf.samtools.SAMFileReader;
 import net.sf.samtools.SAMFileReader.ValidationStringency;
 import net.sf.samtools.SAMRecord;
@@ -43,16 +45,19 @@ public class CheKov {
 	private static long avEffReadLength = 0;
 	private static long avRawReadLength = 0;
 	private static TreeSet<TargetNucleotidePositionEntry> alteredNucleotidePositionsEntries = new TreeSet<>();
+	private static long startTime = 0;
+	private static long endTime = 0;
+	private static IndexedFastaSequenceFile indexedFastaSequenceFile_Ref = null;
 
 	public static void main(String[] args) {
-		long startTime = Math.abs(System.nanoTime());
-		long endTime;
+		CheKov.setStartTime(Math.abs(System.nanoTime()));
 		String bedfile = args[0];
 		String bamfile = args[1];
 		String outfile = args[2];
 		String missedBEDFile = args[3];
 		// we need to do IMPORTANTLY some useful things with this parameter
 		IntervalAbs.INTERVAL_THRESHOLD = Integer.parseInt(args[4]);
+		String refFile = "/home/dboehm/NewReference_2012_06_24/share/reference/genomes/NCBI_GRCh37/NCBI_GRCh37.fa";
 
 		/*
 		 * TreeSet intervalTreeSet is filled with IntervalAbs Objects each
@@ -70,14 +75,26 @@ public class CheKov {
 				intervalTreeSet.add(intervalAbs);
 			}
 
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (FileNotFoundException ex) {
+			ex.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
-		endTime = Math.abs(System.nanoTime()) - startTime;
+		CheKov.setEndTime(Math.abs(System.nanoTime()) - CheKov.getStartTime());
 		System.err.println("IntervalList made ...." + intervalTreeSet.size()
 				+ " in " + (double) endTime / 1000000000 + " s");
+
+		// Now start the ReferenceReader
+
+		try {
+			indexedFastaSequenceFile_Ref = new IndexedFastaSequenceFile(
+					new File(refFile));
+			if (!indexedFastaSequenceFile_Ref.isIndexed())
+				System.exit(0);
+		} catch (FileNotFoundException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		/*
 		 * Java 7 - Mehr als eine Insel von Christian Ullenboom Das Handbuch zu
 		 * den Java SE-Bibliotheken: " ... Ein TreeSet verwaltet die Elemente
@@ -88,7 +105,7 @@ public class CheKov {
 		 * Implementierung eines BALANCIERTEN Binärbaums ist im Prinzip nicht
 		 * nötig. Evtl. später Performance
 		 */
-		startTime = Math.abs(System.nanoTime());
+		CheKov.setStartTime(Math.abs(System.nanoTime()));
 		SAMFileReader samFileReader = new SAMFileReader(new File(bamfile));
 		samFileReader.setValidationStringency(ValidationStringency.LENIENT);
 		for (SAMRecord samRecord : samFileReader) {
@@ -110,17 +127,25 @@ public class CheKov {
 			}
 			// this is a simple form of a progress bar, printing a line every 1
 			// Million Reads
-			if (ReadEntry.getReadCount() % 1_000_000 == 0)
-				System.out.printf("%d %d %d%n", ReadEntry.getReadCount(),
+			if (ReadEntry.getReadCount() % 1_000_00 == 0) {
+				CheKov.setEndTime(Math.abs(System.nanoTime())
+						- CheKov.getStartTime());
+				System.out.printf("%,d %,d %,d %5.2f %s  %,d %s%n",
+						ReadEntry.getReadCount(),
 						FragmentReadEntry.getFragmentReadCount(),
-						PairedReadEntry.getPairedEndReadCount());
+						PairedReadEntry.getPairedEndReadCount(),
+						(double) CheKov.getEndTime() / 1000000000, "s",
+						alteredNucleotidePositionsEntries.size(),
+						"alteredNucleotidePositionsEntries");
+				CheKov.setStartTime(Math.abs(System.nanoTime()));
+			}
 			// calculate the coverage of each read on the targets represented by
 			// intervalTreeSet
 			readEntry.analyzeCoverage();
 			// check the quality of the reads
 			// readEntry.analyseQuality();
 		} // end for
-		endTime = Math.abs(System.nanoTime()) - startTime;
+		CheKov.setEndTime(Math.abs(System.nanoTime()) - CheKov.getStartTime());
 
 		/*
 		 * get the two ReadLengthCounterArray for median calculation use static
@@ -234,7 +259,7 @@ public class CheKov {
 			ex.printStackTrace();
 		}
 
-	} // end main
+	}// end main
 
 	public static void printQCResult() {
 		System.out.printf("%-35s%,12d%n%-35s%,12d%n%-35s%,12d%n",
@@ -399,4 +424,30 @@ public class CheKov {
 			TreeSet<TargetNucleotidePositionEntry> alteredNucleotidePositionsEntries) {
 		CheKov.alteredNucleotidePositionsEntries = alteredNucleotidePositionsEntries;
 	}
+
+	public static long getStartTime() {
+		return startTime;
+	}
+
+	public static void setStartTime(long startTime) {
+		CheKov.startTime = startTime;
+	}
+
+	public static long getEndTime() {
+		return endTime;
+	}
+
+	public static void setEndTime(long endTime) {
+		CheKov.endTime = endTime;
+	}
+
+	public static IndexedFastaSequenceFile getIndexedFastaSequenceFile_Ref() {
+		return indexedFastaSequenceFile_Ref;
+	}
+
+	public static void setIndexedFastaSequenceFile_Ref(
+			IndexedFastaSequenceFile indexedFastaSequenceFile_Ref) {
+		CheKov.indexedFastaSequenceFile_Ref = indexedFastaSequenceFile_Ref;
+	}
+
 } // end class
