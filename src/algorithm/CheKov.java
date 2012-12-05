@@ -110,6 +110,7 @@ public class CheKov {
 		samFileReader.setValidationStringency(ValidationStringency.LENIENT);
 		for (SAMRecord samRecord : samFileReader) {
 			// this is the count for all reads coming in
+			if (samRecord.getReferenceName() == "chrM") break;
 			ReadEntry.setReadCount(ReadEntry.getReadCount() + 1);
 			ReadEntry readEntry = null;
 			// if the Read is initially a Single Fragment Read, initialize a
