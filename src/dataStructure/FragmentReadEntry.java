@@ -1,6 +1,7 @@
 package dataStructure;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -157,11 +158,15 @@ public class FragmentReadEntry extends ReadEntry {
 					// IntervalAbs
 					FragmentReadEntry.setOnTargetReadCount(FragmentReadEntry
 							.getOnTargetReadCount() + 1);
+					// for the moment skip the reverse orientated reads for
+					// trouble shooting
+					// if (!this.getSamRecord().getReadNegativeStrandFlag())
 					this.analyseQuality();
-				} else {
+				} else { // count if read is NOT on target, do not analyze
+							// quality
 					FragmentReadEntry.setOffTargetReadCount(FragmentReadEntry
 							.getOffTargetReadCount() + 1);
-					this.analyseQuality();
+					// this.analyseQuality();
 				}
 			}
 		}
@@ -173,14 +178,14 @@ public class FragmentReadEntry extends ReadEntry {
 		String cigarString = getSamRecord().getCigarString();
 		StringTokenizer st = new StringTokenizer(cigarString, "MIDNSHPX", true);
 
-		while (st.hasMoreTokens())
+		while (st.hasMoreTokens()) {
 			cigarTokens.add(st.nextToken());
+		}
 		int posInRead = 0;
 		int posInContig = 0;
 		long posInAbsGenom = 0;
 		int numberOfBasesAffected = 0;
 		int index = 0;
-		cigarTokens.get(index);
 		ReferenceReadPosition rrp = null;
 		for (String s : cigarTokens) {
 			switch (s) {
@@ -189,16 +194,16 @@ public class FragmentReadEntry extends ReadEntry {
 						+ Integer.parseInt(cigarTokens.get(index - 1)));
 				// the corresponding length of the tag is always one field
 				// before the tag
-				posInRead = posInRead
-						+ Integer.parseInt(cigarTokens.get(index - 1));
+				// posInRead = posInRead
+				// + Integer.parseInt(cigarTokens.get(index - 1));
 				break;
 			case "S":
 				this.setSoftClippedBases(this.getSoftClippedBases()
 						+ Integer.parseInt(cigarTokens.get(index - 1)));
 				// the corresponding length of the tag is always one field
 				// before the tag
-				posInRead = posInRead
-						+ Integer.parseInt(cigarTokens.get(index - 1));
+				// posInRead = posInRead
+				// + Integer.parseInt(cigarTokens.get(index - 1));
 				break;
 
 			case "D":
@@ -247,7 +252,7 @@ public class FragmentReadEntry extends ReadEntry {
 				 * we need to implement override equals() in
 				 * TargetNucleotidePositionEntry
 				 */
-				// if the altered position dies not exist add it to Set
+				// if the altered position does not exist add it to Set
 				if (!CheKov.getAlteredNucleotidePositionsEntries().contains(
 						tnpe)) {
 					TreeSet<TargetNucleotidePositionEntry> tempSet = CheKov
@@ -257,8 +262,9 @@ public class FragmentReadEntry extends ReadEntry {
 
 					/*
 					 * calculate the homoPolymerLength once when
-					 * TargetNucleotidePositionEntry is initialized. this is a
-					 * stable value for a TargetNucleotidePositionEntry
+					 * TargetNucleotidePositionEntry is firstly initialized.
+					 * this is a stable value for a
+					 * TargetNucleotidePositionEntry
 					 */
 					byte[] tempArray = rrp.getNucleotideInReference();
 					int count = 1;

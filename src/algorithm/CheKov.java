@@ -57,7 +57,7 @@ public class CheKov {
 		String missedBEDFile = args[3];
 		// we need to do IMPORTANTLY some useful things with this parameter
 		IntervalAbs.INTERVAL_THRESHOLD = Integer.parseInt(args[4]);
-		String refFile = "/home/dboehm/NewReference_2012_06_24/share/reference/genomes/NCBI_GRCh37/NCBI_GRCh37.fa";
+		String refFile = args[5]; 
 
 		/*
 		 * TreeSet intervalTreeSet is filled with IntervalAbs Objects each
@@ -184,8 +184,8 @@ public class CheKov {
 				} // end inner for
 
 				if (hitted) {
-					System.out.print(floorInterval);
-					System.out.printf(" - %s%n", tnpe);
+//					System.out.print(floorInterval);
+					System.out.printf("%s%n", tnpe);
 				}
 
 			} // end outer if

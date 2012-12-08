@@ -147,13 +147,21 @@ public class TargetNucleotidePositionEntry implements
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return String.format("%s%d:%,d (%c/%c) (%d/%d) [*%d%c*] [%s] (%.2f %%)",
-				"chr", this.getChr(),
+		return String.format(
+				"%s%d\t%d\t%d\t%c/%c;%d/%d;%d%c;%s;%.2f",
+				"chr",
+				this.getChr(),
+				(this.getPosInAbsGenome() - ChromosomeOffset.offset(getChr()))-1,
 				(this.getPosInAbsGenome() - ChromosomeOffset.offset(getChr())),
-				this.getRefAllel(), this.getAltAllel(), this.getCoverage(),
-				this.getAltAllelReadCount(), this.getHomoPolymerLength(),
-				this.getRefAllel(), this.getReferenceReadPostion(),
-				(float)this.getAltAllelReadCount() * 100/ (float)this.getCoverage() );
+				this.getRefAllel(),
+				this.getAltAllel(),
+				this.getCoverage(),
+				this.getAltAllelReadCount(),
+				this.getHomoPolymerLength(),
+				this.getRefAllel(),
+				this.getReferenceReadPostion(),
+				(float) this.getAltAllelReadCount()
+						/ (float) this.getCoverage());
 	}
 
 }
