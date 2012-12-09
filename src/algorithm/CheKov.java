@@ -8,7 +8,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.TreeSet;
@@ -184,7 +183,6 @@ public class CheKov {
 				} // end inner for
 
 				if (hitted) {
-//					System.out.print(floorInterval);
 					System.out.printf("%s%n", tnpe);
 				}
 

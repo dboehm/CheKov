@@ -1,8 +1,6 @@
 package dataStructure;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
@@ -158,15 +156,11 @@ public class FragmentReadEntry extends ReadEntry {
 					// IntervalAbs
 					FragmentReadEntry.setOnTargetReadCount(FragmentReadEntry
 							.getOnTargetReadCount() + 1);
-					// for the moment skip the reverse orientated reads for
-					// trouble shooting
-					// if (!this.getSamRecord().getReadNegativeStrandFlag())
 					this.analyseQuality();
 				} else { // count if read is NOT on target, do not analyze
 							// quality
 					FragmentReadEntry.setOffTargetReadCount(FragmentReadEntry
 							.getOffTargetReadCount() + 1);
-					// this.analyseQuality();
 				}
 			}
 		}
@@ -194,16 +188,12 @@ public class FragmentReadEntry extends ReadEntry {
 						+ Integer.parseInt(cigarTokens.get(index - 1)));
 				// the corresponding length of the tag is always one field
 				// before the tag
-				// posInRead = posInRead
-				// + Integer.parseInt(cigarTokens.get(index - 1));
 				break;
 			case "S":
 				this.setSoftClippedBases(this.getSoftClippedBases()
 						+ Integer.parseInt(cigarTokens.get(index - 1)));
 				// the corresponding length of the tag is always one field
 				// before the tag
-				// posInRead = posInRead
-				// + Integer.parseInt(cigarTokens.get(index - 1));
 				break;
 
 			case "D":
