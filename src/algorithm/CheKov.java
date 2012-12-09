@@ -8,7 +8,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.TreeSet;
@@ -110,6 +109,7 @@ public class CheKov {
 		samFileReader.setValidationStringency(ValidationStringency.LENIENT);
 		for (SAMRecord samRecord : samFileReader) {
 			// this is the count for all reads coming in
+			if (samRecord.getReferenceName() != "chr22") break;
 			if (samRecord.getReferenceName() == "chrM") break;
 			ReadEntry.setReadCount(ReadEntry.getReadCount() + 1);
 			ReadEntry readEntry = null;
