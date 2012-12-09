@@ -56,7 +56,7 @@ public class CheKov {
 		String missedBEDFile = args[3];
 		// we need to do IMPORTANTLY some useful things with this parameter
 		IntervalAbs.INTERVAL_THRESHOLD = Integer.parseInt(args[4]);
-		String refFile = args[5]; 
+		String refFile = args[5];
 
 		/*
 		 * TreeSet intervalTreeSet is filled with IntervalAbs Objects each
@@ -109,8 +109,8 @@ public class CheKov {
 		samFileReader.setValidationStringency(ValidationStringency.LENIENT);
 		for (SAMRecord samRecord : samFileReader) {
 			// this is the count for all reads coming in
-			if (samRecord.getReferenceName() != "chr22") break;
-			if (samRecord.getReferenceName() == "chrM") break;
+			if (samRecord.getReferenceName() == "chrM")
+				break;
 			ReadEntry.setReadCount(ReadEntry.getReadCount() + 1);
 			ReadEntry readEntry = null;
 			// if the Read is initially a Single Fragment Read, initialize a
@@ -162,34 +162,40 @@ public class CheKov {
 		 * output! need to be implemented in other way soon
 		 */
 
-		for (TargetNucleotidePositionEntry tnpe : alteredNucleotidePositionsEntries) {
-			long positionInInterval = -1;
-			IntervalAbs tempRead = new IntervalAbs((short) 0,
-					tnpe.getPosInAbsGenome(), tnpe.getPosInAbsGenome(), 1, null);
-			IntervalAbs floorInterval = CheKov.getIntervalTreeSet().floor(
-					tempRead);
-			if (floorInterval != null) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(
+				"Homopolymers.bed"))) {
+			for (TargetNucleotidePositionEntry tnpe : alteredNucleotidePositionsEntries) {
+				long positionInInterval = -1;
+				IntervalAbs tempRead = new IntervalAbs((short) 0,
+						tnpe.getPosInAbsGenome(), tnpe.getPosInAbsGenome(), 1,
+						null);
+				IntervalAbs floorInterval = CheKov.getIntervalTreeSet().floor(
+						tempRead);
+				if (floorInterval != null) {
 
-				boolean hitted = false;
-				ArrayList<Integer> cov = floorInterval.getCoverage();
-				for (long i = floorInterval.getStartAbs(); i < floorInterval
-						.getEndAbs(); i++) {
-					if (i >= tempRead.getEndAbs()
-							&& i <= tempRead.getStartAbs()) {
-						positionInInterval = tnpe.getPosInAbsGenome()
-								- floorInterval.getStartAbs();
-						tnpe.setCoverage(cov.get((int) positionInInterval));
-						hitted = true;
-					} // end inner if
-				} // end inner for
+					boolean hitted = false;
+					ArrayList<Integer> cov = floorInterval.getCoverage();
+					for (long i = floorInterval.getStartAbs(); i < floorInterval
+							.getEndAbs(); i++) {
+						if (i >= tempRead.getEndAbs()
+								&& i <= tempRead.getStartAbs()) {
+							positionInInterval = tnpe.getPosInAbsGenome()
+									- floorInterval.getStartAbs();
+							tnpe.setCoverage(cov.get((int) positionInInterval));
+							hitted = true;
+						} // end inner if
+					} // end inner for
 
-				if (hitted) {
-//					System.out.print(floorInterval);
-					System.out.printf("%s%n", tnpe);
-				}
+					if (hitted) {
+						bw.write(String.format("%s%n",tnpe));
+					}
 
-			} // end outer if
-		} // end outer for
+				} // end outer if
+			} // end outer for
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		// finale Ausgabe
 		System.out.println(alteredNucleotidePositionsEntries.size());
