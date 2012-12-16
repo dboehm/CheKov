@@ -30,6 +30,12 @@ public class FragmentReadEntry extends ReadEntry {
 
 	public FragmentReadEntry(SAMRecord samRecord) {
 		this.setSamRecord(samRecord);
+		// CigarString is splitted using StringTokenizer
+		StringTokenizer st = new StringTokenizer(samRecord.getCigarString(),
+				"MIDNSHPX", true);
+		while (st.hasMoreTokens()) {
+			cigarTokens.add(st.nextToken());
+		}
 	}
 
 	// Getter and Setter
@@ -85,7 +91,7 @@ public class FragmentReadEntry extends ReadEntry {
 		return onTargetReadCount;
 	}
 
-	public static void setOnTargetReadCount(int onTargetReadCount) {
+	public static void countOnTargetReads(int onTargetReadCount) {
 		FragmentReadEntry.onTargetReadCount = onTargetReadCount;
 	}
 
@@ -93,7 +99,7 @@ public class FragmentReadEntry extends ReadEntry {
 		return offTargetReadCount;
 	}
 
-	public static void setOffTargetReadCount(int offTargetReadCount) {
+	public static void countOffTargetReads(int offTargetReadCount) {
 		FragmentReadEntry.offTargetReadCount = offTargetReadCount;
 	}
 
@@ -151,15 +157,17 @@ public class FragmentReadEntry extends ReadEntry {
 					tempRead);
 			if (floorInterval != null) {
 				if (floorInterval.readHitsAbsInterval(tempRead.getEndAbs(),
-						tempRead.getStartAbs())) {
+						tempRead.getStartAbs(), this.getSamRecord()
+								.getBaseQualities(), this.getCigarTokens())) {
 					// count the reads at least hit one position of the
 					// IntervalAbs
-					FragmentReadEntry.setOnTargetReadCount(FragmentReadEntry
+					FragmentReadEntry.countOnTargetReads(FragmentReadEntry
 							.getOnTargetReadCount() + 1);
+					// System.out.println(this.getSamRecord().getBaseQualityString());
 					this.analyseQuality();
 				} else { // count if read is NOT on target, do not analyze
 							// quality
-					FragmentReadEntry.setOffTargetReadCount(FragmentReadEntry
+					FragmentReadEntry.countOffTargetReads(FragmentReadEntry
 							.getOffTargetReadCount() + 1);
 				}
 			}
@@ -168,13 +176,7 @@ public class FragmentReadEntry extends ReadEntry {
 
 	@Override
 	public void analyseQuality() {
-		// CigarString is splitted using StringTokenizer
-		String cigarString = getSamRecord().getCigarString();
-		StringTokenizer st = new StringTokenizer(cigarString, "MIDNSHPX", true);
 
-		while (st.hasMoreTokens()) {
-			cigarTokens.add(st.nextToken());
-		}
 		int posInRead = 0;
 		int posInContig = 0;
 		long posInAbsGenom = 0;
@@ -446,6 +448,13 @@ public class FragmentReadEntry extends ReadEntry {
 
 	public static void setStartTime(long startTime) {
 		FragmentReadEntry.startTime = startTime;
+	}
+
+	@Override
+	public void collectQualities() {
+
+		this.getSamRecord().getBaseQualities();
+
 	}
 
 }

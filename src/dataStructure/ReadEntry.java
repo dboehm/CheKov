@@ -80,4 +80,6 @@ public abstract class ReadEntry {
 	public void setEffReadLength(int effReadLength) {
 		this.effReadLength = effReadLength;
 	}
+
+	public abstract void collectQualities();
 }

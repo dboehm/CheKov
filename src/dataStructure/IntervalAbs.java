@@ -2,6 +2,8 @@ package dataStructure;
 
 import java.util.ArrayList;
 
+import algorithm.CheKov;
+
 public class IntervalAbs implements Comparable<IntervalAbs> {
 
 	public static int INTERVAL_THRESHOLD;
@@ -12,6 +14,7 @@ public class IntervalAbs implements Comparable<IntervalAbs> {
 	private String geneName;
 	private int intervalSize;
 	private ArrayList<Integer> coverage;
+	private ArrayList<Integer> quality;
 
 	public IntervalAbs(String line) {
 		this.line = line;
@@ -24,9 +27,15 @@ public class IntervalAbs implements Comparable<IntervalAbs> {
 		this.intervalEndAbs = endAbs;
 		this.intervalSize = size;
 		this.geneName = geneName;
+		// fill ArrayList coverage with 0
 		this.coverage = new ArrayList<Integer>(size);
 		for (int i = 0; i < size; i++) {
 			this.coverage.add(0);
+		}
+		// fill ArrayList quality with 0
+		this.quality = new ArrayList<Integer>(size);
+		for (int i = 0; i < size; i++) {
+			this.quality.add(0);
 		}
 	}
 
@@ -34,9 +43,11 @@ public class IntervalAbs implements Comparable<IntervalAbs> {
 		String[] lines = this.line.split("\t");
 		short chr = ChromosomeOffset.chromosomeNumber(lines[0]);
 		long startAbs = Long.parseLong(lines[1])
-				+ ChromosomeOffset.getChromosomeOffsetbyNumber(chr).getOffset() - INTERVAL_THRESHOLD;
+				+ ChromosomeOffset.getChromosomeOffsetbyNumber(chr).getOffset()
+				- INTERVAL_THRESHOLD;
 		long endAbs = Long.parseLong(lines[2])
-				+ ChromosomeOffset.getChromosomeOffsetbyNumber(chr).getOffset() + INTERVAL_THRESHOLD;
+				+ ChromosomeOffset.getChromosomeOffsetbyNumber(chr).getOffset()
+				+ INTERVAL_THRESHOLD;
 		intervalSize = (int) (endAbs - startAbs);
 		String[] fields = lines[3].split(":");
 
@@ -91,6 +102,14 @@ public class IntervalAbs implements Comparable<IntervalAbs> {
 		this.coverage = coverage;
 	}
 
+	public ArrayList<Integer> getQuality() {
+		return quality;
+	}
+
+	public void setQuality(ArrayList<Integer> quality) {
+		this.quality = quality;
+	}
+
 	public String getGeneName() {
 		return geneName;
 	}
@@ -120,25 +139,42 @@ public class IntervalAbs implements Comparable<IntervalAbs> {
 		return super.equals(obj);
 	}
 
-	public boolean readHitsAbsInterval(long readAbsStart, long readAbsEnd) {
+	public boolean readHitsAbsInterval(long readAbsStart, long readAbsEnd,
+			byte[] qualities, ArrayList<String> cigarTokens) {
 		boolean hitted = false;
+		// get the copy of the so far ArrayLists of the IntervalAbs
 		ArrayList<Integer> cov = this.getCoverage();
+		ArrayList<Integer> qual = this.getQuality();
+		int relInIntervalPosition = 0;
+		int relInReadPosition = 0;
 		for (long i = this.intervalStartAbs; i < this.intervalEndAbs; i++) {
 			if (i >= readAbsStart && i < readAbsEnd) {
+				relInIntervalPosition = (int) (i - this.intervalStartAbs);
+				relInReadPosition = (int)(i - readAbsStart);
 				cov.set((int) (i - this.intervalStartAbs),
 						cov.get((int) (i - this.intervalStartAbs)) + 1);
+				if (qualities.length == 0) {
+					CheKov.incrementReadsWithoutQualities();
+				} else {
+					qual.set((int) (i - this.intervalStartAbs),
+							qual.get((int) (i - this.intervalStartAbs)) + 1);
+//					System.out.println(this.intervalSize + " - "
+//							+ relInIntervalPosition + " - " + qualities.length
+//							+ " - " + relInReadPosition + " - "
+//							+ qualities[relInReadPosition]);
+				}
 				hitted = true;
 			}
 		}
 		this.setCoverage(cov);
+
 		return hitted;
 	}
 
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return String.format("%s%d:%,d-%,d (%,d bp)", "chr",
-				this.getChr(),
+		return String.format("%s%d:%,d-%,d (%,d bp)", "chr", this.getChr(),
 				(this.getStartAbs() - ChromosomeOffset.offset(getChr())),
 				(this.getEndAbs() - ChromosomeOffset.offset(getChr())),
 				this.getSize());

@@ -43,6 +43,7 @@ public class CheKov {
 	private static long medianRawReadLength = 0;
 	private static long avEffReadLength = 0;
 	private static long avRawReadLength = 0;
+	private static int allReadsWithoutQuality = 0;
 	private static TreeSet<TargetNucleotidePositionEntry> alteredNucleotidePositionsEntries = new TreeSet<>();
 	private static long startTime = 0;
 	private static long endTime = 0;
@@ -110,7 +111,42 @@ public class CheKov {
 		for (SAMRecord samRecord : samFileReader) {
 			// this is the count for all reads coming in
 			if (samRecord.getReferenceName() == "chrM")
-				break;
+				continue;
+
+			// check if length of read and length of quality array is same
+			if (samRecord.getReadBases().length != samRecord.getBaseQualities().length) {
+				CheKov.incrementReadsWithoutQualities();
+				continue;
+			}
+			/*
+			 * the result is: mapping coordinates getAlignmentStart() and
+			 * getAlignmentEnd() have 
+			 * 1. have included the deleted Positions from the read as a gap.
+			 *    means from Cigar, if 1D is in Cigar, the length of Alignment is each
+			 *    1 position added. (==> if you give the Byte[] of the Read and/or Quality AND the 
+			 *    Cigar, then 1D leaves a gap in the Interval, and does not set coverage and quality
+			 *    for that position in the IntervalAbs. BUT coverage and quality need to be set in the 
+			 *    TargetNucleotidePositionEntry) 
+			 * 2. have NOT included the soft-clipped Positions. In this analysis they do not contribute
+			 *    to coverage and quality. Coming from Byte[] of the Read and of quality these positions 
+			 *    need be skipped
+			 * 3. Insertions in Cigar (e.g. 1I) do contribute to coverage and quality of 
+			 *    the TargetNucleotidePositionEntry, but NOT on the IntervalAbs.
+			 *    
+			 *    If things are unclear uncomment the below output and check
+			 */
+			// check if length and mapping coordinates fit together
+//			System.out.println("AlignmentLength: "
+//					+ (samRecord.getAlignmentEnd()
+//							- samRecord.getAlignmentStart() + 1)
+//					+ " ReadLength: " + samRecord.getReadBases().length + " : "
+//					+ samRecord.getCigarString());
+
+			// check the output in detail
+//			 for (int i = 0; i < samRecord.getBaseQualities().length; i++)
+//			 System.out.print((char) samRecord.getReadBases()[i] + ""
+//			 + samRecord.getBaseQualities()[i] + " ");
+//			 System.out.println();
 			ReadEntry.setReadCount(ReadEntry.getReadCount() + 1);
 			ReadEntry readEntry = null;
 			// if the Read is initially a Single Fragment Read, initialize a
@@ -143,6 +179,7 @@ public class CheKov {
 			// calculate the coverage of each read on the targets represented by
 			// intervalTreeSet
 			readEntry.analyzeCoverage();
+			readEntry.collectQualities();
 			// check the quality of the reads
 			// readEntry.analyseQuality();
 		} // end for
@@ -187,7 +224,7 @@ public class CheKov {
 					} // end inner for
 
 					if (hitted) {
-						bw.write(String.format("%s%n",tnpe));
+						bw.write(String.format("%s%n", tnpe));
 					}
 
 				} // end outer if
@@ -455,6 +492,14 @@ public class CheKov {
 	public static void setIndexedFastaSequenceFile_Ref(
 			IndexedFastaSequenceFile indexedFastaSequenceFile_Ref) {
 		CheKov.indexedFastaSequenceFile_Ref = indexedFastaSequenceFile_Ref;
+	}
+
+	public static int getAllReadsWithoutQuality() {
+		return allReadsWithoutQuality;
+	}
+
+	public static void incrementReadsWithoutQualities() {
+		CheKov.allReadsWithoutQuality++;
 	}
 
 } // end class
