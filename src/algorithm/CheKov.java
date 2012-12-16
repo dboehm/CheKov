@@ -58,6 +58,7 @@ public class CheKov {
 		// we need to do IMPORTANTLY some useful things with this parameter
 		IntervalAbs.INTERVAL_THRESHOLD = Integer.parseInt(args[4]);
 		String refFile = args[5];
+		String homopolymerFile = args[6];
 
 		/*
 		 * TreeSet intervalTreeSet is filled with IntervalAbs Objects each
@@ -200,7 +201,7 @@ public class CheKov {
 		 */
 
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(
-				"Homopolymers.bed"))) {
+				homopolymerFile))) {
 			for (TargetNucleotidePositionEntry tnpe : alteredNucleotidePositionsEntries) {
 				long positionInInterval = -1;
 				IntervalAbs tempRead = new IntervalAbs((short) 0,
