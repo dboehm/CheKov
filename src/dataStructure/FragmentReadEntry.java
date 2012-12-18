@@ -22,7 +22,7 @@ public class FragmentReadEntry extends ReadEntry {
 	private static int onTargetReadCount = 0;
 	private static int offTargetReadCount = 0;
 	ArrayList<String> cigarTokens = new ArrayList<>();
-	// this static variables are for manuell calculating the median
+	// this static variables are for manual calculating the median
 	static int[] effLengthCounterArray = new int[2000];
 	static int[] rawLengthCounterArray = new int[2000];
 	private static long startTime = 0;

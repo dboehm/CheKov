@@ -145,12 +145,87 @@ public class IntervalAbs implements Comparable<IntervalAbs> {
 		// get the copy of the so far ArrayLists of the IntervalAbs
 		ArrayList<Integer> cov = this.getCoverage();
 		ArrayList<Integer> qual = this.getQuality();
-		int relInIntervalPosition = 0;
 		int relInReadPosition = 0;
+		int relInIntervalPosition = 0;
+		int inCigarPosition = 0;
+		/*
+		 * there are 3 scenarios: 1. intervalStartAbs < readAbsStart &&
+		 * intervalEndAbs < readAbsStart ==> read does not overlap with Interval
+		 * ==> hitted = false 2. intervalStartAbs < readAbsStart &&
+		 * intervalEndAbs >= readAbsStart ==> relInReadPosition = 0;
+		 * relInIntervalPosition = readAbsStart - this.intervalStartAbs 3.
+		 * intervalStartAbs >= readAbsStart && intervalStartAbs <= readAbsEnd
+		 * ==>
+		 */
+		if (this.intervalStartAbs >= readAbsStart
+				&& this.intervalStartAbs <= readAbsEnd+1) {
+			relInReadPosition = (int) (this.intervalStartAbs - readAbsStart+1);
+			relInIntervalPosition = 0;
+			System.out.print("Case 1, ");
+		} else if (this.intervalStartAbs <= readAbsStart
+				&& this.intervalEndAbs > readAbsStart) {
+			relInReadPosition = 0;
+			relInIntervalPosition = (int) (readAbsStart - this.intervalStartAbs);
+			System.out.print("Case 2, ");
+		} else if (this.intervalStartAbs <= readAbsStart
+				&& this.intervalEndAbs <= readAbsStart) {
+			System.out.print("Case 3, ");
+			return hitted;
+		}
+		else if (this.intervalStartAbs > readAbsStart
+				&& this.intervalEndAbs > readAbsStart) {
+			System.out.print("Case 4, ");
+			return hitted;
+		}
+
+		System.out.println("In Interval " + relInIntervalPosition
+				+ "  InRead : " + relInReadPosition);
+		// System.out.println(cigarTokens);
+		for (int i = 0; i < cigarTokens.size(); i += 2) {
+			int tokenCount = Integer.parseInt(cigarTokens.get(i));
+			String tokenType = cigarTokens.get(i + 1);
+			int oldRelInReadPosition = inCigarPosition;
+			switch (tokenType) {
+			case "S":
+				inCigarPosition += tokenCount;
+				break;
+
+			case "M":
+				inCigarPosition += tokenCount;
+				break;
+			case "D":
+				for (int i1 = 1; i1 <= tokenCount; i1++)
+					System.out.print("D");
+				break;
+			case "I":
+				inCigarPosition += tokenCount;
+				break;
+			}
+			for (int j = oldRelInReadPosition; j < inCigarPosition; j++)
+				System.out.print(qualities[j] + "+");
+			System.out.print("+++");
+
+			// System.out.print(tokenCount + tokenType + " ");
+		}
+		System.out.println();
+		for (int j = 0; j < qualities.length; j++)
+			System.out.print(qualities[j] + ":");
+		System.out.println();
+		System.out.println(" " + qualities.length + " readAbsStart-ReadAbsEnd="
+				+ readAbsStart + "-" + readAbsEnd + "="
+				+ (readAbsEnd - readAbsStart + 1));
+		// for (relInReadPosition = 0; relInReadPosition < qualities.length;
+		// relInReadPosition++) {
+		// int tokenCount = Integer.parseInt(cigarTokens.get(0));
+		// String tokenType = cigarTokens.get(1);
+		//
+		// System.out.printf("%s %d%n", tokenType, tokenCount);
+		// }
+
 		for (long i = this.intervalStartAbs; i < this.intervalEndAbs; i++) {
 			if (i >= readAbsStart && i < readAbsEnd) {
 				relInIntervalPosition = (int) (i - this.intervalStartAbs);
-				relInReadPosition = (int)(i - readAbsStart);
+				relInReadPosition = (int) (i - readAbsStart);
 				cov.set((int) (i - this.intervalStartAbs),
 						cov.get((int) (i - this.intervalStartAbs)) + 1);
 				if (qualities.length == 0) {
@@ -158,10 +233,10 @@ public class IntervalAbs implements Comparable<IntervalAbs> {
 				} else {
 					qual.set((int) (i - this.intervalStartAbs),
 							qual.get((int) (i - this.intervalStartAbs)) + 1);
-//					System.out.println(this.intervalSize + " - "
-//							+ relInIntervalPosition + " - " + qualities.length
-//							+ " - " + relInReadPosition + " - "
-//							+ qualities[relInReadPosition]);
+					// System.out.println(this.intervalSize + " - "
+					// + relInIntervalPosition + " - " + qualities.length
+					// + " - " + relInReadPosition + " - "
+					// + qualities[relInReadPosition]);
 				}
 				hitted = true;
 			}

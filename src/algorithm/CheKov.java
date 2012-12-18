@@ -137,11 +137,11 @@ public class CheKov {
 			 *    If things are unclear uncomment the below output and check
 			 */
 			// check if length and mapping coordinates fit together
-//			System.out.println("AlignmentLength: "
-//					+ (samRecord.getAlignmentEnd()
-//							- samRecord.getAlignmentStart() + 1)
-//					+ " ReadLength: " + samRecord.getReadBases().length + " : "
-//					+ samRecord.getCigarString());
+			System.out.println(samRecord.getReadName() + " " + samRecord.getAlignmentStart() + "  AlignmentLength: "
+					+ (samRecord.getAlignmentEnd()
+							- samRecord.getAlignmentStart() + 1)
+					+ " ReadLength: " + (samRecord.getReadBases().length) + " : "
+					+ samRecord.getCigarString());
 
 			// check the output in detail
 //			 for (int i = 0; i < samRecord.getBaseQualities().length; i++)
