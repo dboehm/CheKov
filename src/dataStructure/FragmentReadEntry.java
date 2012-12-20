@@ -128,7 +128,7 @@ public class FragmentReadEntry extends ReadEntry {
 						+ offset;
 				absAlEndOfRead = this.getSamRecord().getAlignmentEnd() + offset;
 				// else reverse Read
-			} else { // auch bei reversen Reads ist absAlStart < absAlEnd
+			} else { // same for reverse Reads :-) absAlStart < absAlEnd
 				absAlStartOfRead = this.getSamRecord().getAlignmentStart()
 						+ offset;
 				absAlEndOfRead = this.getSamRecord().getAlignmentEnd() + offset;
@@ -170,6 +170,7 @@ public class FragmentReadEntry extends ReadEntry {
 					FragmentReadEntry.countOffTargetReads(FragmentReadEntry
 							.getOffTargetReadCount() + 1);
 				}
+				System.out.println(floorInterval);
 			}
 		}
 	}

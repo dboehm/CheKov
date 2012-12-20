@@ -1,4 +1,4 @@
-package algorithm;
+ package algorithm;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -137,11 +137,11 @@ public class CheKov {
 			 *    If things are unclear uncomment the below output and check
 			 */
 			// check if length and mapping coordinates fit together
-			System.out.println(samRecord.getReadName() + " " + samRecord.getAlignmentStart() + "  AlignmentLength: "
-					+ (samRecord.getAlignmentEnd()
-							- samRecord.getAlignmentStart() + 1)
-					+ " ReadLength: " + (samRecord.getReadBases().length) + " : "
-					+ samRecord.getCigarString());
+//			System.out.println("\n" + samRecord.getReadName() + " " + samRecord.getAlignmentStart() + "-"+samRecord.getAlignmentEnd() + "  AlignmentLength: "
+//					+ (samRecord.getAlignmentEnd()
+//							- samRecord.getAlignmentStart() + 1)
+//					+ " ReadLength: " + (samRecord.getReadBases().length) + " : "
+//					+ samRecord.getCigarString());
 
 			// check the output in detail
 //			 for (int i = 0; i < samRecord.getBaseQualities().length; i++)
@@ -199,7 +199,6 @@ public class CheKov {
 		 * alteredNucleotidePositionsEntries just to show fast the result as
 		 * output! need to be implemented in other way soon
 		 */
-
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(
 				homopolymerFile))) {
 			for (TargetNucleotidePositionEntry tnpe : alteredNucleotidePositionsEntries) {
