@@ -124,14 +124,15 @@ public class IntervalAbs implements Comparable<IntervalAbs> {
 			return 0;
 		// the range is from ~3E9 which is to much for an int, /10 maximizes
 		// values
-		 return (int) (this.intervalStartAbs / 2 - other.intervalStartAbs / 2);
-		// the before implementation seems to be buggy, this following implementation even more :-(
-//		return (this.getChr()
-//				* ((int) (this.intervalStartAbs - ChromosomeOffset
-//						.getChromosomeOffsetbyNumber(this.getChr()).getOffset())))
-//				- ((other.getChr()
-//				* ((int) (other.intervalStartAbs - ChromosomeOffset
-//						.getChromosomeOffsetbyNumber(other.getChr()).getOffset()))));
+		return (int) (this.intervalStartAbs / 2 - other.intervalStartAbs / 2);
+		// the before implementation seems to be buggy, this following
+		// implementation even more :-(
+		// return (this.getChr()
+		// * ((int) (this.intervalStartAbs - ChromosomeOffset
+		// .getChromosomeOffsetbyNumber(this.getChr()).getOffset())))
+		// - ((other.getChr()
+		// * ((int) (other.intervalStartAbs - ChromosomeOffset
+		// .getChromosomeOffsetbyNumber(other.getChr()).getOffset()))));
 	}
 
 	@Override
@@ -166,34 +167,29 @@ public class IntervalAbs implements Comparable<IntervalAbs> {
 		 * ==> hitted = false intervalStartAbs < readAbsStart && intervalEndAbs
 		 * < readAbsStart case 4: seems to be a bug, perhaps because of the
 		 * implementation of the compareTo() - method in IntervalAbs, we changed
-		 * the implementation of the compareTo method and removed bug case 4,
-		 * which was IntervalAbs was at all bigger than ReadInterval withoit
-		 * overlap
+		 * the implementation of the compareTo method to divide 2 and removed
+		 * bug case 4, which was IntervalAbs was at all bigger than ReadInterval
+		 * without overlap - still checked by assert
 		 */
 		if (this.intervalStartAbs > readAbsStart
 				&& this.intervalStartAbs <= readAbsEnd + 1) {
 			relInReadPosition = (int) (this.intervalStartAbs - readAbsStart + 1);
 			relInIntervalPosition = 0;
-//			System.out.print("Case 1, ");
 			hitted = true;
 		} else if (this.intervalStartAbs <= readAbsStart
 				&& this.intervalEndAbs > readAbsStart) {
 			relInReadPosition = 0;
 			relInIntervalPosition = (int) (readAbsStart - this.intervalStartAbs);
-//			System.out.print("Case 2, ");
 			hitted = true;
 		} else if (this.intervalStartAbs <= readAbsStart
 				&& this.intervalEndAbs <= readAbsStart) {
-//			System.out.print("Case 3, ");
 			return hitted; // it is false here
-		} else if (this.intervalStartAbs > readAbsStart
-				&& this.intervalEndAbs > readAbsStart) {
-			System.out.print("Case 4, ");
+		} else {
+			assert !(this.intervalStartAbs > readAbsStart && this.intervalEndAbs > readAbsStart) : "Return interval of floor() completely downstream of read. Check compareTo()";
 			return hitted; // it is false here
 		}
-
-//		System.out.println("In Interval " + relInIntervalPosition
-//				+ "  InRead : " + relInReadPosition);
+		System.out.println("In Interval " + relInIntervalPosition
+				+ "  InRead : " + relInReadPosition);
 		for (int i = 0; i < cigarTokens.size(); i += 2) {
 			int tokenCount = Integer.parseInt(cigarTokens.get(i));
 			String tokenType = cigarTokens.get(i + 1);
@@ -219,28 +215,29 @@ public class IntervalAbs implements Comparable<IntervalAbs> {
 			System.out.print("+++");
 		}
 		System.out.println();
+		// this prints the complete quality byte[] array
 		for (int j = 0; j < qualities.length; j++)
 			System.out.print(qualities[j] + ":");
 		System.out.println();
 		System.out.println(" " + qualities.length + " readAbsStart-ReadAbsEnd="
 				+ readAbsStart + "-" + readAbsEnd + "="
 				+ (readAbsEnd - readAbsStart + 1));
-
-		for (long i = this.intervalStartAbs; i < this.intervalEndAbs; i++) {
-			if (i >= readAbsStart && i < readAbsEnd) {
-				relInIntervalPosition = (int) (i - this.intervalStartAbs);
-				relInReadPosition = (int) (i - readAbsStart);
-				cov.set((int) (i - this.intervalStartAbs),
-						cov.get((int) (i - this.intervalStartAbs)) + 1);
-				if (qualities.length == 0) {
-					CheKov.incrementReadsWithoutQualities();
-				} else {
-					qual.set((int) (i - this.intervalStartAbs),
-							qual.get((int) (i - this.intervalStartAbs)) + 1);
-				}
-				hitted = true;
-			}
-		}
+		// this was the old implementation
+		// for (long i = this.intervalStartAbs; i < this.intervalEndAbs; i++) {
+		// if (i >= readAbsStart && i < readAbsEnd) {
+		// relInIntervalPosition = (int) (i - this.intervalStartAbs);
+		// relInReadPosition = (int) (i - readAbsStart);
+		// cov.set((int) (i - this.intervalStartAbs),
+		// cov.get((int) (i - this.intervalStartAbs)) + 1);
+		// if (qualities.length == 0) {
+		// CheKov.incrementReadsWithoutQualities();
+		// } else {
+		// qual.set((int) (i - this.intervalStartAbs),
+		// qual.get((int) (i - this.intervalStartAbs)) + 1);
+		// }
+		// hitted = true;
+		// }
+		// }
 		this.setCoverage(cov);
 		return hitted;
 	}
