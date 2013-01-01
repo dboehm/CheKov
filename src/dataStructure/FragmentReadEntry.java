@@ -158,7 +158,7 @@ public class FragmentReadEntry extends ReadEntry {
 			if (floorInterval != null) {
 				if (floorInterval.readHitsAbsInterval(tempRead.getEndAbs(),
 						tempRead.getStartAbs(), this.getSamRecord()
-								.getBaseQualities(), this.getCigarTokens())) {
+								.getBaseQualities(), this.getCigarTokens(), this.getSamRecord())) {
 					// count the reads at least hit one position of the
 					// IntervalAbs
 					FragmentReadEntry.countOnTargetReads(FragmentReadEntry
@@ -170,7 +170,7 @@ public class FragmentReadEntry extends ReadEntry {
 					FragmentReadEntry.countOffTargetReads(FragmentReadEntry
 							.getOffTargetReadCount() + 1);
 				}
-				System.out.println(floorInterval);
+//				System.out.println(floorInterval);
 			}
 		}
 	}
@@ -451,11 +451,5 @@ public class FragmentReadEntry extends ReadEntry {
 		FragmentReadEntry.startTime = startTime;
 	}
 
-	@Override
-	public void collectQualities() {
-
-		this.getSamRecord().getBaseQualities();
-
-	}
 
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import algorithm.CheKov;
 
+import net.sf.samtools.SAMRecord;
+
 public class IntervalAbs implements Comparable<IntervalAbs> {
 
 	public static int INTERVAL_THRESHOLD;
@@ -148,14 +150,11 @@ public class IntervalAbs implements Comparable<IntervalAbs> {
 	}
 
 	public boolean readHitsAbsInterval(long readAbsStart, long readAbsEnd,
-			byte[] qualities, ArrayList<String> cigarTokens) {
+			byte[] qualities, ArrayList<String> cigarTokens, SAMRecord samRecord) {
 		boolean hitted = false;
 		// get the copy of the so far ArrayLists of the IntervalAbs
 		ArrayList<Integer> cov = this.getCoverage();
 		ArrayList<Integer> qual = this.getQuality();
-		int relInReadPosition = 0;
-		int relInIntervalPosition = 0;
-		int inCigarPosition = 0;
 		/*
 		 * there are 3 + 1 scenarios: case 1: Read starts BEFORE the Interval
 		 * and ends IN the Interval or following the Interval ==>
@@ -171,25 +170,66 @@ public class IntervalAbs implements Comparable<IntervalAbs> {
 		 * bug case 4, which was IntervalAbs was at all bigger than ReadInterval
 		 * without overlap - still checked by assert
 		 */
-		if (this.intervalStartAbs > readAbsStart
-				&& this.intervalStartAbs <= readAbsEnd + 1) {
-			relInReadPosition = (int) (this.intervalStartAbs - readAbsStart + 1);
-			relInIntervalPosition = 0;
-			hitted = true;
-		} else if (this.intervalStartAbs <= readAbsStart
-				&& this.intervalEndAbs > readAbsStart) {
-			relInReadPosition = 0;
-			relInIntervalPosition = (int) (readAbsStart - this.intervalStartAbs);
-			hitted = true;
-		} else if (this.intervalStartAbs <= readAbsStart
-				&& this.intervalEndAbs <= readAbsStart) {
-			return hitted; // it is false here
-		} else {
-			assert !(this.intervalStartAbs > readAbsStart && this.intervalEndAbs > readAbsStart) : "Return interval of floor() completely downstream of read. Check compareTo()";
-			return hitted; // it is false here
+		int allTokenCount = 0;
+		int relInReadMapCoordinate = 0;
+		int relInReadBpCoordinate = 0;
+		int relInIntervalCoordinate = 0;
+
+		boolean isInInterval = false;
+		for (int j = 0; j < cigarTokens.size(); j += 2) {
+			int tokenCount = Integer.parseInt(cigarTokens.get(j));
+			String tokenType = cigarTokens.get(j + 1);
+			for (relInReadBpCoordinate = allTokenCount; relInReadBpCoordinate < (tokenCount + allTokenCount); relInReadBpCoordinate++, relInReadMapCoordinate++) {
+				long absInReadMapCoordinate = relInReadMapCoordinate
+						+ samRecord.getAlignmentStart()
+						+ ChromosomeOffset
+								.offset(ChromosomeOffset
+										.chromosomeNumber(samRecord
+												.getReferenceName()));
+				if (absInReadMapCoordinate >= this.intervalStartAbs
+						&& absInReadMapCoordinate < this.intervalEndAbs) {
+					relInIntervalCoordinate = (int) (absInReadMapCoordinate - this.intervalStartAbs);
+					hitted = true;
+					isInInterval = true;
+				} else
+					isInInterval = false;
+				switch (tokenType) {
+				case "M":
+					if (isInInterval) {
+						cov.set(relInIntervalCoordinate,
+								cov.get(relInIntervalCoordinate) + 1);
+					}
+					break;
+				case "D":
+					if (isInInterval)
+						relInReadMapCoordinate--;
+					break;
+				case "I":
+					if (isInInterval)
+						break;
+				case "S":
+					continue;
+
+				}
+			}
+			allTokenCount = allTokenCount + tokenCount;
 		}
-		System.out.println("In Interval " + relInIntervalPosition
-				+ "  InRead : " + relInReadPosition);
+
+		this.setCoverage(cov);
+		return hitted;
+	}
+
+	public void printUsefulDebugInfo(long readAbsStart, long readAbsEnd,
+			byte[] qualities, ArrayList<String> cigarTokens,
+			int inReadPositionStart, int inIntervalPositionStart,
+			int inIntervalPositionEnd, int inCigarPosition, SAMRecord samRecord) {
+		System.out.printf("%n%n%-10s%s%n", "Interval:", this.toString());
+		System.out.printf("%-10s%s:%,d-%,d (%d bp / %d bp) [%s]%n", "Read:",
+				samRecord.getReferenceName(), samRecord.getAlignmentStart(),
+				samRecord.getAlignmentEnd(), samRecord.getReadLength(),
+				(readAbsEnd - readAbsStart + 1), samRecord.getCigarString());
+		System.out.printf("%s:%d-%d  %s:%d-%n", "I", inIntervalPositionStart,
+				inIntervalPositionEnd, "R", inReadPositionStart);
 		for (int i = 0; i < cigarTokens.size(); i += 2) {
 			int tokenCount = Integer.parseInt(cigarTokens.get(i));
 			String tokenType = cigarTokens.get(i + 1);
@@ -219,27 +259,7 @@ public class IntervalAbs implements Comparable<IntervalAbs> {
 		for (int j = 0; j < qualities.length; j++)
 			System.out.print(qualities[j] + ":");
 		System.out.println();
-		System.out.println(" " + qualities.length + " readAbsStart-ReadAbsEnd="
-				+ readAbsStart + "-" + readAbsEnd + "="
-				+ (readAbsEnd - readAbsStart + 1));
-		// this was the old implementation
-		// for (long i = this.intervalStartAbs; i < this.intervalEndAbs; i++) {
-		// if (i >= readAbsStart && i < readAbsEnd) {
-		// relInIntervalPosition = (int) (i - this.intervalStartAbs);
-		// relInReadPosition = (int) (i - readAbsStart);
-		// cov.set((int) (i - this.intervalStartAbs),
-		// cov.get((int) (i - this.intervalStartAbs)) + 1);
-		// if (qualities.length == 0) {
-		// CheKov.incrementReadsWithoutQualities();
-		// } else {
-		// qual.set((int) (i - this.intervalStartAbs),
-		// qual.get((int) (i - this.intervalStartAbs)) + 1);
-		// }
-		// hitted = true;
-		// }
-		// }
-		this.setCoverage(cov);
-		return hitted;
+
 	}
 
 	@Override
