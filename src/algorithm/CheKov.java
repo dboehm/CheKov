@@ -12,12 +12,16 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.TreeSet;
 
+import logger.LogReadConfigExample;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 import dataStructure.ChromosomeOffset;
 import dataStructure.FragmentReadEntry;
@@ -33,6 +37,7 @@ import net.sf.samtools.SAMRecord;
 
 public class CheKov {
 
+	private static final long FIVE_SECS = 5000;
 	/**
 	 * @param args
 	 * @throws IOException
@@ -57,16 +62,20 @@ public class CheKov {
 	private static IndexedFastaSequenceFile indexedFastaSequenceFile_Ref = null;
 
 	public static void main(String[] args) {
-		String bedfile = null; 
-		String bamfile = null; 
-		String outfile = null; 
-		String missedBEDFile = null; 
+		final Logger logger = Logger.getLogger(CheKov.class);
+		PropertyConfigurator.configureAndWatch("config/log4j.properties",
+				FIVE_SECS);
+		logger.info("CheKovLogger started");
+		String bedfile = null;
+		String bamfile = null;
+		String outfile = null;
+		String missedBEDFile = null;
 		// we need to do IMPORTANTLY some useful things with this parameter
 		IntervalAbs.INTERVAL_THRESHOLD = 0;
 		String refFile = null;
 		String homopolymerFile = null;
 		final Options allowedOptions = new Options();
-		// Add all options from enum AppParameterCLI 
+		// Add all options from enum AppParameterCLI
 		for (AppParameterCLI parameter : AppParameterCLI.values()) {
 			allowedOptions.addOption(parameter.shortName, parameter.name,
 					parameter.hasArgs, parameter.helpText);
@@ -82,13 +91,19 @@ public class CheKov {
 			outfile = commandLine.getOptionValue('o');
 			bedfile = commandLine.getOptionValue('b');
 			bamfile = commandLine.getOptionValue('a');
-			
+
 		} catch (ParseException e3) {
 			// TODO Auto-generated catch block
 			HelpFormatter help = new HelpFormatter();
 			help.printHelp("CheKov", allowedOptions);
 			System.exit(0);
 		}
+		logger.info("BAM-File: '" + bamfile + "'");
+		logger.info("BED-File: '" + bedfile + "'");
+		logger.info("Reference-File: '" + refFile + "'");
+		logger.info("Outfile: '" + outfile + "'");
+		logger.info("missed-File: '" + missedBEDFile + "'");
+		logger.info("Homopolymer-File: '" + homopolymerFile + "'");
 		CheKov.setStartTime(Math.abs(System.nanoTime()));
 
 		/*
@@ -113,8 +128,8 @@ public class CheKov {
 			ex.printStackTrace();
 		}
 		CheKov.setEndTime(Math.abs(System.nanoTime()) - CheKov.getStartTime());
-		System.err.println("IntervalList made ...." + intervalTreeSet.size()
-				+ " in " + (double) endTime / 1000000000 + " s");
+		logger.info("IntervalList made ...." + intervalTreeSet.size() + " in "
+				+ (double) endTime / 1000000000 + " s");
 
 		// Now start the ReferenceReader
 
@@ -169,7 +184,7 @@ public class CheKov {
 			 * If things are unclear uncomment the below output and check
 			 */
 			// check if length and mapping coordinates fit together
-//			printSamRecord(samRecord);
+			// printSamRecord(samRecord);
 
 			// check the output in detail
 			// for (int i = 0; i < samRecord.getBaseQualities().length; i++)
@@ -333,17 +348,18 @@ public class CheKov {
 	}// end main
 
 	public static void printSamRecord(SAMRecord samRecord) {
-		System.out.println("\n"
-				+ samRecord.getReadName()
-				+ " "
-				+ samRecord.getAlignmentStart()
-				+ "-"
-				+ samRecord.getAlignmentEnd()
-				+ "  AlignmentLength: "
-				+ (samRecord.getAlignmentEnd()
-						- samRecord.getAlignmentStart() + 1)
-				+ " ReadLength: " + (samRecord.getReadBases().length)
-				+ " : " + samRecord.getCigarString());
+		System.out
+				.println("\n"
+						+ samRecord.getReadName()
+						+ " "
+						+ samRecord.getAlignmentStart()
+						+ "-"
+						+ samRecord.getAlignmentEnd()
+						+ "  AlignmentLength: "
+						+ (samRecord.getAlignmentEnd()
+								- samRecord.getAlignmentStart() + 1)
+						+ " ReadLength: " + (samRecord.getReadBases().length)
+						+ " : " + samRecord.getCigarString());
 	}
 
 	public static void printQCResult() {
