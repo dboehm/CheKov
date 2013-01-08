@@ -26,24 +26,12 @@ http://192.168.2.100/svn
 
 66d971c2-c8fe-42a4-b61c-096fefb17d50
 
-algorithm
-dir
-
-
-
-delete
-
 dataStructure
 dir
-
-
-
-delete
 
 datatypes
 dir
-
-
-
-delete
+
+algorithm
+dir
 

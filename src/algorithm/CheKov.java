@@ -211,13 +211,13 @@ public class CheKov {
 			if (ReadEntry.getReadCount() % 1_000_00 == 0) {
 				CheKov.setEndTime(Math.abs(System.nanoTime())
 						- CheKov.getStartTime());
-				System.out.printf("%,d %,d %,d %5.2f %s  %,d %s%n",
+				logger.info(String.format("%,d %,d %,d %5.2f %s  %,d %s",
 						ReadEntry.getReadCount(),
 						FragmentReadEntry.getFragmentReadCount(),
 						PairedReadEntry.getPairedEndReadCount(),
 						(double) CheKov.getEndTime() / 1000000000, "s",
 						alteredNucleotidePositionsEntries.size(),
-						"alteredNucleotidePositionsEntries");
+						"alteredNucleotidePositionsEntries"));
 				CheKov.setStartTime(Math.abs(System.nanoTime()));
 			}
 			// calculate the coverage of each read on the targets represented by
