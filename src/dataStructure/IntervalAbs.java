@@ -51,9 +51,9 @@ public class IntervalAbs implements Comparable<IntervalAbs> {
 				+ ChromosomeOffset.getChromosomeOffsetbyNumber(chr).getOffset()
 				+ INTERVAL_THRESHOLD;
 		intervalSize = (int) (endAbs - startAbs);
-		String[] fields = lines[3].split(":");
+		String[] fields = lines[3].split(";");
 
-		return new IntervalAbs(chr, startAbs, endAbs, intervalSize, fields[2]);
+		return new IntervalAbs(chr, startAbs, endAbs, intervalSize, fields[1]);
 	}
 
 	public String getLine() {

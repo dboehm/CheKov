@@ -146,20 +146,21 @@ public class CheKov {
 		 * Java 7 - Mehr als eine Insel von Christian Ullenboom Das Handbuch zu
 		 * den Java SE-Bibliotheken: " ... Ein TreeSet verwaltet die Elemente
 		 * immer sortiert (intern werden die Elemente in einem balancierten
-		 * Binärbaum gehalten). Zugiffsmethoden sind ceiling(E e) = least
+		 * Binaerbaum gehalten). Zugiffsmethoden sind ceiling(E e) = least
 		 * element greater than or equal, higher(E e) = least element strictly
 		 * greater than element E, floor(E e), lower(E e) d.h. eine eigene
-		 * Implementierung eines BALANCIERTEN Binärbaums ist im Prinzip nicht
-		 * nötig. Evtl. später Performance
+		 * Implementierung eines BALANCIERTEN Binaerbaums ist im Prinzip nicht
+		 * noetig. Evtl. spaeter Performance
 		 */
 		CheKov.setStartTime(Math.abs(System.nanoTime()));
 		SAMFileReader samFileReader = new SAMFileReader(new File(bamfile));
 		samFileReader.setValidationStringency(ValidationStringency.LENIENT);
 		for (SAMRecord samRecord : samFileReader) {
-			// this is the count for all reads coming in
+			// do not deal with chrM
 			if (samRecord.getReferenceName() == "chrM")
 				continue;
-
+			// this is the count for all reads coming in
+			ReadEntry.setReadCount(ReadEntry.getReadCount() + 1);
 			// check if length of read and length of quality array is same
 			if (samRecord.getReadBases().length != samRecord.getBaseQualities().length) {
 				CheKov.incrementReadsWithoutQualities();
@@ -167,7 +168,7 @@ public class CheKov {
 			}
 			/*
 			 * the result is: mapping coordinates getAlignmentStart() and
-			 * getAlignmentEnd() have 1. have included the deleted Positions
+			 * getAlignmentEnd() 1. have included the deleted Positions
 			 * from the read as a gap. means from Cigar, if 1D is in Cigar, the
 			 * length of Alignment is each 1 position added. (==> if you give
 			 * the Byte[] of the Read and/or Quality AND the Cigar, then 1D
@@ -191,7 +192,7 @@ public class CheKov {
 			// System.out.print((char) samRecord.getReadBases()[i] + ""
 			// + samRecord.getBaseQualities()[i] + " ");
 			// System.out.println();
-			ReadEntry.setReadCount(ReadEntry.getReadCount() + 1);
+
 			ReadEntry readEntry = null;
 			// if the Read is initially a Single Fragment Read, initialize a
 			// FragmentReadEntry and count the numbers
@@ -208,7 +209,7 @@ public class CheKov {
 			}
 			// this is a simple form of a progress bar, printing a line every 1
 			// Million Reads
-			if (ReadEntry.getReadCount() % 1_000_00 == 0) {
+			if (ReadEntry.getReadCount() % 1_000_000 == 0) {
 				CheKov.setEndTime(Math.abs(System.nanoTime())
 						- CheKov.getStartTime());
 				logger.info(String.format("%,d %,d %,d %5.2f %s  %,d %s",
