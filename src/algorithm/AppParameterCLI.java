@@ -7,7 +7,10 @@ public enum AppParameterCLI {
 	OUT("o","out", true, "output-File to write the coverages of intervals"),
 	REF("r", "ref", true, "read the reference-File"),
 	HOM("h", "hom", true, "output-File to write the homopolymers"),
-	THRESHOLD("t", "threshold", true, "the threshold Integer plus/minus region of the interval");
+	THRESHOLD("t", "threshold", true, "the threshold Integer plus/minus region of the interval"),
+	UNDERREPRESENTED("u","under",true, "the cutoff coverage for identifying an underrepresented"),
+	UNDERFILE("uf", "underFile",true, "the filename for the underrepresented")
+	;
 	final String shortName;
 	final String name;
 	final boolean hasArgs;

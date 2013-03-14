@@ -164,7 +164,7 @@ public class FragmentReadEntry extends ReadEntry {
 					FragmentReadEntry.countOnTargetReads(FragmentReadEntry
 							.getOnTargetReadCount() + 1);
 					// System.out.println(this.getSamRecord().getBaseQualityString());
-					this.analyseQuality();
+//					this.analyseQuality();
 				} else { // count if read is NOT on target, do not analyze
 							// quality
 					FragmentReadEntry.countOffTargetReads(FragmentReadEntry

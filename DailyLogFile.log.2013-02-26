@@ -1,0 +1,512 @@
+2013-Feb-57 19:27:24 INFO  [main] algorithm.CheKov: CheKovLogger started
+2013-Feb-57 19:27:24 INFO  [main] algorithm.CheKov: BAM-File: '/Users/dboehm/Downloads/Ot3198_Rerun_pstoebe_300-520_Exome-NV2_100X_07192012-reads1-index31_CACGAT_L007_R1_001.fastq.gz.MERGED.marked.realigned.fixed.recal.bam'
+2013-Feb-57 19:27:24 INFO  [main] algorithm.CheKov: BED-File: '/Users/dboehm/Downloads/ROI/HPS/HPS_Intervals_CDS_UCSC_wided30_merged.bed'
+2013-Feb-57 19:27:24 INFO  [main] algorithm.CheKov: Reference-File: '/Users/dboehm/Downloads/BIN/reference_DB/NCBI_GRCh37.fa'
+2013-Feb-57 19:27:24 INFO  [main] algorithm.CheKov: Outfile: 'out.txt'
+2013-Feb-57 19:27:24 INFO  [main] algorithm.CheKov: missed-File: 'missed.txt'
+2013-Feb-57 19:27:24 INFO  [main] algorithm.CheKov: Homopolymer-File: 'homo.txt'
+2013-Feb-57 19:27:24 INFO  [main] algorithm.CheKov: IntervalList made ....111 in 0.014679 s
+2013-Feb-57 19:27:31 INFO  [main] algorithm.CheKov: 1,000,000 0 1,000,000  6.42 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 19:43:27 INFO  [main] algorithm.CheKov: CheKovLogger started
+2013-Feb-57 19:43:27 INFO  [main] algorithm.CheKov: BAM-File: '/Users/dboehm/Downloads/Ot3198_Rerun_pstoebe_300-520_Exome-NV2_100X_07192012-reads1-index31_CACGAT_L007_R1_001.fastq.gz.MERGED.marked.realigned.fixed.recal.bam'
+2013-Feb-57 19:43:27 INFO  [main] algorithm.CheKov: BED-File: '/Users/dboehm/Downloads/ROI/HPS/HPS_Intervals_CDS_UCSC_wided30_merged.bed'
+2013-Feb-57 19:43:27 INFO  [main] algorithm.CheKov: Reference-File: '/Users/dboehm/Downloads/BIN/reference_DB/NCBI_GRCh37.fa'
+2013-Feb-57 19:43:27 INFO  [main] algorithm.CheKov: Outfile: 'out.txt'
+2013-Feb-57 19:43:27 INFO  [main] algorithm.CheKov: missed-File: 'missed.txt'
+2013-Feb-57 19:43:27 INFO  [main] algorithm.CheKov: Homopolymer-File: 'homo.txt'
+2013-Feb-57 19:43:27 INFO  [main] algorithm.CheKov: IntervalList made ....111 in 0.012851 s
+2013-Feb-57 19:43:33 INFO  [main] algorithm.CheKov: 1,000,000 0 1,000,000  5.52 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 19:43:37 INFO  [main] algorithm.CheKov: 2,000,000 0 2,000,000  4.70 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 19:43:42 INFO  [main] algorithm.CheKov: 3,000,000 0 3,000,000  4.72 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 19:43:47 INFO  [main] algorithm.CheKov: 4,000,000 0 4,000,000  4.82 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 19:46:09 INFO  [main] algorithm.CheKov: CheKovLogger started
+2013-Feb-57 19:46:09 INFO  [main] algorithm.CheKov: BAM-File: '/Users/dboehm/Downloads/Ot3198_Rerun_pstoebe_300-520_Exome-NV2_100X_07192012-reads1-index31_CACGAT_L007_R1_001.fastq.gz.MERGED.marked.realigned.fixed.recal.bam'
+2013-Feb-57 19:46:09 INFO  [main] algorithm.CheKov: BED-File: '/Users/dboehm/Downloads/ROI/HPS/HPS_Intervals_CDS_UCSC_wided30_merged.bed'
+2013-Feb-57 19:46:09 INFO  [main] algorithm.CheKov: Reference-File: '/Users/dboehm/Downloads/BIN/reference_DB/NCBI_GRCh37.fa'
+2013-Feb-57 19:46:09 INFO  [main] algorithm.CheKov: Outfile: 'out.txt'
+2013-Feb-57 19:46:09 INFO  [main] algorithm.CheKov: missed-File: 'missed.txt'
+2013-Feb-57 19:46:09 INFO  [main] algorithm.CheKov: Homopolymer-File: 'homo.txt'
+2013-Feb-57 19:46:09 INFO  [main] algorithm.CheKov: IntervalList made ....111 in 0.015904 s
+2013-Feb-57 19:46:15 INFO  [main] algorithm.CheKov: 1,000,000 0 1,000,000  5.41 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 19:48:45 INFO  [main] algorithm.CheKov: CheKovLogger started
+2013-Feb-57 19:48:45 INFO  [main] algorithm.CheKov: BAM-File: '/Users/dboehm/Downloads/Ot3198_Rerun_pstoebe_300-520_Exome-NV2_100X_07192012-reads1-index31_CACGAT_L007_R1_001.fastq.gz.MERGED.marked.realigned.fixed.recal.bam'
+2013-Feb-57 19:48:45 INFO  [main] algorithm.CheKov: BED-File: '/Users/dboehm/Downloads/ROI/HPS/HPS_Intervals_CDS_UCSC_wided30_merged.bed'
+2013-Feb-57 19:48:45 INFO  [main] algorithm.CheKov: Reference-File: '/Users/dboehm/Downloads/BIN/reference_DB/NCBI_GRCh37.fa'
+2013-Feb-57 19:48:45 INFO  [main] algorithm.CheKov: Outfile: 'out.txt'
+2013-Feb-57 19:48:45 INFO  [main] algorithm.CheKov: missed-File: 'missed.txt'
+2013-Feb-57 19:48:45 INFO  [main] algorithm.CheKov: Homopolymer-File: 'homo.txt'
+2013-Feb-57 19:48:45 INFO  [main] algorithm.CheKov: IntervalList made ....111 in 0.013076 s
+2013-Feb-57 19:50:12 INFO  [main] algorithm.CheKov: CheKovLogger started
+2013-Feb-57 19:50:12 INFO  [main] algorithm.CheKov: BAM-File: '/Users/dboehm/Downloads/Ot3198_Rerun_pstoebe_300-520_Exome-NV2_100X_07192012-reads1-index31_CACGAT_L007_R1_001.fastq.gz.MERGED.marked.realigned.fixed.recal.bam'
+2013-Feb-57 19:50:12 INFO  [main] algorithm.CheKov: BED-File: '/Users/dboehm/Downloads/ROI/HPS/HPS_Intervals_CDS_UCSC_wided30_merged.bed'
+2013-Feb-57 19:50:12 INFO  [main] algorithm.CheKov: Reference-File: '/Users/dboehm/Downloads/BIN/reference_DB/NCBI_GRCh37.fa'
+2013-Feb-57 19:50:12 INFO  [main] algorithm.CheKov: Outfile: 'out.txt'
+2013-Feb-57 19:50:12 INFO  [main] algorithm.CheKov: missed-File: 'missed.txt'
+2013-Feb-57 19:50:12 INFO  [main] algorithm.CheKov: Homopolymer-File: 'homo.txt'
+2013-Feb-57 19:50:12 INFO  [main] algorithm.CheKov: IntervalList made ....111 in 0.013447 s
+2013-Feb-57 19:50:42 INFO  [main] algorithm.CheKov: CheKovLogger started
+2013-Feb-57 19:50:42 INFO  [main] algorithm.CheKov: BAM-File: '/Users/dboehm/Downloads/Ot3198_Rerun_pstoebe_300-520_Exome-NV2_100X_07192012-reads1-index31_CACGAT_L007_R1_001.fastq.gz.MERGED.marked.realigned.fixed.recal.bam'
+2013-Feb-57 19:50:42 INFO  [main] algorithm.CheKov: BED-File: '/Users/dboehm/Downloads/ROI/HPS/HPS_Intervals_CDS_UCSC_wided30_merged.bed'
+2013-Feb-57 19:50:42 INFO  [main] algorithm.CheKov: Reference-File: '/Users/dboehm/Downloads/BIN/reference_DB/NCBI_GRCh37.fa'
+2013-Feb-57 19:50:42 INFO  [main] algorithm.CheKov: Outfile: 'out.txt'
+2013-Feb-57 19:50:42 INFO  [main] algorithm.CheKov: missed-File: 'missed.txt'
+2013-Feb-57 19:50:42 INFO  [main] algorithm.CheKov: Homopolymer-File: 'homo.txt'
+2013-Feb-57 19:50:42 INFO  [main] algorithm.CheKov: IntervalList made ....111 in 0.013269 s
+2013-Feb-57 20:08:04 INFO  [main] algorithm.CheKov: CheKovLogger started
+2013-Feb-57 20:08:04 INFO  [main] algorithm.CheKov: BAM-File: '/Users/dboehm/Downloads/Ot3198_Rerun_pstoebe_300-520_Exome-NV2_100X_07192012-reads1-index31_CACGAT_L007_R1_001.fastq.gz.MERGED.marked.realigned.fixed.recal.bam'
+2013-Feb-57 20:08:04 INFO  [main] algorithm.CheKov: BED-File: '/Users/dboehm/Downloads/ROI/HPS/HPS_Intervals_CDS_UCSC_wided30_merged.bed'
+2013-Feb-57 20:08:04 INFO  [main] algorithm.CheKov: Reference-File: '/Users/dboehm/Downloads/BIN/reference_DB/NCBI_GRCh37.fa'
+2013-Feb-57 20:08:04 INFO  [main] algorithm.CheKov: Outfile: 'out.txt'
+2013-Feb-57 20:08:04 INFO  [main] algorithm.CheKov: missed-File: 'missed.txt'
+2013-Feb-57 20:08:04 INFO  [main] algorithm.CheKov: Homopolymer-File: 'homo.txt'
+2013-Feb-57 20:08:04 INFO  [main] algorithm.CheKov: IntervalList made ....111 in 0.013154 s
+2013-Feb-57 20:08:10 INFO  [main] algorithm.CheKov: 1,000,000 0 1,000,000  5.35 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:08:14 INFO  [main] algorithm.CheKov: 2,000,000 0 2,000,000  4.74 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:08:19 INFO  [main] algorithm.CheKov: 3,000,000 0 3,000,000  4.69 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:09:59 INFO  [main] algorithm.CheKov: CheKovLogger started
+2013-Feb-57 20:09:59 INFO  [main] algorithm.CheKov: BAM-File: '/Users/dboehm/Downloads/Ot3198_Rerun_pstoebe_300-520_Exome-NV2_100X_07192012-reads1-index31_CACGAT_L007_R1_001.fastq.gz.MERGED.marked.realigned.fixed.recal.bam'
+2013-Feb-57 20:09:59 INFO  [main] algorithm.CheKov: BED-File: '/Users/dboehm/Downloads/ROI/HPS/HPS_Intervals_CDS_UCSC_wided30_merged.bed'
+2013-Feb-57 20:09:59 INFO  [main] algorithm.CheKov: Reference-File: '/Users/dboehm/Downloads/BIN/reference_DB/NCBI_GRCh37.fa'
+2013-Feb-57 20:09:59 INFO  [main] algorithm.CheKov: Outfile: 'out.txt'
+2013-Feb-57 20:09:59 INFO  [main] algorithm.CheKov: missed-File: 'missed.txt'
+2013-Feb-57 20:09:59 INFO  [main] algorithm.CheKov: Homopolymer-File: 'homo.txt'
+2013-Feb-57 20:09:59 INFO  [main] algorithm.CheKov: IntervalList made ....111 in 0.0131 s
+2013-Feb-57 20:10:04 INFO  [main] algorithm.CheKov: 1,000,000 0 1,000,000  5.36 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:10:09 INFO  [main] algorithm.CheKov: 2,000,000 0 2,000,000  4.79 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:10:14 INFO  [main] algorithm.CheKov: 3,000,000 0 3,000,000  4.76 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:10:19 INFO  [main] algorithm.CheKov: 4,000,000 0 4,000,000  4.87 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:10:23 INFO  [main] algorithm.CheKov: 5,000,000 0 5,000,000  4.80 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:10:28 INFO  [main] algorithm.CheKov: 6,000,000 0 6,000,000  4.82 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:10:33 INFO  [main] algorithm.CheKov: 7,000,000 0 7,000,000  4.73 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:10:38 INFO  [main] algorithm.CheKov: 8,000,000 0 8,000,000  4.67 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:10:43 INFO  [main] algorithm.CheKov: 9,000,000 0 9,000,000  4.81 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:10:47 INFO  [main] algorithm.CheKov: 10,000,000 0 10,000,000  4.84 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:10:52 INFO  [main] algorithm.CheKov: 11,000,000 0 11,000,000  4.84 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:10:57 INFO  [main] algorithm.CheKov: 12,000,000 0 12,000,000  4.85 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:11:02 INFO  [main] algorithm.CheKov: 13,000,000 0 13,000,000  4.86 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:11:07 INFO  [main] algorithm.CheKov: 14,000,000 0 14,000,000  4.97 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:11:12 INFO  [main] algorithm.CheKov: 15,000,000 0 15,000,000  4.91 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:11:17 INFO  [main] algorithm.CheKov: 16,000,000 0 16,000,000  4.95 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:11:22 INFO  [main] algorithm.CheKov: 17,000,000 0 17,000,000  4.87 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:11:26 INFO  [main] algorithm.CheKov: 18,000,000 0 18,000,000  4.79 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:11:31 INFO  [main] algorithm.CheKov: 19,000,000 0 19,000,000  4.83 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:11:36 INFO  [main] algorithm.CheKov: 20,000,000 0 20,000,000  4.87 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:11:41 INFO  [main] algorithm.CheKov: 21,000,000 0 21,000,000  4.76 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:11:46 INFO  [main] algorithm.CheKov: 22,000,000 0 22,000,000  4.78 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:11:51 INFO  [main] algorithm.CheKov: 23,000,000 0 23,000,000  4.87 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:11:55 INFO  [main] algorithm.CheKov: 24,000,000 0 24,000,000  4.87 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:12:00 INFO  [main] algorithm.CheKov: 25,000,000 0 25,000,000  4.91 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:12:05 INFO  [main] algorithm.CheKov: 26,000,000 0 26,000,000  4.88 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:12:10 INFO  [main] algorithm.CheKov: 27,000,000 0 27,000,000  4.76 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:12:15 INFO  [main] algorithm.CheKov: 28,000,000 0 28,000,000  4.90 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:12:20 INFO  [main] algorithm.CheKov: 29,000,000 0 29,000,000  4.95 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:12:25 INFO  [main] algorithm.CheKov: 30,000,000 0 30,000,000  4.85 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:12:29 INFO  [main] algorithm.CheKov: 31,000,000 0 31,000,000  4.86 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:12:38 INFO  [main] algorithm.CheKov: 32,000,000 0 32,000,000  8.61 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:12:48 INFO  [main] algorithm.CheKov: 33,000,000 0 33,000,000  9.66 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:12:57 INFO  [main] algorithm.CheKov: 34,000,000 0 34,000,000  9.51 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:13:07 INFO  [main] algorithm.CheKov: 35,000,000 0 35,000,000  9.59 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:13:16 INFO  [main] algorithm.CheKov: 36,000,000 0 36,000,000  9.42 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:13:26 INFO  [main] algorithm.CheKov: 37,000,000 0 37,000,000  9.55 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:13:35 INFO  [main] algorithm.CheKov: 38,000,000 0 38,000,000  9.57 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:13:45 INFO  [main] algorithm.CheKov: 39,000,000 0 39,000,000  9.64 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:13:55 INFO  [main] algorithm.CheKov: 40,000,000 0 40,000,000  9.58 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:14:04 INFO  [main] algorithm.CheKov: 41,000,000 0 41,000,000  9.58 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:14:14 INFO  [main] algorithm.CheKov: 42,000,000 0 42,000,000  9.65 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:14:23 INFO  [main] algorithm.CheKov: 43,000,000 0 43,000,000  9.59 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:14:33 INFO  [main] algorithm.CheKov: 44,000,000 0 44,000,000  9.55 s  66 alteredNucleotidePositionsEntries
+2013-Feb-57 20:14:43 INFO  [main] algorithm.CheKov: 45,000,000 0 45,000,000  9.60 s  66 alteredNucleotidePositionsEntries
+2013-Feb-57 20:14:52 INFO  [main] algorithm.CheKov: 46,000,000 0 46,000,000  9.65 s  66 alteredNucleotidePositionsEntries
+2013-Feb-57 20:15:02 INFO  [main] algorithm.CheKov: 47,000,000 0 47,000,000  9.56 s  66 alteredNucleotidePositionsEntries
+2013-Feb-57 20:15:11 INFO  [main] algorithm.CheKov: 48,000,000 0 48,000,000  9.64 s  66 alteredNucleotidePositionsEntries
+2013-Feb-57 20:15:21 INFO  [main] algorithm.CheKov: 49,000,000 0 49,000,000  9.62 s  74 alteredNucleotidePositionsEntries
+2013-Feb-57 20:15:31 INFO  [main] algorithm.CheKov: 50,000,000 0 50,000,000  9.55 s  74 alteredNucleotidePositionsEntries
+2013-Feb-57 20:15:40 INFO  [main] algorithm.CheKov: 51,000,000 0 51,000,000  9.56 s  74 alteredNucleotidePositionsEntries
+2013-Feb-57 20:15:50 INFO  [main] algorithm.CheKov: 52,000,000 0 52,000,000  9.54 s  74 alteredNucleotidePositionsEntries
+2013-Feb-57 20:15:59 INFO  [main] algorithm.CheKov: 53,000,000 0 53,000,000  9.57 s  74 alteredNucleotidePositionsEntries
+2013-Feb-57 20:16:09 INFO  [main] algorithm.CheKov: 54,000,000 0 54,000,000  9.58 s  74 alteredNucleotidePositionsEntries
+2013-Feb-57 20:16:18 INFO  [main] algorithm.CheKov: 55,000,000 0 55,000,000  9.61 s  74 alteredNucleotidePositionsEntries
+2013-Feb-57 20:16:28 INFO  [main] algorithm.CheKov: 56,000,000 0 56,000,000  9.61 s  74 alteredNucleotidePositionsEntries
+2013-Feb-57 20:17:21 INFO  [main] algorithm.CheKov: CheKovLogger started
+2013-Feb-57 20:17:21 INFO  [main] algorithm.CheKov: BAM-File: '/Users/dboehm/Downloads/Ot3198_Rerun_pstoebe_300-520_Exome-NV2_100X_07192012-reads1-index31_CACGAT_L007_R1_001.fastq.gz.MERGED.marked.realigned.fixed.recal.bam'
+2013-Feb-57 20:17:21 INFO  [main] algorithm.CheKov: BED-File: '/Users/dboehm/Downloads/ROI/HPS/HPS_Intervals_CDS_UCSC_wided30_merged.bed'
+2013-Feb-57 20:17:21 INFO  [main] algorithm.CheKov: Reference-File: '/Users/dboehm/Downloads/BIN/reference_DB/NCBI_GRCh37.fa'
+2013-Feb-57 20:17:21 INFO  [main] algorithm.CheKov: Outfile: 'out.txt'
+2013-Feb-57 20:17:21 INFO  [main] algorithm.CheKov: missed-File: 'missed.txt'
+2013-Feb-57 20:17:21 INFO  [main] algorithm.CheKov: Homopolymer-File: 'homo.txt'
+2013-Feb-57 20:17:21 INFO  [main] algorithm.CheKov: IntervalList made ....111 in 0.013468 s
+2013-Feb-57 20:17:26 INFO  [main] algorithm.CheKov: 1,000,000 0 1,000,000  5.27 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:17:31 INFO  [main] algorithm.CheKov: 2,000,000 0 2,000,000  4.72 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:17:36 INFO  [main] algorithm.CheKov: 3,000,000 0 3,000,000  4.67 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:17:40 INFO  [main] algorithm.CheKov: 4,000,000 0 4,000,000  4.74 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:17:45 INFO  [main] algorithm.CheKov: 5,000,000 0 5,000,000  4.72 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:17:50 INFO  [main] algorithm.CheKov: 6,000,000 0 6,000,000  4.70 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:17:54 INFO  [main] algorithm.CheKov: 7,000,000 0 7,000,000  4.59 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:17:59 INFO  [main] algorithm.CheKov: 8,000,000 0 8,000,000  4.57 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:18:04 INFO  [main] algorithm.CheKov: 9,000,000 0 9,000,000  4.65 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:18:08 INFO  [main] algorithm.CheKov: 10,000,000 0 10,000,000  4.68 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:18:13 INFO  [main] algorithm.CheKov: 11,000,000 0 11,000,000  4.71 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:18:18 INFO  [main] algorithm.CheKov: 12,000,000 0 12,000,000  4.73 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:18:23 INFO  [main] algorithm.CheKov: 13,000,000 0 13,000,000  4.71 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:18:27 INFO  [main] algorithm.CheKov: 14,000,000 0 14,000,000  4.81 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:18:32 INFO  [main] algorithm.CheKov: 15,000,000 0 15,000,000  4.76 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:18:37 INFO  [main] algorithm.CheKov: 16,000,000 0 16,000,000  4.94 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:18:42 INFO  [main] algorithm.CheKov: 17,000,000 0 17,000,000  4.79 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:18:46 INFO  [main] algorithm.CheKov: 18,000,000 0 18,000,000  4.68 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:18:51 INFO  [main] algorithm.CheKov: 19,000,000 0 19,000,000  4.76 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:18:56 INFO  [main] algorithm.CheKov: 20,000,000 0 20,000,000  4.95 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:19:01 INFO  [main] algorithm.CheKov: 21,000,000 0 21,000,000  4.75 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:19:06 INFO  [main] algorithm.CheKov: 22,000,000 0 22,000,000  4.77 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:19:10 INFO  [main] algorithm.CheKov: 23,000,000 0 23,000,000  4.78 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:19:15 INFO  [main] algorithm.CheKov: 24,000,000 0 24,000,000  4.79 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:19:20 INFO  [main] algorithm.CheKov: 25,000,000 0 25,000,000  4.81 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:19:25 INFO  [main] algorithm.CheKov: 26,000,000 0 26,000,000  4.80 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:19:30 INFO  [main] algorithm.CheKov: 27,000,000 0 27,000,000  4.75 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:19:34 INFO  [main] algorithm.CheKov: 28,000,000 0 28,000,000  4.77 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:19:39 INFO  [main] algorithm.CheKov: 29,000,000 0 29,000,000  5.06 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:19:44 INFO  [main] algorithm.CheKov: 30,000,000 0 30,000,000  4.79 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:19:49 INFO  [main] algorithm.CheKov: 31,000,000 0 31,000,000  4.73 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:19:58 INFO  [main] algorithm.CheKov: 32,000,000 0 32,000,000  8.99 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:20:08 INFO  [main] algorithm.CheKov: 33,000,000 0 33,000,000  9.76 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:20:17 INFO  [main] algorithm.CheKov: 34,000,000 0 34,000,000  9.70 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:20:27 INFO  [main] algorithm.CheKov: 35,000,000 0 35,000,000  9.74 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:20:37 INFO  [main] algorithm.CheKov: 36,000,000 0 36,000,000  9.54 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:23:04 INFO  [main] algorithm.CheKov: CheKovLogger started
+2013-Feb-57 20:23:04 INFO  [main] algorithm.CheKov: BAM-File: '/Users/dboehm/Downloads/Ot3198_Rerun_pstoebe_300-520_Exome-NV2_100X_07192012-reads1-index31_CACGAT_L007_R1_001.fastq.gz.MERGED.marked.realigned.fixed.recal.bam'
+2013-Feb-57 20:23:04 INFO  [main] algorithm.CheKov: BED-File: '/Users/dboehm/Downloads/ROI/HPS/HPS_Intervals_CDS_UCSC_wided30_merged.bed'
+2013-Feb-57 20:23:04 INFO  [main] algorithm.CheKov: Reference-File: '/Users/dboehm/Downloads/BIN/reference_DB/NCBI_GRCh37.fa'
+2013-Feb-57 20:23:04 INFO  [main] algorithm.CheKov: Outfile: 'out.txt'
+2013-Feb-57 20:23:04 INFO  [main] algorithm.CheKov: missed-File: 'missed.txt'
+2013-Feb-57 20:23:04 INFO  [main] algorithm.CheKov: Homopolymer-File: 'homo.txt'
+2013-Feb-57 20:23:04 INFO  [main] algorithm.CheKov: IntervalList made ....111 in 0.013098 s
+2013-Feb-57 20:23:09 INFO  [main] algorithm.CheKov: 1,000,000 0 1,000,000  5.26 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:23:14 INFO  [main] algorithm.CheKov: 2,000,000 0 2,000,000  4.69 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:23:18 INFO  [main] algorithm.CheKov: 3,000,000 0 3,000,000  4.66 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:23:23 INFO  [main] algorithm.CheKov: 4,000,000 0 4,000,000  4.70 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:23:28 INFO  [main] algorithm.CheKov: 5,000,000 0 5,000,000  4.70 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:23:32 INFO  [main] algorithm.CheKov: 6,000,000 0 6,000,000  4.67 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:23:37 INFO  [main] algorithm.CheKov: 7,000,000 0 7,000,000  4.59 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:23:42 INFO  [main] algorithm.CheKov: 8,000,000 0 8,000,000  4.58 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:23:46 INFO  [main] algorithm.CheKov: 9,000,000 0 9,000,000  4.63 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:23:51 INFO  [main] algorithm.CheKov: 10,000,000 0 10,000,000  4.62 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:23:55 INFO  [main] algorithm.CheKov: 11,000,000 0 11,000,000  4.72 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:24:00 INFO  [main] algorithm.CheKov: 12,000,000 0 12,000,000  4.78 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:24:05 INFO  [main] algorithm.CheKov: 13,000,000 0 13,000,000  4.73 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:24:10 INFO  [main] algorithm.CheKov: 14,000,000 0 14,000,000  4.86 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:24:15 INFO  [main] algorithm.CheKov: 15,000,000 0 15,000,000  4.74 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:24:19 INFO  [main] algorithm.CheKov: 16,000,000 0 16,000,000  4.80 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:24:24 INFO  [main] algorithm.CheKov: 17,000,000 0 17,000,000  4.76 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:24:29 INFO  [main] algorithm.CheKov: 18,000,000 0 18,000,000  4.65 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:24:34 INFO  [main] algorithm.CheKov: 19,000,000 0 19,000,000  4.73 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:24:38 INFO  [main] algorithm.CheKov: 20,000,000 0 20,000,000  4.79 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:24:43 INFO  [main] algorithm.CheKov: 21,000,000 0 21,000,000  4.69 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:24:48 INFO  [main] algorithm.CheKov: 22,000,000 0 22,000,000  4.65 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:24:52 INFO  [main] algorithm.CheKov: 23,000,000 0 23,000,000  4.75 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:24:57 INFO  [main] algorithm.CheKov: 24,000,000 0 24,000,000  4.75 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:25:02 INFO  [main] algorithm.CheKov: 25,000,000 0 25,000,000  4.80 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:25:07 INFO  [main] algorithm.CheKov: 26,000,000 0 26,000,000  4.70 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:25:11 INFO  [main] algorithm.CheKov: 27,000,000 0 27,000,000  4.67 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:25:16 INFO  [main] algorithm.CheKov: 28,000,000 0 28,000,000  4.71 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:25:21 INFO  [main] algorithm.CheKov: 29,000,000 0 29,000,000  4.78 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:25:26 INFO  [main] algorithm.CheKov: 30,000,000 0 30,000,000  4.73 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:25:30 INFO  [main] algorithm.CheKov: 31,000,000 0 31,000,000  4.71 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:25:39 INFO  [main] algorithm.CheKov: 32,000,000 0 32,000,000  8.53 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:25:48 INFO  [main] algorithm.CheKov: 33,000,000 0 33,000,000  9.57 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:25:58 INFO  [main] algorithm.CheKov: 34,000,000 0 34,000,000  9.44 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:26:07 INFO  [main] algorithm.CheKov: 35,000,000 0 35,000,000  9.55 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:26:17 INFO  [main] algorithm.CheKov: 36,000,000 0 36,000,000  9.29 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:26:26 INFO  [main] algorithm.CheKov: 37,000,000 0 37,000,000  9.46 s  38 alteredNucleotidePositionsEntries
+2013-Feb-57 20:26:52 INFO  [main] algorithm.CheKov: CheKovLogger started
+2013-Feb-57 20:26:52 INFO  [main] algorithm.CheKov: BAM-File: '/Users/dboehm/Downloads/Ot3198_Rerun_pstoebe_300-520_Exome-NV2_100X_07192012-reads1-index31_CACGAT_L007_R1_001.fastq.gz.MERGED.marked.realigned.fixed.recal.bam'
+2013-Feb-57 20:26:52 INFO  [main] algorithm.CheKov: BED-File: '/Users/dboehm/Downloads/ROI/HPS/HPS_Intervals_CDS_UCSC_wided30_merged.bed'
+2013-Feb-57 20:26:52 INFO  [main] algorithm.CheKov: Reference-File: '/Users/dboehm/Downloads/BIN/reference_DB/NCBI_GRCh37.fa'
+2013-Feb-57 20:26:52 INFO  [main] algorithm.CheKov: Outfile: 'out.txt'
+2013-Feb-57 20:26:52 INFO  [main] algorithm.CheKov: missed-File: 'missed.txt'
+2013-Feb-57 20:26:52 INFO  [main] algorithm.CheKov: Homopolymer-File: 'homo.txt'
+2013-Feb-57 20:26:52 INFO  [main] algorithm.CheKov: IntervalList made ....111 in 0.012958 s
+2013-Feb-57 20:26:58 INFO  [main] algorithm.CheKov: 1,000,000 0 1,000,000  5.33 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:27:02 INFO  [main] algorithm.CheKov: 2,000,000 0 2,000,000  4.72 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:27:07 INFO  [main] algorithm.CheKov: 3,000,000 0 3,000,000  4.68 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:27:12 INFO  [main] algorithm.CheKov: 4,000,000 0 4,000,000  4.81 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:27:17 INFO  [main] algorithm.CheKov: 5,000,000 0 5,000,000  4.76 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:27:21 INFO  [main] algorithm.CheKov: 6,000,000 0 6,000,000  4.70 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:27:26 INFO  [main] algorithm.CheKov: 7,000,000 0 7,000,000  4.65 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:27:31 INFO  [main] algorithm.CheKov: 8,000,000 0 8,000,000  4.60 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:27:35 INFO  [main] algorithm.CheKov: 9,000,000 0 9,000,000  4.72 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:27:40 INFO  [main] algorithm.CheKov: 10,000,000 0 10,000,000  4.73 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:27:45 INFO  [main] algorithm.CheKov: 11,000,000 0 11,000,000  4.72 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:27:50 INFO  [main] algorithm.CheKov: 12,000,000 0 12,000,000  4.75 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:27:54 INFO  [main] algorithm.CheKov: 13,000,000 0 13,000,000  4.76 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:27:59 INFO  [main] algorithm.CheKov: 14,000,000 0 14,000,000  4.82 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:28:04 INFO  [main] algorithm.CheKov: 15,000,000 0 15,000,000  4.75 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:28:09 INFO  [main] algorithm.CheKov: 16,000,000 0 16,000,000  4.81 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:28:13 INFO  [main] algorithm.CheKov: 17,000,000 0 17,000,000  4.75 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:28:18 INFO  [main] algorithm.CheKov: 18,000,000 0 18,000,000  4.75 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:28:23 INFO  [main] algorithm.CheKov: 19,000,000 0 19,000,000  4.71 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:28:28 INFO  [main] algorithm.CheKov: 20,000,000 0 20,000,000  4.77 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:28:32 INFO  [main] algorithm.CheKov: 21,000,000 0 21,000,000  4.75 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:33:18 INFO  [main] algorithm.CheKov: CheKovLogger started
+2013-Feb-57 20:33:18 INFO  [main] algorithm.CheKov: BAM-File: '/Users/dboehm/Downloads/Ot3198_Rerun_pstoebe_300-520_Exome-NV2_100X_07192012-reads1-index31_CACGAT_L007_R1_001.fastq.gz.MERGED.marked.realigned.fixed.recal.bam'
+2013-Feb-57 20:33:18 INFO  [main] algorithm.CheKov: BED-File: '/Users/dboehm/Downloads/ROI/HPS/HPS_Intervals_CDS_UCSC_wided30_merged.bed'
+2013-Feb-57 20:33:18 INFO  [main] algorithm.CheKov: Reference-File: '/Users/dboehm/Downloads/BIN/reference_DB/NCBI_GRCh37.fa'
+2013-Feb-57 20:33:18 INFO  [main] algorithm.CheKov: Outfile: 'out.txt'
+2013-Feb-57 20:33:18 INFO  [main] algorithm.CheKov: missed-File: 'missed.txt'
+2013-Feb-57 20:33:18 INFO  [main] algorithm.CheKov: Homopolymer-File: 'homo.txt'
+2013-Feb-57 20:33:18 INFO  [main] algorithm.CheKov: IntervalList made ....111 in 0.014961 s
+2013-Feb-57 20:37:11 INFO  [main] algorithm.CheKov: CheKovLogger started
+2013-Feb-57 20:37:11 INFO  [main] algorithm.CheKov: BAM-File: '/Users/dboehm/Downloads/Ot3198_Rerun_pstoebe_300-520_Exome-NV2_100X_07192012-reads1-index31_CACGAT_L007_R1_001.fastq.gz.MERGED.marked.realigned.fixed.recal.bam'
+2013-Feb-57 20:37:11 INFO  [main] algorithm.CheKov: BED-File: '/Users/dboehm/Downloads/ROI/HPS/HPS_Intervals_CDS_UCSC_wided30_merged.bed'
+2013-Feb-57 20:37:11 INFO  [main] algorithm.CheKov: Reference-File: '/Users/dboehm/Downloads/BIN/reference_DB/NCBI_GRCh37.fa'
+2013-Feb-57 20:37:11 INFO  [main] algorithm.CheKov: Outfile: 'out.txt'
+2013-Feb-57 20:37:11 INFO  [main] algorithm.CheKov: missed-File: 'missed.txt'
+2013-Feb-57 20:37:11 INFO  [main] algorithm.CheKov: Homopolymer-File: 'homo.txt'
+2013-Feb-57 20:37:11 INFO  [main] algorithm.CheKov: IntervalList made ....111 in 0.013078 s
+2013-Feb-57 20:37:50 INFO  [main] algorithm.CheKov: 13,000,000 0 1,888 38.78 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:37:55 INFO  [main] algorithm.CheKov: 14,000,000 0 1,001,888  4.89 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:37:59 INFO  [main] algorithm.CheKov: 15,000,000 0 2,001,888  4.72 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:38:04 INFO  [main] algorithm.CheKov: 16,000,000 0 3,001,888  4.80 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:40:49 INFO  [main] algorithm.CheKov: CheKovLogger started
+2013-Feb-57 20:40:50 INFO  [main] algorithm.CheKov: BAM-File: '/Users/dboehm/Downloads/Ot3198_Rerun_pstoebe_300-520_Exome-NV2_100X_07192012-reads1-index31_CACGAT_L007_R1_001.fastq.gz.MERGED.marked.realigned.fixed.recal.bam'
+2013-Feb-57 20:40:50 INFO  [main] algorithm.CheKov: BED-File: '/Users/dboehm/Downloads/ROI/HPS/HPS_Intervals_CDS_UCSC_wided30_merged.bed'
+2013-Feb-57 20:40:50 INFO  [main] algorithm.CheKov: Reference-File: '/Users/dboehm/Downloads/BIN/reference_DB/NCBI_GRCh37.fa'
+2013-Feb-57 20:40:50 INFO  [main] algorithm.CheKov: Outfile: 'out.txt'
+2013-Feb-57 20:40:50 INFO  [main] algorithm.CheKov: missed-File: 'missed.txt'
+2013-Feb-57 20:40:50 INFO  [main] algorithm.CheKov: Homopolymer-File: 'homo.txt'
+2013-Feb-57 20:40:50 INFO  [main] algorithm.CheKov: IntervalList made ....111 in 0.012933 s
+2013-Feb-57 20:44:34 INFO  [main] algorithm.CheKov: 75,000,000 0 458,382 224.59 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:44:43 INFO  [main] algorithm.CheKov: 76,000,000 0 1,458,382  8.68 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:44:51 INFO  [main] algorithm.CheKov: 77,000,000 0 2,458,382  8.35 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:45:00 INFO  [main] algorithm.CheKov: 78,000,000 0 3,458,382  8.79 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:45:09 INFO  [main] algorithm.CheKov: 79,000,000 0 4,458,382  8.71 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:45:17 INFO  [main] algorithm.CheKov: 80,000,000 0 5,458,382  8.72 s  20 alteredNucleotidePositionsEntries
+2013-Feb-57 20:48:26 INFO  [main] algorithm.CheKov: 140,000,000 0 6,998,970 188.79 s  20 alteredNucleotidePositionsEntries
+2013-Feb-57 20:48:30 INFO  [main] algorithm.CheKov: 141,000,000 0 7,998,970  3.70 s  20 alteredNucleotidePositionsEntries
+2013-Feb-57 20:48:34 INFO  [main] algorithm.CheKov: 142,000,000 0 8,998,970  3.68 s  20 alteredNucleotidePositionsEntries
+2013-Feb-57 20:48:37 INFO  [main] algorithm.CheKov: 143,000,000 0 9,998,970  3.75 s  20 alteredNucleotidePositionsEntries
+2013-Feb-57 20:48:41 INFO  [main] algorithm.CheKov: 144,000,000 0 10,998,970  3.71 s  20 alteredNucleotidePositionsEntries
+2013-Feb-57 20:48:45 INFO  [main] algorithm.CheKov: 145,000,000 0 11,998,970  3.68 s  20 alteredNucleotidePositionsEntries
+2013-Feb-57 20:48:48 INFO  [main] algorithm.CheKov: 146,000,000 0 12,998,970  3.32 s  20 alteredNucleotidePositionsEntries
+2013-Feb-57 20:53:31 INFO  [main] algorithm.CheKov: CheKovLogger started
+2013-Feb-57 20:53:31 INFO  [main] algorithm.CheKov: BAM-File: '/Users/dboehm/Downloads/Ot3198_Rerun_pstoebe_300-520_Exome-NV2_100X_07192012-reads1-index31_CACGAT_L007_R1_001.fastq.gz.MERGED.marked.realigned.fixed.recal.bam'
+2013-Feb-57 20:53:31 INFO  [main] algorithm.CheKov: BED-File: '/Users/dboehm/Downloads/ROI/HPS/HPS_Intervals_CDS_UCSC_wided30_merged.bed'
+2013-Feb-57 20:53:31 INFO  [main] algorithm.CheKov: Reference-File: '/Users/dboehm/Downloads/BIN/reference_DB/NCBI_GRCh37.fa'
+2013-Feb-57 20:53:31 INFO  [main] algorithm.CheKov: Outfile: 'out.txt'
+2013-Feb-57 20:53:31 INFO  [main] algorithm.CheKov: missed-File: 'missed.bed'
+2013-Feb-57 20:53:31 INFO  [main] algorithm.CheKov: Homopolymer-File: 'homo.bed'
+2013-Feb-57 20:53:31 INFO  [main] algorithm.CheKov: IntervalList made ....111 in 0.014704 s
+2013-Feb-57 20:55:32 INFO  [main] algorithm.CheKov: 41,000,000 0 154,436 121.24 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:55:41 INFO  [main] algorithm.CheKov: 42,000,000 0 1,154,436  8.32 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:55:49 INFO  [main] algorithm.CheKov: 43,000,000 0 2,154,436  8.28 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 20:55:57 INFO  [main] algorithm.CheKov: 44,000,000 0 3,154,436  8.31 s  28 alteredNucleotidePositionsEntries
+2013-Feb-57 20:56:06 INFO  [main] algorithm.CheKov: 45,000,000 0 4,154,436  8.43 s  28 alteredNucleotidePositionsEntries
+2013-Feb-57 20:56:14 INFO  [main] algorithm.CheKov: 46,000,000 0 5,154,436  8.33 s  28 alteredNucleotidePositionsEntries
+2013-Feb-57 20:56:22 INFO  [main] algorithm.CheKov: 47,000,000 0 6,154,436  8.32 s  28 alteredNucleotidePositionsEntries
+2013-Feb-57 20:56:31 INFO  [main] algorithm.CheKov: 48,000,000 0 7,154,436  8.32 s  28 alteredNucleotidePositionsEntries
+2013-Feb-57 21:06:51 INFO  [main] algorithm.CheKov: CheKovLogger started
+2013-Feb-57 21:06:51 INFO  [main] algorithm.CheKov: BAM-File: '/Users/dboehm/Downloads/Ot3200_Rerun_Petra.Stoebe_300-520_hEx-NV2_100X_07232012-reads-index47_TCGAAG_L001_R1_001.fastq_MERGED.marked.realigned.fixed.recal.bam'
+2013-Feb-57 21:06:51 INFO  [main] algorithm.CheKov: BED-File: '/Users/dboehm/Downloads/ROI/HPS/HPS_Intervals_CDS_UCSC_wided30_merged.bed'
+2013-Feb-57 21:06:51 INFO  [main] algorithm.CheKov: Reference-File: '/Users/dboehm/Downloads/BIN/reference_DB/NCBI_GRCh37.fa'
+2013-Feb-57 21:06:51 INFO  [main] algorithm.CheKov: Outfile: '/Users/dboehm/Downloads/Ot3200_out.txt'
+2013-Feb-57 21:06:51 INFO  [main] algorithm.CheKov: missed-File: '/Users/dboehm/Downloads/Ot3200_missed.bed'
+2013-Feb-57 21:06:51 INFO  [main] algorithm.CheKov: Homopolymer-File: '/Users/dboehm/Downloads/Ot3200_homo.bed'
+2013-Feb-57 21:06:51 INFO  [main] algorithm.CheKov: IntervalList made ....111 in 0.014154 s
+2013-Feb-57 21:08:04 INFO  [main] algorithm.CheKov: CheKovLogger started
+2013-Feb-57 21:08:04 INFO  [main] algorithm.CheKov: BAM-File: '/Users/dboehm/Downloads/Ot3200_Rerun_Petra.Stoebe_300-520_hEx-NV2_100X_07232012-reads-index47_TCGAAG_L001_R1_001.fastq_MERGED.marked.realigned.fixed.recal.bam'
+2013-Feb-57 21:08:04 INFO  [main] algorithm.CheKov: BED-File: '/Users/dboehm/Downloads/ROI/HPS/HPS_Intervals_CDS_UCSC_wided30_merged.bed'
+2013-Feb-57 21:08:04 INFO  [main] algorithm.CheKov: Reference-File: '/Users/dboehm/Downloads/BIN/reference_DB/NCBI_GRCh37.fa'
+2013-Feb-57 21:08:04 INFO  [main] algorithm.CheKov: Outfile: '/Users/dboehm/Downloads/Ot3200_out.txt'
+2013-Feb-57 21:08:04 INFO  [main] algorithm.CheKov: missed-File: '/Users/dboehm/Downloads/Ot3200_missed.bed'
+2013-Feb-57 21:08:04 INFO  [main] algorithm.CheKov: Homopolymer-File: '/Users/dboehm/Downloads/Ot3200_homo.bed'
+2013-Feb-57 21:08:04 INFO  [main] algorithm.CheKov: IntervalList made ....111 in 0.013027 s
+2013-Feb-57 21:08:09 INFO  [main] algorithm.CheKov: 1,000,000 0 1,000,000  5.39 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:08:14 INFO  [main] algorithm.CheKov: 2,000,000 0 2,000,000  4.75 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:08:19 INFO  [main] algorithm.CheKov: 3,000,000 0 3,000,000  4.88 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:08:24 INFO  [main] algorithm.CheKov: 4,000,000 0 4,000,000  4.85 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:08:29 INFO  [main] algorithm.CheKov: 5,000,000 0 5,000,000  5.02 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:08:34 INFO  [main] algorithm.CheKov: 6,000,000 0 6,000,000  4.96 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:08:39 INFO  [main] algorithm.CheKov: 7,000,000 0 7,000,000  5.34 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:08:44 INFO  [main] algorithm.CheKov: 8,000,000 0 8,000,000  5.04 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:08:49 INFO  [main] algorithm.CheKov: 9,000,000 0 9,000,000  4.94 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:08:54 INFO  [main] algorithm.CheKov: 10,000,000 0 10,000,000  4.98 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:08:59 INFO  [main] algorithm.CheKov: 11,000,000 0 11,000,000  4.95 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:09:04 INFO  [main] algorithm.CheKov: 12,000,000 0 12,000,000  5.20 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:09:09 INFO  [main] algorithm.CheKov: 13,000,000 0 13,000,000  5.01 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:09:14 INFO  [main] algorithm.CheKov: 14,000,000 0 14,000,000  4.97 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:09:19 INFO  [main] algorithm.CheKov: 15,000,000 0 15,000,000  5.16 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:09:24 INFO  [main] algorithm.CheKov: 16,000,000 0 16,000,000  5.12 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:09:29 INFO  [main] algorithm.CheKov: 17,000,000 0 17,000,000  4.98 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:09:35 INFO  [main] algorithm.CheKov: 18,000,000 0 18,000,000  5.20 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:09:40 INFO  [main] algorithm.CheKov: 19,000,000 0 19,000,000  5.23 s  0 alteredNucleotidePositionsEntries
+2013-Feb-57 21:09:46 INFO  [main] algorithm.CheKov: 20,000,000 0 20,000,000  6.71 s  33 alteredNucleotidePositionsEntries
+2013-Feb-57 21:09:56 INFO  [main] algorithm.CheKov: 21,000,000 0 21,000,000  9.60 s  33 alteredNucleotidePositionsEntries
+2013-Feb-57 21:10:06 INFO  [main] algorithm.CheKov: 22,000,000 0 22,000,000  9.79 s  33 alteredNucleotidePositionsEntries
+2013-Feb-57 21:10:15 INFO  [main] algorithm.CheKov: 23,000,000 0 23,000,000  9.53 s  33 alteredNucleotidePositionsEntries
+2013-Feb-57 21:10:25 INFO  [main] algorithm.CheKov: 24,000,000 0 24,000,000  9.64 s  33 alteredNucleotidePositionsEntries
+2013-Feb-57 21:10:35 INFO  [main] algorithm.CheKov: 25,000,000 0 25,000,000  9.71 s  33 alteredNucleotidePositionsEntries
+2013-Feb-57 21:10:44 INFO  [main] algorithm.CheKov: 26,000,000 0 26,000,000  9.65 s  33 alteredNucleotidePositionsEntries
+2013-Feb-57 21:10:54 INFO  [main] algorithm.CheKov: 27,000,000 0 27,000,000  9.72 s  33 alteredNucleotidePositionsEntries
+2013-Feb-57 21:11:04 INFO  [main] algorithm.CheKov: 28,000,000 0 28,000,000  9.66 s  57 alteredNucleotidePositionsEntries
+2013-Feb-57 21:11:14 INFO  [main] algorithm.CheKov: 29,000,000 0 29,000,000  9.74 s  57 alteredNucleotidePositionsEntries
+2013-Feb-57 21:11:23 INFO  [main] algorithm.CheKov: 30,000,000 0 30,000,000  9.70 s  57 alteredNucleotidePositionsEntries
+2013-Feb-57 21:11:33 INFO  [main] algorithm.CheKov: 31,000,000 0 31,000,000  9.69 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:11:43 INFO  [main] algorithm.CheKov: 32,000,000 0 32,000,000  9.71 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:11:52 INFO  [main] algorithm.CheKov: 33,000,000 0 33,000,000  9.71 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:12:02 INFO  [main] algorithm.CheKov: 34,000,000 0 34,000,000  9.72 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:12:12 INFO  [main] algorithm.CheKov: 35,000,000 0 35,000,000  9.68 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:12:22 INFO  [main] algorithm.CheKov: 36,000,000 0 36,000,000  9.79 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:12:31 INFO  [main] algorithm.CheKov: 37,000,000 0 37,000,000  9.60 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:12:41 INFO  [main] algorithm.CheKov: 38,000,000 0 38,000,000  9.66 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:12:50 INFO  [main] algorithm.CheKov: 39,000,000 0 39,000,000  9.67 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:13:00 INFO  [main] algorithm.CheKov: 40,000,000 0 40,000,000  9.64 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:13:10 INFO  [main] algorithm.CheKov: 41,000,000 0 41,000,000  9.66 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:13:19 INFO  [main] algorithm.CheKov: 42,000,000 0 42,000,000  9.69 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:13:29 INFO  [main] algorithm.CheKov: 43,000,000 0 43,000,000  9.72 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:13:39 INFO  [main] algorithm.CheKov: 44,000,000 0 44,000,000  9.71 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:13:48 INFO  [main] algorithm.CheKov: 45,000,000 0 45,000,000  9.44 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:13:58 INFO  [main] algorithm.CheKov: 46,000,000 0 46,000,000  9.67 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:14:08 INFO  [main] algorithm.CheKov: 47,000,000 0 47,000,000  9.83 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:14:17 INFO  [main] algorithm.CheKov: 48,000,000 0 48,000,000  9.35 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:14:27 INFO  [main] algorithm.CheKov: 49,000,000 0 49,000,000  9.68 s  75 alteredNucleotidePositionsEntries
+2013-Feb-57 21:14:37 INFO  [main] algorithm.CheKov: 50,000,000 0 50,000,000  9.93 s  86 alteredNucleotidePositionsEntries
+2013-Feb-57 21:14:47 INFO  [main] algorithm.CheKov: 51,000,000 0 51,000,000  9.86 s  89 alteredNucleotidePositionsEntries
+2013-Feb-57 21:14:56 INFO  [main] algorithm.CheKov: 52,000,000 0 52,000,000  9.88 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:15:06 INFO  [main] algorithm.CheKov: 53,000,000 0 53,000,000  9.80 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:15:16 INFO  [main] algorithm.CheKov: 54,000,000 0 54,000,000  9.87 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:15:26 INFO  [main] algorithm.CheKov: 55,000,000 0 55,000,000  9.91 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:15:36 INFO  [main] algorithm.CheKov: 56,000,000 0 56,000,000 10.06 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:15:46 INFO  [main] algorithm.CheKov: 57,000,000 0 57,000,000  9.69 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:15:56 INFO  [main] algorithm.CheKov: 58,000,000 0 58,000,000 10.03 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:16:06 INFO  [main] algorithm.CheKov: 59,000,000 0 59,000,000 10.22 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:16:16 INFO  [main] algorithm.CheKov: 60,000,000 0 60,000,000 10.14 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:16:26 INFO  [main] algorithm.CheKov: 61,000,000 0 61,000,000  9.99 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:16:36 INFO  [main] algorithm.CheKov: 62,000,000 0 62,000,000 10.20 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:16:47 INFO  [main] algorithm.CheKov: 63,000,000 0 63,000,000 10.11 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:16:57 INFO  [main] algorithm.CheKov: 64,000,000 0 64,000,000 10.00 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:17:06 INFO  [main] algorithm.CheKov: 65,000,000 0 65,000,000  9.83 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:17:16 INFO  [main] algorithm.CheKov: 66,000,000 0 66,000,000  9.81 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:17:26 INFO  [main] algorithm.CheKov: 67,000,000 0 67,000,000  9.75 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:17:36 INFO  [main] algorithm.CheKov: 68,000,000 0 68,000,000  9.70 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:17:45 INFO  [main] algorithm.CheKov: 69,000,000 0 69,000,000  9.54 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:17:55 INFO  [main] algorithm.CheKov: 70,000,000 0 70,000,000  9.67 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:18:05 INFO  [main] algorithm.CheKov: 71,000,000 0 71,000,000  9.98 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:18:15 INFO  [main] algorithm.CheKov: 72,000,000 0 72,000,000  9.95 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:18:25 INFO  [main] algorithm.CheKov: 73,000,000 0 73,000,000  9.88 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:18:35 INFO  [main] algorithm.CheKov: 74,000,000 0 74,000,000  9.90 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:18:44 INFO  [main] algorithm.CheKov: 75,000,000 0 75,000,000  9.91 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:18:54 INFO  [main] algorithm.CheKov: 76,000,000 0 76,000,000  9.77 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:19:04 INFO  [main] algorithm.CheKov: 77,000,000 0 77,000,000  9.74 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:19:14 INFO  [main] algorithm.CheKov: 78,000,000 0 78,000,000  9.71 s  126 alteredNucleotidePositionsEntries
+2013-Feb-57 21:19:23 INFO  [main] algorithm.CheKov: 79,000,000 0 79,000,000  9.69 s  128 alteredNucleotidePositionsEntries
+2013-Feb-57 21:19:33 INFO  [main] algorithm.CheKov: 80,000,000 0 80,000,000  9.70 s  128 alteredNucleotidePositionsEntries
+2013-Feb-57 21:19:43 INFO  [main] algorithm.CheKov: 81,000,000 0 81,000,000  9.75 s  128 alteredNucleotidePositionsEntries
+2013-Feb-57 21:19:53 INFO  [main] algorithm.CheKov: 82,000,000 0 82,000,000  9.74 s  128 alteredNucleotidePositionsEntries
+2013-Feb-57 21:20:02 INFO  [main] algorithm.CheKov: 83,000,000 0 83,000,000  9.69 s  145 alteredNucleotidePositionsEntries
+2013-Feb-57 21:20:13 INFO  [main] algorithm.CheKov: 84,000,000 0 84,000,000 10.91 s  145 alteredNucleotidePositionsEntries
+2013-Feb-57 21:20:28 INFO  [main] algorithm.CheKov: 85,000,000 0 85,000,000 14.55 s  145 alteredNucleotidePositionsEntries
+2013-Feb-57 21:20:42 INFO  [main] algorithm.CheKov: 86,000,000 0 86,000,000 14.38 s  145 alteredNucleotidePositionsEntries
+2013-Feb-57 21:20:57 INFO  [main] algorithm.CheKov: 87,000,000 0 87,000,000 14.53 s  145 alteredNucleotidePositionsEntries
+2013-Feb-57 21:21:11 INFO  [main] algorithm.CheKov: 88,000,000 0 88,000,000 14.45 s  145 alteredNucleotidePositionsEntries
+2013-Feb-57 21:21:18 INFO  [main] algorithm.CheKov: 89,000,000 0 89,000,000  7.09 s  145 alteredNucleotidePositionsEntries
+2013-Feb-57 21:21:22 INFO  [main] algorithm.CheKov: 90,000,000 0 90,000,000  3.73 s  145 alteredNucleotidePositionsEntries
+2013-Feb-57 21:21:26 INFO  [main] algorithm.CheKov: 91,000,000 0 91,000,000  3.85 s  145 alteredNucleotidePositionsEntries
+2013-Feb-57 21:21:30 INFO  [main] algorithm.CheKov: 92,000,000 0 92,000,000  3.83 s  145 alteredNucleotidePositionsEntries
+2013-Feb-57 22:01:03 INFO  [main] algorithm.CheKov: CheKovLogger started
+2013-Feb-57 22:01:03 INFO  [main] algorithm.CheKov: BAM-File: '/Users/dboehm/Downloads/Ot3200_Rerun_Petra.Stoebe_300-520_hEx-NV2_100X_07232012-reads-index47_TCGAAG_L001_R1_001.fastq_MERGED.marked.realigned.fixed.recal.bam'
+2013-Feb-57 22:01:03 INFO  [main] algorithm.CheKov: BED-File: '/Users/dboehm/Downloads/ROI/HPS/HPS_Intervals_CDS_UCSC_wided30_merged.bed'
+2013-Feb-57 22:01:03 INFO  [main] algorithm.CheKov: Reference-File: '/Users/dboehm/Downloads/BIN/reference_DB/NCBI_GRCh37.fa'
+2013-Feb-57 22:01:03 INFO  [main] algorithm.CheKov: Outfile: '/Users/dboehm/Downloads/Ot3200_out.txt'
+2013-Feb-57 22:01:03 INFO  [main] algorithm.CheKov: missed-File: '/Users/dboehm/Downloads/Ot3200_missed.bed'
+2013-Feb-57 22:01:03 INFO  [main] algorithm.CheKov: Homopolymer-File: '/Users/dboehm/Downloads/Ot3200_homo.bed'
+2013-Feb-57 22:01:03 INFO  [main] algorithm.CheKov: IntervalList made ....111 in 0.014188 s
+2013-Feb-57 22:01:12 INFO  [main] algorithm.CheKov: 1,000,000 0 1,000,000  8.63 s  12,069 alteredNucleotidePositionsEntries
+2013-Feb-57 22:01:19 INFO  [main] algorithm.CheKov: 2,000,000 0 2,000,000  7.83 s  24,043 alteredNucleotidePositionsEntries
+2013-Feb-57 22:01:28 INFO  [main] algorithm.CheKov: 3,000,000 0 3,000,000  8.70 s  36,138 alteredNucleotidePositionsEntries
+2013-Feb-57 22:01:36 INFO  [main] algorithm.CheKov: 4,000,000 0 4,000,000  7.95 s  46,912 alteredNucleotidePositionsEntries
+2013-Feb-57 22:01:43 INFO  [main] algorithm.CheKov: 5,000,000 0 5,000,000  6.98 s  55,645 alteredNucleotidePositionsEntries
+2013-Feb-57 22:01:50 INFO  [main] algorithm.CheKov: 6,000,000 0 6,000,000  7.38 s  66,590 alteredNucleotidePositionsEntries
+2013-Feb-57 22:01:59 INFO  [main] algorithm.CheKov: 7,000,000 0 7,000,000  8.35 s  78,416 alteredNucleotidePositionsEntries
+2013-Feb-57 22:02:07 INFO  [main] algorithm.CheKov: 8,000,000 0 8,000,000  8.05 s  90,368 alteredNucleotidePositionsEntries
+2013-Feb-57 22:02:15 INFO  [main] algorithm.CheKov: 9,000,000 0 9,000,000  8.40 s  102,642 alteredNucleotidePositionsEntries
+2013-Feb-57 22:02:24 INFO  [main] algorithm.CheKov: 10,000,000 0 10,000,000  8.38 s  115,260 alteredNucleotidePositionsEntries
+2013-Feb-57 22:02:32 INFO  [main] algorithm.CheKov: 11,000,000 0 11,000,000  8.01 s  126,914 alteredNucleotidePositionsEntries
+2013-Feb-57 22:02:39 INFO  [main] algorithm.CheKov: 12,000,000 0 12,000,000  7.86 s  137,397 alteredNucleotidePositionsEntries
+2013-Feb-57 22:02:48 INFO  [main] algorithm.CheKov: 13,000,000 0 13,000,000  8.34 s  149,068 alteredNucleotidePositionsEntries
+2013-Feb-57 22:02:56 INFO  [main] algorithm.CheKov: 14,000,000 0 14,000,000  7.82 s  160,433 alteredNucleotidePositionsEntries
+2013-Feb-57 22:03:04 INFO  [main] algorithm.CheKov: 15,000,000 0 15,000,000  8.20 s  172,525 alteredNucleotidePositionsEntries
+2013-Feb-57 22:03:12 INFO  [main] algorithm.CheKov: 16,000,000 0 16,000,000  8.18 s  184,802 alteredNucleotidePositionsEntries
+2013-Feb-57 22:03:20 INFO  [main] algorithm.CheKov: 17,000,000 0 17,000,000  8.09 s  196,599 alteredNucleotidePositionsEntries
+2013-Feb-57 22:03:28 INFO  [main] algorithm.CheKov: 18,000,000 0 18,000,000  8.36 s  209,209 alteredNucleotidePositionsEntries
+2013-Feb-57 22:03:37 INFO  [main] algorithm.CheKov: 19,000,000 0 19,000,000  8.38 s  220,988 alteredNucleotidePositionsEntries
+2013-Feb-57 22:03:47 INFO  [main] algorithm.CheKov: 20,000,000 0 20,000,000  9.89 s  232,999 alteredNucleotidePositionsEntries
+2013-Feb-57 22:04:00 INFO  [main] algorithm.CheKov: 21,000,000 0 21,000,000 13.08 s  245,374 alteredNucleotidePositionsEntries
+2013-Feb-57 22:04:13 INFO  [main] algorithm.CheKov: 22,000,000 0 22,000,000 13.59 s  258,390 alteredNucleotidePositionsEntries
+2013-Feb-57 22:04:28 INFO  [main] algorithm.CheKov: 23,000,000 0 23,000,000 14.27 s  272,997 alteredNucleotidePositionsEntries
+2013-Feb-57 22:04:41 INFO  [main] algorithm.CheKov: 24,000,000 0 24,000,000 13.32 s  285,117 alteredNucleotidePositionsEntries
+2013-Feb-57 22:04:55 INFO  [main] algorithm.CheKov: 25,000,000 0 25,000,000 13.73 s  297,717 alteredNucleotidePositionsEntries
+2013-Feb-57 22:05:08 INFO  [main] algorithm.CheKov: 26,000,000 0 26,000,000 13.78 s  311,250 alteredNucleotidePositionsEntries
+2013-Feb-57 22:05:22 INFO  [main] algorithm.CheKov: 27,000,000 0 27,000,000 13.55 s  323,967 alteredNucleotidePositionsEntries
+2013-Feb-57 22:05:35 INFO  [main] algorithm.CheKov: 28,000,000 0 28,000,000 13.15 s  335,640 alteredNucleotidePositionsEntries
+2013-Feb-57 22:05:48 INFO  [main] algorithm.CheKov: 29,000,000 0 29,000,000 13.28 s  347,924 alteredNucleotidePositionsEntries
+2013-Feb-57 22:06:02 INFO  [main] algorithm.CheKov: 30,000,000 0 30,000,000 13.30 s  360,179 alteredNucleotidePositionsEntries
+2013-Feb-57 22:06:15 INFO  [main] algorithm.CheKov: 31,000,000 0 31,000,000 13.10 s  372,605 alteredNucleotidePositionsEntries
+2013-Feb-57 22:06:28 INFO  [main] algorithm.CheKov: 32,000,000 0 32,000,000 12.61 s  384,508 alteredNucleotidePositionsEntries
+2013-Feb-57 22:06:41 INFO  [main] algorithm.CheKov: 33,000,000 0 33,000,000 13.55 s  397,147 alteredNucleotidePositionsEntries
+2013-Feb-57 22:06:54 INFO  [main] algorithm.CheKov: 34,000,000 0 34,000,000 13.32 s  409,258 alteredNucleotidePositionsEntries
+2013-Feb-57 22:07:07 INFO  [main] algorithm.CheKov: 35,000,000 0 35,000,000 13.01 s  421,827 alteredNucleotidePositionsEntries
+2013-Feb-57 22:07:21 INFO  [main] algorithm.CheKov: 36,000,000 0 36,000,000 13.44 s  434,388 alteredNucleotidePositionsEntries
+2013-Feb-57 22:07:34 INFO  [main] algorithm.CheKov: 37,000,000 0 37,000,000 12.99 s  446,907 alteredNucleotidePositionsEntries
+2013-Feb-57 22:07:46 INFO  [main] algorithm.CheKov: 38,000,000 0 38,000,000 12.60 s  458,451 alteredNucleotidePositionsEntries
+2013-Feb-57 22:07:59 INFO  [main] algorithm.CheKov: 39,000,000 0 39,000,000 13.03 s  470,101 alteredNucleotidePositionsEntries
+2013-Feb-57 22:08:13 INFO  [main] algorithm.CheKov: 40,000,000 0 40,000,000 13.28 s  482,748 alteredNucleotidePositionsEntries
+2013-Feb-57 22:08:26 INFO  [main] algorithm.CheKov: 41,000,000 0 41,000,000 13.17 s  495,286 alteredNucleotidePositionsEntries
+2013-Feb-57 22:08:39 INFO  [main] algorithm.CheKov: 42,000,000 0 42,000,000 13.39 s  507,182 alteredNucleotidePositionsEntries
+2013-Feb-57 22:08:53 INFO  [main] algorithm.CheKov: 43,000,000 0 43,000,000 13.62 s  519,810 alteredNucleotidePositionsEntries
+2013-Feb-57 22:09:06 INFO  [main] algorithm.CheKov: 44,000,000 0 44,000,000 13.20 s  531,969 alteredNucleotidePositionsEntries
+2013-Feb-57 22:09:19 INFO  [main] algorithm.CheKov: 45,000,000 0 45,000,000 12.86 s  543,367 alteredNucleotidePositionsEntries
+2013-Feb-57 22:09:32 INFO  [main] algorithm.CheKov: 46,000,000 0 46,000,000 12.85 s  555,311 alteredNucleotidePositionsEntries
+2013-Feb-57 22:09:45 INFO  [main] algorithm.CheKov: 47,000,000 0 47,000,000 12.98 s  568,257 alteredNucleotidePositionsEntries
+2013-Feb-57 22:09:59 INFO  [main] algorithm.CheKov: 48,000,000 0 48,000,000 13.76 s  579,162 alteredNucleotidePositionsEntries
+2013-Feb-57 22:10:11 INFO  [main] algorithm.CheKov: 49,000,000 0 49,000,000 12.69 s  588,928 alteredNucleotidePositionsEntries
+2013-Feb-57 22:10:24 INFO  [main] algorithm.CheKov: 50,000,000 0 50,000,000 13.03 s  600,676 alteredNucleotidePositionsEntries
+2013-Feb-57 22:10:37 INFO  [main] algorithm.CheKov: 51,000,000 0 51,000,000 13.11 s  612,970 alteredNucleotidePositionsEntries
+2013-Feb-57 22:10:50 INFO  [main] algorithm.CheKov: 52,000,000 0 52,000,000 12.99 s  624,910 alteredNucleotidePositionsEntries
+2013-Feb-57 22:11:03 INFO  [main] algorithm.CheKov: 53,000,000 0 53,000,000 12.92 s  636,519 alteredNucleotidePositionsEntries
+2013-Feb-57 22:11:16 INFO  [main] algorithm.CheKov: 54,000,000 0 54,000,000 12.91 s  648,443 alteredNucleotidePositionsEntries
+2013-Feb-57 22:11:29 INFO  [main] algorithm.CheKov: 55,000,000 0 55,000,000 13.20 s  660,353 alteredNucleotidePositionsEntries
+2013-Feb-57 22:11:42 INFO  [main] algorithm.CheKov: 56,000,000 0 56,000,000 12.87 s  672,079 alteredNucleotidePositionsEntries
+2013-Feb-57 22:11:56 INFO  [main] algorithm.CheKov: 57,000,000 0 57,000,000 13.22 s  684,113 alteredNucleotidePositionsEntries
+2013-Feb-57 22:12:08 INFO  [main] algorithm.CheKov: 58,000,000 0 58,000,000 12.83 s  695,851 alteredNucleotidePositionsEntries
+2013-Feb-57 22:12:22 INFO  [main] algorithm.CheKov: 59,000,000 0 59,000,000 13.34 s  707,991 alteredNucleotidePositionsEntries
+2013-Feb-57 22:12:35 INFO  [main] algorithm.CheKov: 60,000,000 0 60,000,000 13.32 s  721,110 alteredNucleotidePositionsEntries
+2013-Feb-57 22:12:49 INFO  [main] algorithm.CheKov: 61,000,000 0 61,000,000 14.01 s  734,081 alteredNucleotidePositionsEntries
+2013-Feb-57 22:13:03 INFO  [main] algorithm.CheKov: 62,000,000 0 62,000,000 14.16 s  746,445 alteredNucleotidePositionsEntries
+2013-Feb-57 22:13:17 INFO  [main] algorithm.CheKov: 63,000,000 0 63,000,000 13.50 s  758,651 alteredNucleotidePositionsEntries
+2013-Feb-57 22:13:30 INFO  [main] algorithm.CheKov: 64,000,000 0 64,000,000 13.41 s  771,102 alteredNucleotidePositionsEntries
+2013-Feb-57 22:13:43 INFO  [main] algorithm.CheKov: 65,000,000 0 65,000,000 12.79 s  782,442 alteredNucleotidePositionsEntries
+2013-Feb-57 22:13:55 INFO  [main] algorithm.CheKov: 66,000,000 0 66,000,000 12.45 s  793,292 alteredNucleotidePositionsEntries
+2013-Feb-57 22:14:08 INFO  [main] algorithm.CheKov: 67,000,000 0 67,000,000 12.77 s  804,937 alteredNucleotidePositionsEntries
+2013-Feb-57 22:14:21 INFO  [main] algorithm.CheKov: 68,000,000 0 68,000,000 13.29 s  817,554 alteredNucleotidePositionsEntries
+2013-Feb-57 22:14:34 INFO  [main] algorithm.CheKov: 69,000,000 0 69,000,000 12.16 s  828,363 alteredNucleotidePositionsEntries
+2013-Feb-57 22:14:46 INFO  [main] algorithm.CheKov: 70,000,000 0 70,000,000 12.86 s  840,751 alteredNucleotidePositionsEntries
+2013-Feb-57 22:14:59 INFO  [main] algorithm.CheKov: 71,000,000 0 71,000,000 12.82 s  853,417 alteredNucleotidePositionsEntries
+2013-Feb-57 22:15:12 INFO  [main] algorithm.CheKov: 72,000,000 0 72,000,000 12.33 s  864,748 alteredNucleotidePositionsEntries
+2013-Feb-57 22:15:24 INFO  [main] algorithm.CheKov: 73,000,000 0 73,000,000 12.09 s  875,290 alteredNucleotidePositionsEntries
+2013-Feb-57 22:15:36 INFO  [main] algorithm.CheKov: 74,000,000 0 74,000,000 12.73 s  887,155 alteredNucleotidePositionsEntries
+2013-Feb-57 22:15:50 INFO  [main] algorithm.CheKov: 75,000,000 0 75,000,000 13.12 s  900,045 alteredNucleotidePositionsEntries
+2013-Feb-57 22:16:03 INFO  [main] algorithm.CheKov: 76,000,000 0 76,000,000 13.79 s  912,467 alteredNucleotidePositionsEntries
+2013-Feb-57 22:16:16 INFO  [main] algorithm.CheKov: 77,000,000 0 77,000,000 12.84 s  926,053 alteredNucleotidePositionsEntries
+2013-Feb-57 22:16:29 INFO  [main] algorithm.CheKov: 78,000,000 0 78,000,000 12.66 s  939,249 alteredNucleotidePositionsEntries
+2013-Feb-57 22:16:41 INFO  [main] algorithm.CheKov: 79,000,000 0 79,000,000 12.33 s  950,953 alteredNucleotidePositionsEntries
+2013-Feb-57 22:16:54 INFO  [main] algorithm.CheKov: 80,000,000 0 80,000,000 12.83 s  962,803 alteredNucleotidePositionsEntries
+2013-Feb-57 22:17:07 INFO  [main] algorithm.CheKov: 81,000,000 0 81,000,000 13.14 s  975,663 alteredNucleotidePositionsEntries
+2013-Feb-57 22:17:21 INFO  [main] algorithm.CheKov: 82,000,000 0 82,000,000 13.64 s  990,035 alteredNucleotidePositionsEntries
+2013-Feb-57 22:17:33 INFO  [main] algorithm.CheKov: 83,000,000 0 83,000,000 12.54 s  1,001,705 alteredNucleotidePositionsEntries
+2013-Feb-57 22:17:48 INFO  [main] algorithm.CheKov: 84,000,000 0 84,000,000 14.23 s  1,014,818 alteredNucleotidePositionsEntries
+2013-Feb-57 22:18:05 INFO  [main] algorithm.CheKov: 85,000,000 0 85,000,000 17.82 s  1,026,697 alteredNucleotidePositionsEntries
+2013-Feb-57 22:18:22 INFO  [main] algorithm.CheKov: 86,000,000 0 86,000,000 16.48 s  1,036,327 alteredNucleotidePositionsEntries
+2013-Feb-57 22:18:40 INFO  [main] algorithm.CheKov: 87,000,000 0 87,000,000 17.99 s  1,047,562 alteredNucleotidePositionsEntries
+2013-Feb-57 22:18:58 INFO  [main] algorithm.CheKov: 88,000,000 0 88,000,000 18.26 s  1,058,567 alteredNucleotidePositionsEntries
+2013-Feb-57 22:19:07 INFO  [main] algorithm.CheKov: 89,000,000 0 89,000,000  8.75 s  1,063,809 alteredNucleotidePositionsEntries
+2013-Feb-57 22:19:10 INFO  [main] algorithm.CheKov: 90,000,000 0 90,000,000  3.61 s  1,063,809 alteredNucleotidePositionsEntries
+2013-Feb-57 22:19:14 INFO  [main] algorithm.CheKov: 91,000,000 0 91,000,000  3.85 s  1,063,809 alteredNucleotidePositionsEntries
+2013-Feb-57 22:19:18 INFO  [main] algorithm.CheKov: 92,000,000 0 92,000,000  3.88 s  1,063,809 alteredNucleotidePositionsEntries

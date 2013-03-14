@@ -60,6 +60,7 @@ public class CheKov {
 	private static long startTime = 0;
 	private static long endTime = 0;
 	private static IndexedFastaSequenceFile indexedFastaSequenceFile_Ref = null;
+	private static Integer underCovCutoff = null;
 
 	public static void main(String[] args) {
 		final Logger logger = Logger.getLogger(CheKov.class);
@@ -70,7 +71,7 @@ public class CheKov {
 		String bamfile = null;
 		String outfile = null;
 		String missedBEDFile = null;
-		// we need to do IMPORTANTLY some useful things with this parameter
+		String underBEDFile = null;
 		IntervalAbs.INTERVAL_THRESHOLD = 0;
 		String refFile = null;
 		String homopolymerFile = null;
@@ -91,6 +92,8 @@ public class CheKov {
 			outfile = commandLine.getOptionValue('o');
 			bedfile = commandLine.getOptionValue('b');
 			bamfile = commandLine.getOptionValue('a');
+			underBEDFile = commandLine.getOptionValue("uf");
+			underCovCutoff = Integer.parseInt(commandLine.getOptionValue('u'));
 
 		} catch (ParseException e3) {
 			// TODO Auto-generated catch block
@@ -104,6 +107,8 @@ public class CheKov {
 		logger.info("Outfile: '" + outfile + "'");
 		logger.info("missed-File: '" + missedBEDFile + "'");
 		logger.info("Homopolymer-File: '" + homopolymerFile + "'");
+		logger.info("UnderOutFile:'" + underBEDFile + "'");
+		logger.info("UnderCovCutOffValue:'" + underCovCutoff + "'");
 		CheKov.setStartTime(Math.abs(System.nanoTime()));
 
 		/*
@@ -156,11 +161,12 @@ public class CheKov {
 		SAMFileReader samFileReader = new SAMFileReader(new File(bamfile));
 		samFileReader.setValidationStringency(ValidationStringency.LENIENT);
 		for (SAMRecord samRecord : samFileReader) {
-			// do not deal with chrM
-			if (samRecord.getReferenceName() == "chrM")
-				continue;
 			// this is the count for all reads coming in
 			ReadEntry.setReadCount(ReadEntry.getReadCount() + 1);
+			// do not deal with chrM
+			// if (samRecord.getReferenceName() != "chr5")
+			// continue;
+
 			// check if length of read and length of quality array is same
 			if (samRecord.getReadBases().length != samRecord.getBaseQualities().length) {
 				CheKov.incrementReadsWithoutQualities();
@@ -168,19 +174,18 @@ public class CheKov {
 			}
 			/*
 			 * the result is: mapping coordinates getAlignmentStart() and
-			 * getAlignmentEnd() 1. have included the deleted Positions
-			 * from the read as a gap. means from Cigar, if 1D is in Cigar, the
-			 * length of Alignment is each 1 position added. (==> if you give
-			 * the Byte[] of the Read and/or Quality AND the Cigar, then 1D
-			 * leaves a gap in the Interval, and does not set coverage and
-			 * quality for that position in the IntervalAbs. BUT coverage and
-			 * quality need to be set in the TargetNucleotidePositionEntry) 2.
-			 * have NOT included the soft-clipped Positions. In this analysis
-			 * they do not contribute to coverage and quality. Coming from
-			 * Byte[] of the Read and of quality these positions need be skipped
-			 * 3. Insertions in Cigar (e.g. 1I) do contribute to coverage and
-			 * quality of the TargetNucleotidePositionEntry, but NOT on the
-			 * IntervalAbs.
+			 * getAlignmentEnd() 1. have included the deleted Positions from the
+			 * read as a gap. means from Cigar, if 1D is in Cigar, the length of
+			 * Alignment is each 1 position added. (==> if you give the Byte[]
+			 * of the Read and/or Quality AND the Cigar, then 1D leaves a gap in
+			 * the Interval, and does not set coverage and quality for that
+			 * position in the IntervalAbs. BUT coverage and quality need to be
+			 * set in the TargetNucleotidePositionEntry) 2. have NOT included
+			 * the soft-clipped Positions. In this analysis they do not
+			 * contribute to coverage and quality. Coming from Byte[] of the
+			 * Read and of quality these positions need be skipped 3. Insertions
+			 * in Cigar (e.g. 1I) do contribute to coverage and quality of the
+			 * TargetNucleotidePositionEntry, but NOT on the IntervalAbs.
 			 * 
 			 * If things are unclear uncomment the below output and check
 			 */
@@ -207,8 +212,10 @@ public class CheKov {
 						.getPairedEndReadCount() + 1);
 				readEntry = new PairedReadEntry(samRecord);
 			}
-			// this is a simple form of a progress bar, printing a line every 1
+			// this is a simple form of a progress bar, printing a line
+			// every 1
 			// Million Reads
+
 			if (ReadEntry.getReadCount() % 1_000_000 == 0) {
 				CheKov.setEndTime(Math.abs(System.nanoTime())
 						- CheKov.getStartTime());
@@ -221,11 +228,13 @@ public class CheKov {
 						"alteredNucleotidePositionsEntries"));
 				CheKov.setStartTime(Math.abs(System.nanoTime()));
 			}
-			// calculate the coverage of each read on the targets represented by
+			// calculate the coverage of each read on the targets
+			// represented by
 			// intervalTreeSet
 			readEntry.analyzeCoverage();
 			// check the quality of the reads
-			// readEntry.analyseQuality();
+			readEntry.analyseQuality();
+
 		} // end for
 		CheKov.setEndTime(Math.abs(System.nanoTime()) - CheKov.getStartTime());
 
@@ -278,54 +287,10 @@ public class CheKov {
 		}
 
 		// finale Ausgabe
-		System.out.println(alteredNucleotidePositionsEntries.size());
 
 		printQCResult();
-
-		/*
-		 * here calculate missed areas in the intervals coverages. Strategy: 1.
-		 * first iterate through the TreeSet 2. take the coverage ArrayList and
-		 * iterate through it. 3. create a StringBuffer Instance, start
-		 * appending when coverage at the position is 0 AND the reference to the
-		 * StringBuffer is null. 4. Fill the second half of the StringBuffer if
-		 * the bp-coverage != 0 again and the StringBuffer is != null. The
-		 * StringBuffer is written to the FileWriter via a BufferdWriter, and
-		 * the reference of the StringBuffer is nulled. This ensures that as
-		 * many missed intervals can be identified in any BED interval.
-		 */
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(
-				missedBEDFile))) {
-			for (Iterator<IntervalAbs> iter = intervalTreeSet.iterator(); iter
-					.hasNext();) {
-				IntervalAbs interval = iter.next();
-				String chr = ChromosomeOffset.getChromosomeOffsetbyNumber(
-						interval.getChr()).getChromosomeName();
-				long offset = ChromosomeOffset.getChromosomeOffsetbyNumber(
-						interval.getChr()).getOffset();
-				int intervalStart = (int) (interval.getStartAbs() - offset);
-				String geneName = interval.getGeneName();
-				ArrayList<Integer> coverage = interval.getCoverage();
-				StringBuffer zeroIntervall = null;
-
-				for (int i = 0; i < coverage.size(); i++) {
-					if (coverage.get(i) == 0 && zeroIntervall == null) {
-						zeroIntervall = new StringBuffer(chr + "\t"
-								+ (intervalStart + i) + "\t");
-					}
-					if (coverage.get(i) != 0 && zeroIntervall != null) {
-						zeroIntervall.append((intervalStart + i) + "\t"
-								+ geneName + "\n");
-						bw.write(zeroIntervall.toString());
-						zeroIntervall = null;
-					}
-
-				}
-
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		extractIntervalsByCoverage(missedBEDFile, 0);
+		extractIntervalsByCoverage(underBEDFile, underCovCutoff);
 
 		// Ausgabe Intervalle und coverages in Datei aus args[2] = outfile
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(outfile))) {
@@ -347,6 +312,58 @@ public class CheKov {
 		}
 
 	}// end main
+
+	private static void extractIntervalsByCoverage(String file, Integer cutOff) {
+		/*
+		 * here calculate missed areas in the intervals coverages. Strategy: 1.
+		 * first iterate through the TreeSet 2. take the coverage ArrayList and
+		 * iterate through it. 3. create a StringBuffer Instance, start
+		 * appending when coverage at the position is 0 AND the reference to the
+		 * StringBuffer is null. 4. Fill the second half of the StringBuffer if
+		 * the bp-coverage != 0 again and the StringBuffer is != null. The
+		 * StringBuffer is written to the FileWriter via a BufferdWriter, and
+		 * the reference of the StringBuffer is nulled. This ensures that as
+		 * many missed intervals can be identified in any BED interval.
+		 */
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+			for (Iterator<IntervalAbs> iter = intervalTreeSet.iterator(); iter
+					.hasNext();) {
+				IntervalAbs interval = iter.next();
+				String chr = ChromosomeOffset.getChromosomeOffsetbyNumber(
+						interval.getChr()).getChromosomeName();
+				long offset = ChromosomeOffset.getChromosomeOffsetbyNumber(
+						interval.getChr()).getOffset();
+				int intervalStart = (int) (interval.getStartAbs() - offset);
+				String geneName = interval.getGeneName();
+				ArrayList<Integer> coverage = interval.getCoverage();
+				StringBuffer zeroIntervall = null;
+
+				for (int i = 0; i < coverage.size(); i++) {
+					if (coverage.get(i) <= cutOff && zeroIntervall == null) {
+						zeroIntervall = new StringBuffer(chr + "\t"
+								+ (intervalStart + i) + "\t");
+					}
+					// here we need to ensure that (a) the comes from below
+					// cutoff and raises above cutoff, this is done by checking
+					// if zerointerval is not null any more, and (b) if interval
+					// is below cutoff in the interval and is not raised up
+					// above cutoff, before the interval ends
+					if ((coverage.get(i) > cutOff || i == coverage.size())
+							&& zeroIntervall != null) {
+						zeroIntervall.append((intervalStart + i) + "\t"
+								+ geneName + "\n");
+						bw.write(zeroIntervall.toString());
+						zeroIntervall = null;
+					}
+
+				}
+
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public static void printSamRecord(SAMRecord samRecord) {
 		System.out
@@ -558,6 +575,8 @@ public class CheKov {
 
 	public static void incrementReadsWithoutQualities() {
 		CheKov.allReadsWithoutQuality++;
+		System.out
+				.println("allReadsWithoutQuality = " + allReadsWithoutQuality);
 	}
 
 } // end class
